@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blindajes Armored Security - Hero Section</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="Logo/logoarmored.png">
+
+    <!-- Social Sharing (Open Graph / WhatsApp) -->
+    <meta property="og:title" content="Blindajes Armored Security">
+    <meta property="og:description"
+        content="Blindaje automotriz de alta seguridad y tecnología avanzada. Protección para ti y tu familia.">
+    <meta property="og:image" content="Logo/logoarmored.png">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <h1 class="loader-title">Cargando blindaje</h1>
+            <div class="progress-container">
+                <div class="progress-bar-track">
+                    <div class="progress-bar-fill" id="progressFill"></div>
+                </div>
+                <p class="loading-percentage" id="loadingPercentage">0%</p>
+            </div>
+        </div>
+        <!-- Impact Overlays (Hidden initially) -->
+        <div class="bullet-impact" id="impact-1"><img src="./assets/bullet-hole.png" alt="Impact"></div>
+        <div class="bullet-impact" id="impact-2"><img src="./assets/bullet-hole.png" alt="Impact"></div>
+        <div class="bullet-impact" id="impact-3"><img src="./assets/bullet-hole.png" alt="Impact"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="site-header">
+        <!-- Logo Top Left -->
+        <div class="logo-container">
+            <img src="./Logo/logoarmored.png" alt="Armored Security" class="site-logo">
+        </div>
+
+        <!-- Hamburger Button -->
+        <button class="hamburger" aria-label="Abrir menú">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <!-- Navigation Menu -->
+        <nav class="main-nav">
+            <a href="#inicio" class="nav-link">Inicio</a>
+            <a href="#nosotros" class="nav-link">Nosotros</a>
+            <a href="#servicios" class="nav-link">Servicios</a>
+            <a href="#contacto" class="nav-link">Contacto</a>
+        </nav>
+    </header>
+
+
+
+    <!-- Video Hero Section -->
+    <section id="video-hero">
+        <video autoplay loop muted playsinline class="hero-video-bg">
+            <!-- Mobile Video (Max Width 768px) -->
+            <source src="VIDEO HERO MOVIL/video heromovl.mp4" type="video/mp4" media="(max-width: 768px)">
+            <!-- Desktop Video (Default) -->
+            <source src="videos-servicios/video-empresario.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+
+        <!-- Hero Title - Right Side -->
+        <div class="hero-title-container hero-title-right">
+            <h1 class="hero-main-title">Blindaje perfecto</h1>
+            <div class="hero-separator-line"></div>
+            <h2 class="hero-sub-title">Protección invisible</h2>
+        </div>
+    </section>
+
+    <!-- Canvas Animation Section (Formerly Hero) -->
+    <section id="hero-blindaje">
+        <div class="sticky-container">
+            <!-- Canvas for image sequence -->
+            <canvas id="heroCanvas"></canvas>
+
+            <!-- Intro Overlay (Logo + Badge) -->
+            <div class="canvas-intro-overlay">
+                <img src="Logo/armored.png" alt="Armored Security" class="intro-logo">
+                <div class="experience-badge intro-badge">
+                    <span class="badge-years">+10</span>
+                    <span class="badge-text">AÑOS</span>
+                    <span class="badge-text">BLINDANDO TU SEGURIDAD</span>
+                    <span class="badge-text">Y LA DE TU FAMILIA</span>
+                </div>
+            </div>
+
+
+
+            <!-- Hotspot 1: Cristales (Ventana Delantera) -->
+            <div class="hotspot" id="hotspot-cristales">
+                <div class="hotspot-dot"></div>
+                <div class="hotspot-callout">
+                    <div class="callout-line"></div>
+                    <div class="callout-box">
+                        <div class="img-container">
+                            <img src="assets/hotspot-glass.png" alt="Blindaje Cristales">
+                            <span>BLINDAJE DE CRISTALES</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotspot 2: Puertas -->
+            <div class="hotspot" id="hotspot-puertas">
+                <div class="hotspot-dot"></div>
+                <div class="hotspot-callout">
+                    <div class="callout-line"></div>
+                    <div class="callout-box">
+                        <div class="img-container">
+                            <img src="assets/hotspot-door.png" alt="Protección Lateral">
+                            <span>PROTECCIÓN LATERAL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotspot 3: Suspensión (Rueda Trasera) -->
+            <div class="hotspot" id="hotspot-suspension">
+                <div class="hotspot-dot"></div>
+                <div class="hotspot-callout">
+                    <div class="callout-line"></div>
+                    <div class="callout-box">
+                        <div class="img-container">
+                            <img src="assets/hotspot-tire.png" alt="Sistema Run-Flat">
+                            <span>SISTEMA RUN-FLAT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Black Section (Slides over the fixed hero) -->
+    <section id="black-section">
+        <video autoplay loop muted playsinline class="section-bg-video">
+            <source src="VIDEO HERO MOVIL/seccion3 video.mp4" type="video/mp4">
+        </video>
+        <div class="content-wrapper">
+            <h2>Blindajes<br>Armored Security</h2>
+            <p>Somos una empresa mexicana cuyo principal objetivo es satisfacer necesidades de seguridad, a través de:
+                equipamiento, cursos de capacitación y blindajes, así como con la venta de equipos de seguridad a
+                instituciones públicas y privadas con insumos de valor agregado y tecnologías de vanguardia. Las
+                instituciones más prestigiadas del país han sido testigos de la experiencia y profesionalismo de Armored
+                Security.</p>
+        </div>
+
+
+
+
+
+
+
+    </section>
+
+    <!-- Services Video Section (Diagonal Layout) -->
+    <section id="services-videos">
+        <!-- Government Service -->
+        <div class="service-item">
+            <video autoplay loop muted playsinline>
+                <source src="videos-servicios/video-gobierno.mp4" type="video/mp4" media="(min-width: 769px)">
+                <source src="VIDEO HERO MOVIL/14.mp4" type="video/mp4" media="(max-width: 768px)">
+                <!-- Fallback/Default if media queries fail (rare) or specific fallback behavior needed -->
+                <source src="VIDEO HERO MOVIL/14.mp4" type="video/mp4">
+            </video>
+            <div class="overlay">
+                <h3>Blindaje<br>Gubernamental</h3>
+                <p>Protección especializada para funcionarios e instituciones.</p>
+            </div>
+        </div>
+
+        <!-- Corporate Service -->
+        <div class="service-item">
+            <video autoplay loop muted playsinline>
+                <source src="videos-servicios/video-empresario.mp4" type="video/mp4" media="(min-width: 769px)">
+                <source src="VIDEO HERO MOVIL/15.mp4" type="video/mp4" media="(max-width: 768px)">
+                <source src="VIDEO HERO MOVIL/15.mp4" type="video/mp4">
+            </video>
+            <div class="overlay">
+                <h3>Blindaje<br>Empresarial</h3>
+                <p>Seguridad integral para ejecutivos y corporativos.</p>
+            </div>
+        </div>
+
+        <!-- Private Service -->
+        <div class="service-item">
+            <video autoplay loop muted playsinline>
+                <source src="videos-servicios/video-particular.mp4" type="video/mp4" media="(min-width: 769px)">
+                <source src="VIDEO HERO MOVIL/16.mp4" type="video/mp4" media="(max-width: 768px)">
+                <source src="VIDEO HERO MOVIL/16.mp4" type="video/mp4">
+            </video>
+            <div class="overlay">
+                <h3>Blindaje<br>Particular</h3>
+                <p>Tranquilidad y seguridad para ti y tu familia.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shielding Presentation Section (Redesign) -->
+    <section id="shielding-presentation">
+        <!-- Horizontal Levels Strip -->
+        <div class="levels-strip-container">
+            <h3 class="levels-title">NIVELES DE BLINDAJE</h3>
+            <div class="levels-track">
+                <!-- Level 2 -->
+                <div class="level-item">
+                    <div class="shield-icon">
+                        <span>II</span>
+                    </div>
+                    <p class="level-name">Nivel 2</p>
+                </div>
+                <!-- Level 3 -->
+                <div class="level-item">
+                    <div class="shield-icon">
+                        <span>III</span>
+                    </div>
+                    <p class="level-name">Nivel 3</p>
+                </div>
+                <!-- Level 3+ -->
+                <div class="level-item">
+                    <div class="shield-icon">
+                        <span>III+</span>
+                    </div>
+                    <p class="level-name">Nivel 3+</p>
+                </div>
+                <!-- K85 -->
+                <div class="level-item">
+                    <div class="shield-icon">
+                        <span>K85</span>
+                    </div>
+                    <p class="level-name">K85</p>
+                </div>
+                <!-- Level 4 -->
+                <div class="level-item">
+                    <div class="shield-icon">
+                        <span>IV</span>
+                    </div>
+                    <p class="level-name">Nivel 4</p>
+                </div>
+                <!-- Level 4+ -->
+                <div class="level-item">
+                    <div class="shield-icon">
+                        <span>IV+</span>
+                    </div>
+                    <p class="level-name">Nivel 4+</p>
+                </div>
+                <!-- Level 5+ -->
+                <div class="level-item">
+                    <div class="shield-icon">
+                        <span>V+</span>
+                    </div>
+                    <p class="level-name">Nivel 5+</p>
+                </div>
+            </div>
+
+            <!-- Video Zoom Section -->
+            <div class="video-section">
+                <div class="video-container">
+                    <video autoplay loop muted playsinline>
+                        <source src="VIDEOS NIVELES/Nivel2.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+    </section>
+
+    <!-- Minimalist Footer -->
+    <footer id="site-footer">
+        <div class="footer-content">
+            <!-- Col 1: Brand -->
+            <div class="footer-col brand-col">
+                <h4 class="footer-logo">ARMORED SECURITY</h4>
+                <p class="footer-tagline">Security is not an option, it's a necessity.</p>
+            </div>
+
+            <!-- Col 2: Links -->
+            <div class="footer-col links-col">
+                <h5>Navegación</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#services-videos">Servicios</a></li>
+                    <li><a href="#shielding-presentation">Niveles</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Contact -->
+            <div class="footer-col contact-col">
+                <h5>Contacto</h5>
+                <p>Av. Principal 123, CDMX</p>
+                <p>+52 55 1234 5678</p>
+                <p><a href="mailto:info@armoredsecurity.com">info@armoredsecurity.com</a></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Armored Security. Todos los derechos reservados.</p>
+            <a href="#">Política de Privacidad</a>
+        </div>
+    </footer>
+
+    <!-- Scroll Spacer and GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

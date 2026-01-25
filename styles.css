@@ -1,0 +1,2197 @@
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    background: #000000;
+}
+
+/* ========================================
+   NAVIGATION HEADER
+   ======================================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* Logo - Top Left */
+.logo-container {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    pointer-events: auto;
+}
+
+/* Hide Hamburger on Desktop */
+.hamburger {
+    display: none;
+}
+
+.site-logo {
+    height: 60px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.1));
+    transition: all 0.3s ease;
+}
+
+.site-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Navigation Menu - Top Right */
+.main-nav {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    display: flex;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    pointer-events: auto;
+}
+
+.nav-link {
+    color: #000000;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+}
+
+.nav-link:hover {
+    background: rgba(185, 28, 28, 0.1);
+    color: #B91C1C;
+    transform: translateY(-2px);
+}
+
+/* Scrolled Header State (triggered by JS) */
+body.scrolled-header .nav-link {
+    color: #FFFFFF;
+}
+
+body.scrolled-header .nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+}
+
+body.scrolled-header .logo-container {
+    background: #FFFFFF;
+    border-radius: 100px;
+    padding: 5px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    top: 25px;
+    /* Slight adjustment to center with padding */
+    transition: all 0.3s ease;
+}
+
+
+/* ========================================
+   PRELOADER
+   ======================================== */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #000000;
+    /* Dark Mode */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    overflow: hidden;
+    /* Prevent shake scrollbars */
+}
+
+#preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.preloader-content {
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.loader-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    /* Increased size */
+    color: #FFFFFF;
+    /* White Text */
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.progress-container {
+    width: 400px;
+    /* Wider container for balance */
+    margin: 0 auto;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 2px;
+    background: #333;
+    /* Darker track */
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: #B91C1C;
+    /* Red fill */
+    transition: width 0.1s linear;
+}
+
+.loading-percentage {
+    font-family: 'Inter', sans-serif;
+    color: #aaa;
+    /* Lighter Gray for visibility on black */
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Bullet Impacts in Preloader */
+#preloader .bullet-impact {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    /* Hidden initially */
+    transform: scale(0.5);
+    display: block;
+    /* Override any previous none */
+}
+
+#preloader .bullet-impact img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Specific Positions for Impacts */
+/* Specific Positions for Impacts */
+#impact-1 {
+    top: 5%;
+    left: 5%;
+    transform: rotate(-15deg) scale(0.8);
+}
+
+#impact-2 {
+    bottom: 5%;
+    right: 5%;
+    transform: rotate(10deg) scale(0.9);
+}
+
+#impact-3 {
+    top: 10%;
+    right: 5%;
+    /* Moved to right side to avoid center */
+    left: auto;
+    transform: rotate(5deg) scale(1);
+}
+
+/* Shake Animation Class */
+.shake-animation {
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-4px, -4px, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(6px, 6px, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-8px, -8px, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(8px, 8px, 0);
+    }
+}
+
+
+
+/* ========================================
+
+   HERO SECTION (NEW VIDEO HERO)
+   ======================================== */
+#video-hero {
+    position: fixed;
+    /* Fixed to create reveal effect */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    z-index: 1;
+    /* Behind the next section */
+}
+
+.hero-video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    /* opacity: 0.6; Removed for full brightness */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2));
+}
+
+#hero-blindaje {
+    position: relative;
+    width: 100%;
+    /* No fixed height, controlled by pinning */
+    min-height: 100vh;
+    /* Ensure it takes full entry */
+    background: #fff;
+    z-index: 5;
+    /* Higher than hero to slide over */
+    margin-top: 100vh;
+    /* Push down to reveal fixed hero initially */
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+    /* Shadow for depth */
+}
+
+
+
+.sticky-container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+
+/* Black Section */
+#black-section {
+    position: relative;
+    z-index: 20;
+    /* Higher than hero */
+    /* background-color: #000000; Removed solid black */
+    background-color: #000000;
+    /* Restoration for letterboxing */
+    background-image: url('./assets/section-background-4.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* Move content to the right */
+    padding: 4rem;
+    padding-right: 10%;
+    /* Add some padding from the right edge */
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+    /* Shadow to separate layers */
+    /* margin-bottom: 90vh; REMOVED REVEAL EFFECT */
+}
+
+.content-wrapper {
+    max-width: 500px;
+    /* Constrain width */
+    text-align: right;
+    /* Right align text */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* Align everything to the right */
+}
+
+.scroll-logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+.scroll-badge {
+    margin-bottom: 2rem;
+    animation: none;
+    /* Already visible */
+    opacity: 1;
+}
+
+.content-wrapper h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    /* Match Section 1 */
+    font-size: 3rem;
+    font-weight: 400;
+    /* Regular weight like Section 1 */
+    margin-bottom: 1.5rem;
+    color: #FFFFFF;
+    /* Solid white */
+    /* Removed gradient for cleaner look matching request */
+}
+
+.content-wrapper p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #cccccc;
+}
+
+/* Bullet Impacts */
+.bullet-impact {
+    position: absolute;
+    width: 200px;
+    /* Adjust size as needed */
+    height: 200px;
+    z-index: 25;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.5);
+    /* mix-blend-mode: screen; Removed: Using transparent asset now */
+}
+
+.bullet-impact img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)) invert(1);
+    /* Invert to make black cracks white */
+}
+
+#impact-1 {
+    top: 35%;
+    /* Aligned with title B */
+    right: 42%;
+    /* Left of text */
+    left: auto;
+    transform: rotate(-15deg) scale(0.5);
+}
+
+#impact-2 {
+    top: 40%;
+    right: 45%;
+    /* Further left, to the side of text */
+    transform: rotate(10deg) scale(0.5);
+}
+
+#impact-3 {
+    top: 42%;
+    /* Close to others */
+    right: 40%;
+    left: auto;
+    transform: rotate(45deg) scale(0.5);
+}
+
+/* ========================================
+   CANVAS
+   ======================================== */
+#heroCanvas {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================================
+   CANVAS INTRO OVERLAY (Logo + Badge)
+   ======================================== */
+.canvas-intro-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* Align to right */
+    justify-content: center;
+    padding-right: 8%;
+    /* Spacing from edge (Aligned with Hero Title) */
+    z-index: 10;
+    pointer-events: none;
+    /* Allow scroll through */
+}
+
+.intro-logo {
+    width: 160px;
+    /* Increased size */
+    height: auto;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.1));
+}
+
+.intro-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* Align text right */
+    opacity: 1;
+    animation: none;
+    text-align: right;
+}
+
+.intro-badge .badge-years {
+    font-size: 5rem;
+    /* Increased size significantly */
+    color: #B91C1C;
+    line-height: 1;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+}
+
+.intro-badge .badge-text {
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    /* Increased size */
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ========================================
+   HERO TITLES - BOTH SIDES
+   ======================================== */
+.hero-title-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    transition: opacity 0.5s ease;
+}
+
+.hero-title-left {
+    left: 8%;
+}
+
+.hero-title-right {
+    right: 8%;
+    text-align: right;
+}
+
+.hero-main-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 4rem;
+    /* Reduced from 5rem */
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+    line-height: 1;
+    white-space: nowrap;
+    text-transform: capitalize;
+    opacity: 0;
+    /* Animated in via JS if needed, or set to 1 */
+    animation: fadeInMoveUp 1s ease forwards 0.5s;
+}
+
+.hero-separator-line {
+    width: 100%;
+    height: 4px;
+    background-color: #B91C1C;
+    /* Red Accent */
+    margin: 10px 0;
+    transform: scaleX(0);
+    /* Animate width */
+    transform-origin: left;
+    animation: expandLine 1s ease forwards 1s;
+}
+
+.hero-sub-title {
+    font-family: 'Inter', sans-serif;
+    /* Clean Sans-serif */
+    font-size: 1.3rem;
+    /* Reduced from 1.8rem */
+    font-weight: 300;
+    /* Light */
+    color: #FFFFFF;
+    margin: 0;
+    letter-spacing: 8px;
+    /* High tracking */
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeInMoveUp 1s ease forwards 1.5s;
+}
+
+@keyframes fadeInMoveUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes expandLine {
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* Staggered animation for each word with smooth elegant timing */
+.hero-title-word.word-1 {
+    animation: wordFadeInSmooth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+}
+
+.hero-title-word.word-2 {
+    animation: wordFadeInSmooth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s forwards;
+}
+
+.hero-title-word.word-3 {
+    animation: wordFadeInSmooth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+}
+
+.hero-title-word.word-4 {
+    animation: wordFadeInSmooth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s forwards;
+}
+
+@keyframes wordFadeInSmooth {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+        filter: blur(3px);
+    }
+
+    60% {
+        filter: blur(0px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+/* ========================================
+   HERO LOGO - LEFT SIDE
+   ======================================== */
+.hero-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: logoFadeIn 1s ease 0.3s forwards;
+}
+
+@keyframes logoFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   EXPERIENCE BADGE - RIGHT SIDE
+   ======================================== */
+.experience-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: badgeFadeIn 1s ease 0.5s forwards;
+}
+
+.badge-years {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #B91C1C;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.badge-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.4;
+}
+
+@keyframes badgeFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Badge separator line */
+.badge-separator {
+    width: 60px;
+    height: 2px;
+    background: #B91C1C;
+    margin: 12px 0 16px auto;
+    opacity: 0;
+    animation: separatorFadeIn 0.8s ease 1s forwards;
+}
+
+@keyframes separatorFadeIn {
+    from {
+        opacity: 0;
+        width: 0;
+    }
+
+    to {
+        opacity: 1;
+        width: 60px;
+    }
+}
+
+/* ========================================
+   HOTSPOTS
+   ======================================== */
+.hotspot {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.5);
+    z-index: 10;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.hotspot:hover {
+    transform: scale(1.1);
+}
+
+.hotspot:hover .hotspot-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-10px);
+}
+
+/* Hotspot dot with pulse animation */
+.hotspot-dot {
+    width: 24px;
+    height: 24px;
+    background: #B91C1C;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.4);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(185, 28, 28, 0.4);
+    }
+
+    50% {
+        transform: scale(1.15);
+        box-shadow: 0 4px 20px rgba(185, 28, 28, 0.6);
+    }
+}
+
+/* ========================================
+   CALLOUT SYSTEM
+   ======================================== */
+.hotspot-callout {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.hotspot.active .hotspot-callout {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Connector line */
+.callout-line {
+    position: absolute;
+    width: 2px;
+    background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.3) 100%);
+    transform-origin: top;
+    animation: lineGrow 0.3s ease forwards;
+}
+
+@keyframes lineGrow {
+    from {
+        height: 0;
+    }
+
+    to {
+        height: var(--line-height, 60px);
+    }
+}
+
+/* Callout box */
+.callout-box {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    padding: 14px 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(185, 28, 28, 0.2);
+    width: 300px;
+    /* Reduced from 400px */
+    max-width: 90vw;
+    /* Responsive constraint */
+    animation: calloutFadeIn 0.4s ease 0.2s forwards;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+@keyframes calloutFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.callout-box h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* New styles for image content in hotspots */
+.img-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.img-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.img-container span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* Positioning for each hotspot */
+
+/* Posición cristales - al lado izquierdo */
+#hotspot-cristales .callout-line {
+    top: 24px;
+    left: 12px;
+    --line-height: 80px;
+}
+
+#hotspot-cristales .callout-box {
+    position: absolute;
+    top: 104px;
+    left: -150px;
+    /* Center of 300px */
+}
+
+/* Posición puertas - al lado izquierdo */
+#hotspot-puertas .callout-line {
+    top: 24px;
+    left: 12px;
+    --line-height: 70px;
+}
+
+#hotspot-puertas .callout-box {
+    position: absolute;
+    top: 94px;
+    left: -150px;
+}
+
+/* Posición suspensión - ARRIBA (Inverted to show above) */
+#hotspot-suspension .callout-line {
+    bottom: 24px;
+    /* Start from top of dot */
+    left: 12px;
+    top: auto;
+    transform-origin: bottom;
+    --line-height: 90px;
+}
+
+#hotspot-suspension .callout-box {
+    position: absolute;
+    bottom: 114px;
+    /* Position above the dot */
+    top: auto;
+    left: -150px;
+}
+
+/* ========================================
+   HOTSPOT POSITIONING
+   ======================================== */
+#hotspot-cristales {
+    top: 30%;
+    left: 45%;
+}
+
+#hotspot-puertas {
+    top: 40%;
+    left: 45%;
+}
+
+#hotspot-suspension {
+    top: 68%;
+    left: 65%;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+    #heroCanvas {
+        max-height: 70vh;
+    }
+
+    .hotspot-dot {
+        width: 20px;
+        height: 20px;
+        border-width: 2px;
+    }
+
+    .tooltip-title {
+        font-size: 0.65rem;
+    }
+
+    .tooltip-description {
+        font-size: 0.75rem;
+    }
+
+    .hotspot-tooltip {
+        padding: 10px 14px;
+    }
+
+    .hero-title-word {
+        font-size: 2.5rem;
+    }
+
+    .hero-title-container {
+        left: 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    #hero-blindaje {
+        height: 350vh;
+    }
+
+    #heroCanvas {
+        max-height: 60vh;
+    }
+
+    .loading-text {
+        font-size: 0.875rem;
+    }
+
+    .hotspot-dot {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* ========================================
+   ARMOR CAROUSEL
+   ======================================== */
+#armor-carousel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    z-index: 15;
+    /* Behind hotspots (25) */
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    /* Hide overflow */
+    pointer-events: none;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 2rem;
+    padding-left: 100vw;
+    /* Start off-screen */
+    width: max-content;
+    /* Allow full width of items */
+    will-change: transform;
+}
+
+.carousel-item {
+    width: 300px;
+    height: 200px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: #000;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Shielding Level Selector Section --- */
+#shielding-selector {
+    position: relative;
+    /* Restored to relative */
+    /* bottom: 0; */
+    /* left: 0; */
+    z-index: 5;
+    /* Above Hero (1), Below Black (20) */
+    width: 100%;
+    height: 90vh;
+    min-height: 600px;
+    max-height: none;
+    overflow: hidden;
+
+    /* Initial State: Visible */
+    opacity: 1;
+    pointer-events: auto;
+    /* transition: opacity 0.5s ease; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 0px;
+    /* Connects smoothly to next section */
+    padding-top: 40px;
+}
+
+/* Background Layers */
+.shielding-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.shielding-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.shielding-bg.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Initial Background */
+#shielding-bg-layer-1 {
+    background-image: url('./assets/bg_level_2.png');
+    /* Default Nivel 2 */
+}
+
+/* Overlay */
+.shielding-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0.7) 100%);
+    pointer-events: none;
+}
+
+/* Content Container */
+.shielding-container {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 1200px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    /* Changed to row for side-by-side layout (Text left, Car right) */
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    /* Ensure it's the reference for absolute children */
+}
+
+/* Tabs Navigation */
+.shielding-tabs {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 0;
+    z-index: 20;
+    padding-right: 20px;
+    /* Spacing from edge */
+}
+
+.shielding-tab {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 50%;
+    /* Round buttons */
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   SHIELDING PRESENTATION (REDESIGN)
+   ======================================== */
+#shielding-presentation {
+    background-color: #000000;
+    color: white;
+    position: relative;
+    padding: 6rem 0 0;
+    width: 100%;
+    z-index: 2;
+    display: flow-root;
+    /* Contains child margins */
+}
+
+/* Levels Strip */
+.levels-strip-container {
+    padding: 0 5%;
+    margin-bottom: 250px;
+    text-align: center;
+}
+
+.levels-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    color: #B91C1C;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
+.levels-track {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.level-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    opacity: 0;
+    /* For animation */
+    transform: translateY(20px);
+}
+
+.shield-icon {
+    width: 60px;
+    height: 70px;
+    background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Shield Shape via Clip Path */
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.shield-icon span {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.level-item:hover .shield-icon {
+    background: #B91C1C;
+    transform: scale(1.1);
+}
+
+.level-name {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+/* Video Zoom Section */
+.video-section {
+    width: 100%;
+    /* min-height: 100vh; Removed to reduce spacing */
+    height: auto;
+    padding: 8rem 0;
+    /* Add controlled padding instead */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+}
+
+.video-container {
+    width: 40%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .shielding-content {
+        flex-direction: column-reverse;
+    }
+
+    .shielding-car-container {
+        height: 300px;
+        width: 100%;
+    }
+
+    .shielding-info {
+        text-align: center;
+    }
+
+    #shielding-selector {
+        height: auto;
+        min-height: 600px;
+        padding-bottom: 40px;
+    }
+
+    .shielding-tabs {
+        gap: 10px;
+    }
+
+    .shielding-tab {
+        padding: 8px 15px;
+        font-size: 0.75rem;
+    }
+
+    .shielding-title {
+        font-size: 1.8rem;
+    }
+
+    .shielding-content {
+        margin-bottom: 20px;
+    }
+}
+
+/* ========================================
+   SERVICES VIDEO SECTION (DIAGONAL)
+   ======================================== */
+#services-videos {
+    display: flex;
+    width: 100%;
+    height: 80vh;
+    /* Adjust height as needed */
+    overflow: hidden;
+    background: #000;
+    position: relative;
+    z-index: 20;
+    /* Adjust height as needed */
+    overflow: hidden;
+    background: #000;
+    position: relative;
+    z-index: 20;
+}
+
+#black-section {
+    background-color: #000000;
+    position: relative;
+    z-index: 30;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    margin-top: -1px;
+}
+
+.section-bg-video {
+    display: none;
+    /* Hide on desktop */
+}
+
+.service-item {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+    /* Diagonal effect using skew */
+    transform: skewX(-10deg);
+    border-right: 2px solid #000;
+    /* Separator line */
+    margin-right: -1px;
+    /* Prevent gaps */
+}
+
+/* Fix first and last items to fill edges */
+.service-item:first-child {
+    margin-left: -5%;
+    /* Extend to left */
+    padding-left: 5%;
+    border-left: none;
+}
+
+.service-item:last-child {
+    margin-right: -5%;
+    /* Extend to right */
+    padding-right: 5%;
+    border-right: none;
+}
+
+/* Remove skew for inner content so text/video isn't distorted */
+.service-item video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150%;
+    /* Make wider to cover skew */
+    height: 100%;
+    object-fit: cover;
+    transform: skewX(10deg);
+    /* Counter skew */
+    left: -25%;
+    /* Center after making wider */
+    filter: brightness(0.6);
+    transition: filter 0.4s;
+}
+
+.service-item .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: skewX(10deg);
+    /* Counter skew */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* Text at bottom */
+    padding: 3rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 50%);
+    opacity: 0.8;
+    transition: opacity 0.4s;
+}
+
+/* Extra padding for proper alignment on first item due to skew/margin */
+.service-item:first-child .overlay {
+    padding-left: 18%;
+    /* Increased from 10% to prevent cut-off */
+}
+
+.service-item h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.service-item p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: #ddd;
+    max-width: 0;
+    /* Hide by default/animate width or height */
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    white-space: nowrap;
+    /* Keep on one line if desired, or allow wrap */
+}
+
+/* HOVER STATES */
+.service-item:hover {
+    flex: 3;
+    /* Expand item */
+}
+
+.service-item:hover video {
+    filter: brightness(0.8);
+}
+
+.service-item:hover p {
+    opacity: 1;
+    max-width: 500px;
+    /* Reveal text */
+    margin-top: 10px;
+    white-space: normal;
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    #services-videos {
+        flex-direction: column;
+        height: 100vh;
+        /* Full screen height for the widget */
+        overflow: hidden;
+    }
+
+    .service-item {
+        flex: 1;
+        /* Start equal */
+        width: 100%;
+        height: auto;
+        transform: none;
+        /* Reset desktop skewX */
+        border-right: none;
+        margin: 0;
+
+        /* Vertical Diagonal Effect */
+        transform: skewY(-5deg);
+        margin-top: -30px;
+        /* Overlap to hide gaps */
+        margin-bottom: -30px;
+
+        transition: flex 0.5s ease, height 0.5s ease;
+        border-top: 2px solid #000;
+        border-bottom: 2px solid #000;
+        overflow: hidden;
+    }
+
+    /* Fix first and last items to cover edges */
+    .service-item:first-child {
+        margin-top: -50px;
+        /* Extend up */
+        padding-top: 50px;
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    .service-item:last-child {
+        margin-bottom: -50px;
+        /* Extend down */
+        padding-bottom: 50px;
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    /* Counter-skew content so it looks straight */
+    /* Counter-skew content so it looks straight */
+    /* Counter-skew content so it looks straight */
+    .service-item video,
+    .service-item .overlay {
+        transform: skewY(5deg) scale(1.1);
+        /* Scale up slightly to cover edges */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        left: 0;
+    }
+
+    /* STATIC LAYOUT (No Expansion) */
+    .service-item {
+        flex: 1;
+        /* Equal height */
+    }
+
+    /* Reset desktop skew specific styles */
+    .service-item video {
+        left: 0;
+    }
+
+    .service-item .overlay {
+        transform: skewY(5deg);
+        padding: 1rem;
+        opacity: 1;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* Center content vertically */
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Text Always Visible */
+    .service-item p {
+        max-height: none;
+        opacity: 1;
+        margin-top: 5px;
+        white-space: normal;
+        font-size: 0.9rem;
+    }
+
+    .service-item h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .service-item:first-child .overlay {
+        padding-left: 1rem;
+    }
+
+    /* No expansion on mobile, or maybe just slight */
+
+    .service-item p {
+        opacity: 1;
+        max-width: 100%;
+        white-space: normal;
+    }
+
+    .service-item h3 {
+        font-size: 1.4rem;
+    }
+}
+
+/* ========================================
+   MINIMALIST FOOTER
+   ======================================== */
+#site-footer {
+    position: relative;
+    /* Ensure stacking context */
+    z-index: 40;
+    /* Higher than hero (30) */
+    background-color: #050505;
+    /* Almost black */
+    color: #FFFFFF;
+    padding: 6rem 8% 2rem;
+    /* Matches existing side padding */
+    font-family: Georgia, 'Times New Roman', serif;
+    border-top: 1px solid #1a1a1a;
+}
+
+/* Ensure the section before footer also covers the hero */
+#shielding-presentation {
+    position: relative;
+    z-index: 40;
+    background-color: #000000;
+    /* Solid black to hide hero */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4rem;
+    margin-bottom: 4rem;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Brand Column */
+.brand-col .footer-logo {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+}
+
+.brand-col .footer-tagline {
+    color: #888;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    max-width: 300px;
+}
+
+/* Links Column */
+.links-col h5,
+.contact-col h5 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
+    color: #CCC;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #B91C1C;
+    /* Red Accent */
+    padding-left: 5px;
+}
+
+/* Contact Column */
+.contact-col p {
+    color: #CCC;
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+.contact-col a {
+    color: #CCC;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-col a:hover {
+    color: #B91C1C;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+    border-top: 1px solid #1a1a1a;
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-bottom p,
+.footer-bottom a {
+    color: #555;
+    font-size: 0.85rem;
+}
+
+.footer-bottom a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    color: #CCC;
+}
+
+
+/* ========================================
+   RESPONSIVE STYLES (TABLET & MOBILE)
+   ======================================== */
+
+@media (max-width: 1024px) {
+
+    /* Tablet Adjustments */
+    .hero-main-title {
+        font-size: 5rem;
+    }
+
+    .hero-sub-title {
+        font-size: 2rem;
+    }
+
+    #heroCanvas {
+        width: 100vw;
+        height: 100vh;
+        object-fit: contain;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* --- NAVIGATION --- */
+    /* --- NAVIGATION (Hamburger) --- */
+    .site-header {
+        height: auto;
+        top: 0;
+        background: transparent;
+        pointer-events: none;
+        /* Let clicks pass through header area */
+    }
+
+    /* Hamburger Button - Visible on Mobile */
+    .hamburger {
+        display: block;
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        z-index: 2000;
+        background: none;
+        border: none;
+        cursor: pointer;
+        pointer-events: auto;
+        padding: 10px;
+    }
+
+    .hamburger .bar {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        margin: 6px 0;
+        transition: 0.4s;
+    }
+
+    /* Animation for Hamburger to X */
+    .hamburger.active .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* --- LOGO (Mobile Minimalist) --- */
+    .site-logo {
+        height: 40px;
+        /* Reduced from 60px */
+        width: auto;
+    }
+
+    /* Fullscreen Menu Overlay */
+    .main-nav {
+        display: flex;
+        /* Always flex, but hidden via opacity/visibility */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000000;
+        z-index: 1500;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+        padding: 0;
+        border-radius: 0;
+        gap: 40px;
+        border: none;
+        /* Reset previous styles */
+        transform: none;
+        bottom: auto;
+        backdrop-filter: none;
+    }
+
+    .main-nav.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .nav-link {
+        font-size: 2rem;
+        /* Large text for menu */
+        color: white;
+        font-weight: 300;
+        letter-spacing: 2px;
+    }
+
+
+
+    /* --- PRELOADER MOBILE --- */
+    .loader-title {
+        font-size: 1.2rem;
+        /* Minimalist small size */
+        white-space: nowrap;
+        /* Force single line */
+        margin-bottom: 20px;
+    }
+
+    .progress-container {
+        width: 80%;
+        /* Responsive width */
+    }
+
+    /* --- HERO --- */
+    .hero-title-container {
+        padding-right: 20px;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+    }
+
+    .hero-main-title {
+        font-size: 2.2rem;
+        /* Minimalist size (was 3.5rem) */
+        line-height: 1.1;
+        letter-spacing: 1px;
+    }
+
+    .hero-separator-line {
+        margin: 15px auto;
+        width: 40px;
+        /* Smaller line */
+        height: 1px;
+    }
+
+    .hero-sub-title {
+        font-size: 0.9rem;
+        /* Minimalist size */
+        font-weight: 300;
+        letter-spacing: 2px;
+    }
+
+    /* --- CANVAS SECTION --- */
+    #hero-blindaje {
+        background-color: #F0F0F0;
+        /* Match image background */
+        margin-bottom: 0;
+        height: 100vh;
+        height: 100dvh;
+        /* Layout fix for mobile address bar */
+    }
+
+    .canvas-intro-overlay {
+        /* Make container full screen to allow free positioning of children */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        /* Click through */
+        display: block;
+        /* Disable flex centering */
+    }
+
+    /* Dark Text for Light Background */
+    .badge-years,
+    .badge-text,
+    .intro-badge {
+        color: #000000;
+        text-shadow: none;
+    }
+
+    #heroCanvas {
+        width: 100vw;
+        height: 100vh;
+        object-fit: contain;
+        transform: scale(1.35);
+        /* Make car bigger */
+        transform-origin: center center;
+    }
+
+    .intro-logo {
+        position: absolute;
+        top: 15%;
+        /* Lowered further */
+        right: 5%;
+        width: 100px;
+        /* Smaller size */
+        filter: invert(1);
+        z-index: 20;
+        /* Ensure it stays above */
+    }
+
+    .intro-badge {
+        position: absolute;
+        bottom: 5%;
+        /* Kept at bottom */
+        left: 0;
+        width: 100%;
+        /* Full width */
+        transform: none;
+        /* Remove translateX centering that was causing issues */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 10px;
+        /* Safety padding */
+        z-index: 20;
+        /* Ensure it stays above */
+    }
+
+    .badge-years {
+        font-size: 2.5rem;
+        line-height: 1;
+    }
+
+    .badge-text {
+        font-size: 0.7rem;
+    }
+
+    /* Hotspot Adjustments - Square & Image Focus */
+    .hotspot-callout {
+        position: absolute;
+        width: 100px;
+        /* Fixed small width */
+        height: auto;
+        min-height: 100px;
+        /* Square-ish aspect */
+        left: 50%;
+        transform: translateX(-50%);
+        top: 35px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .callout-line {
+        display: none;
+    }
+
+    .callout-box {
+        text-align: center;
+        color: #000000;
+        font-weight: 600;
+        font-size: 0.6rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+        /* Reset Desktop Styles */
+        background: none;
+        box-shadow: none;
+        border: none;
+        backdrop-filter: none;
+        animation: none;
+        opacity: 1;
+        transform: none;
+        padding: 0;
+    }
+
+    .img-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Force the span text to be visible and styled */
+    .img-container span {
+        display: block;
+        line-height: 1.1;
+    }
+
+    .callout-box img {
+        width: 50px;
+        /* BIG Icon */
+        height: auto;
+        filter: invert(1);
+        margin: 0;
+        display: block;
+    }
+
+    /* Realign Mobile Hotspots for Zoomed Car */
+    /* Point 1 (Cristales) was too high/left. Moving Down & Right */
+    #hotspot-cristales {
+        top: 42% !important;
+        left: 40% !important;
+    }
+
+    #hotspot-puertas {
+        top: 55% !important;
+        left: 60% !important;
+    }
+
+    #hotspot-suspension {
+        top: 62% !important;
+        left: 80% !important;
+    }
+
+    /* Reset ID-specific positioning from desktop */
+    #hotspot-cristales .callout-box,
+    #hotspot-puertas .callout-box,
+    #hotspot-suspension .callout-box {
+        position: static;
+        width: 100%;
+        margin: 0;
+        transform: none;
+        left: auto;
+        top: auto;
+    }
+
+    #black-section {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+        /* Ensure video doesn't overflow */
+    }
+
+    #black-section .section-bg-video {
+        display: block;
+        /* Show on mobile */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0.6;
+        /* Slight transparency so text pops, or remove if video is already dark */
+    }
+
+    /* Ensure content sits above video */
+    /* Ensure content sits above video */
+    #black-section .content-wrapper {
+        position: relative;
+        z-index: 2;
+        /* Force Reset */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+
+        /* Layout */
+        width: 100% !important;
+        max-width: 100vw !important;
+        /* Ensure it doesn't get constrained */
+        margin: 0 !important;
+        padding: 0 10px !important;
+        /* Horizontal padding for text safety */
+        left: auto !important;
+        right: auto !important;
+        box-shadow: none !important;
+        /* Remove any shadows causing 'layer' look */
+    }
+
+    /* Typography Updates for Mobile Section 3 */
+    #black-section .content-wrapper h2 {
+        font-size: 2rem;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        text-align: center !important;
+        width: 100%;
+    }
+
+    #black-section .content-wrapper p {
+        text-align: center !important;
+        margin-top: 0.5rem;
+        font-size: 1rem;
+
+        /* Reset any width weirdness */
+        width: 100% !important;
+        max-width: none !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* --- BLACK SECTION --- */
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        padding-top: 4rem;
+        gap: 2rem;
+    }
+
+    .content-wrapper h2 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    .content-wrapper p {
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    /* --- VIDEO SECTION --- */
+    .video-section {
+        height: auto;
+        padding: 4rem 1rem;
+    }
+
+    .video-container {
+        width: 100% !important;
+        /* Override GSAP width for mobile */
+        height: 300px;
+    }
+
+    .hero-video-bg {
+        object-fit: cover;
+    }
+
+    /* --- SERVICES --- */
+    .services-grid {
+        grid-template-columns: 1fr;
+        /* Stack 1 column */
+        gap: 30px;
+    }
+
+    .service-card {
+        padding: 30px;
+        height: auto;
+    }
+
+    /* --- FOOTER --- */
+    #site-footer {
+        padding: 4rem 5%;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-main-title {
+        font-size: 1.8rem;
+        /* Even smaller for phones */
+    }
+
+    .main-nav {
+        width: 95%;
+        padding: 12px 15px;
+        gap: 15px;
+    }
+
+    .nav-link {
+        font-size: 0.75rem;
+    }
+
+    /* Strict Mobile Impact Positioning */
+    #impact-1 {
+        top: 15% !important;
+        left: 10% !important;
+        transform: scale(0.6) !important;
+    }
+
+    #impact-2 {
+        bottom: 15% !important;
+        right: 10% !important;
+        transform: scale(0.6) !important;
+    }
+
+    #impact-3 {
+        top: 20% !important;
+        right: 10% !important;
+        left: auto !important;
+        transform: scale(0.6) !important;
+    }
+}
