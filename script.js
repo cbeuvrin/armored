@@ -445,7 +445,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// ========================================
+// FORCE MOBILE VIDEO (Fallback)
+// ========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const isMobile = window.innerWidth <= 768;
+    const heroVideo = document.querySelector('#video-hero video');
 
+    if (isMobile && heroVideo) {
+        // Explicitly force the mobile source if the browser is being stubborn
+        const currentSrc = heroVideo.currentSrc;
+        // Check if it's already playing the mobile one
+        if (!currentSrc.includes('video-hero-mobile')) {
+            console.log("Forcing mobile video source via JS");
+            heroVideo.src = 'video-hero-movil/video-hero-mobile.mp4?v=3'; // New cache bust
+            heroVideo.load();
+            heroVideo.play().catch(e => console.log("Auto-play prevented:", e));
+        }
+    }
+});
 
 // ========================================
 // MOBILE MENU LOGIC
