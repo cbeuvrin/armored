@@ -458,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Check if it's already playing the mobile one
         if (!currentSrc.includes('video-hero-mobile')) {
             console.log("Forcing mobile video source via JS");
-            heroVideo.src = 'video-hero-movil/video-hero-mobile.mp4?v=3'; // New cache bust
+            heroVideo.src = 'video-hero-movil/video-hero-mobile.mp4?v=4'; // New cache bust
             heroVideo.load();
             heroVideo.play().catch(e => console.log("Auto-play prevented:", e));
         }
