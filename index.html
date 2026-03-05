@@ -56,8 +56,8 @@
         <!-- Navigation Menu -->
         <nav class="main-nav">
             <a href="#inicio" class="nav-link">Inicio</a>
-            <a href="#nosotros" class="nav-link">Nosotros</a>
-            <a href="#servicios" class="nav-link">Servicios</a>
+            <a href="nosotros.html" class="nav-link">Nosotros</a>
+            <a href="servicios.html" class="nav-link">Servicios</a>
             <a href="#contacto" class="nav-link">Contacto</a>
         </nav>
     </header>
@@ -79,11 +79,24 @@
             <h1 class="hero-main-title">Blindaje perfecto</h1>
             <div class="hero-separator-line"></div>
             <h2 class="hero-sub-title">Protección invisible</h2>
+
+            <!-- Logos Certificaciones (Pequeños) -->
+            <div class="hero-cert-logos">
+                <img src="logo certificado 3/1.png" alt="Certificación 1">
+                <img src="logo certificado 3/2.png" alt="Certificación 2">
+                <img src="logo certificado 3/3.png" alt="Certificación 3">
+                <img src="logo certificado 3/4.png" alt="Certificación 4">
+                <img src="logo certificado 3/5.png" alt="Certificación 5">
+                <img src="logo certificado 3/6.png" alt="Certificación 6">
+                <img src="logo certificado 3/7.png" alt="Certificación 7">
+                <img src="logo certificado 3/8.png" alt="Certificación 8">
+            </div>
         </div>
     </section>
 
     <!-- Canvas Animation Section (Formerly Hero) -->
     <section id="hero-blindaje">
+
         <div class="sticky-container">
             <!-- Canvas for image sequence -->
             <canvas id="heroCanvas"></canvas>
@@ -144,8 +157,6 @@
             </div>
         </div>
     </section>
-
-
 
     <!-- Black Section (Slides over the fixed hero) -->
     <section id="black-section">
@@ -269,15 +280,133 @@
                 </div>
             </div>
 
-            <!-- Video Zoom Section -->
-            <div class="video-section">
-                <div class="video-container">
+            <!-- 4 Vertical Videos (Hover to expand) -->
+            <div class="levels-videos-section">
+                <!-- Video 1 -->
+                <div class="level-video-item">
                     <video autoplay loop muted playsinline>
-                        <source src="VIDEOS NIVELES/Nivel2.mp4" type="video/mp4">
+                        <source src="video blindaje/12 MM tiktok armored.mp4" type="video/mp4">
                     </video>
+                    <div class="level-overlay">
+                        <span class="level-caliber">12 mm</span>
+                    </div>
+                </div>
+                <!-- Video 2 -->
+                <div class="level-video-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="video blindaje/17 mm.mp4" type="video/mp4">
+                    </video>
+                    <div class="level-overlay">
+                        <span class="level-caliber">17 mm</span>
+                    </div>
+                </div>
+                <!-- Video 3 -->
+                <div class="level-video-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="video blindaje/37 mm .mp4?v=2" type="video/mp4">
+                    </video>
+                    <div class="level-overlay">
+                        <span class="level-caliber">37 mm</span>
+                    </div>
+                </div>
+                <!-- Video 4 -->
+                <div class="level-video-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="video blindaje/ak47.mp4" type="video/mp4">
+                    </video>
+                    <div class="level-overlay">
+                        <span class="level-caliber">AK-47</span>
+                    </div>
                 </div>
             </div>
 
+            <!-- Certificaciones secundarias centradas, en dos bloques -->
+            <div class="certificaciones-bottom">
+                <h2 class="cert-bottom-title">NUESTRAS CERTIFICACIONES Y VINCULACIONES</h2>
+                <div class="cert-separator-line"></div>
+
+                <p class="cert-bottom-text">
+                    En Blindajes Armored Security estamos comprometidos en dar soluciones de seguridad y protección a
+                    nuestros clientes. Nuestros Cristales se encuentran en mejora continua para investigación y
+                    desarrollo. Contamos con el equipo de expertos que ha desarrollado procesos, materiales y tecnología
+                    de última generación. Cada día somos mejores e innovamos constantemente para el beneficio de
+                    nuestros clientes.
+                </p>
+
+                <div class="cert-bottom-logos">
+                    <!-- Fila 1 -->
+                    <div class="cert-row">
+                        <img src="logo certificado 3/1.png" alt="Certificación 1">
+                        <img src="logo certificado 3/2.png" alt="Certificación 2">
+                        <img src="logo certificado 3/3.png" alt="Certificación 3">
+                        <img src="logo certificado 3/4.png" alt="Certificación 4">
+                    </div>
+                    <!-- Fila 2 -->
+                    <div class="cert-row">
+                        <img src="logo certificado 3/5.png" alt="Certificación 5">
+                        <img src="logo certificado 3/6.png" alt="Certificación 6">
+                        <img src="logo certificado 3/7.png" alt="Certificación 7">
+                        <img src="logo certificado 3/8.png" alt="Certificación 8">
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+    <!-- Home - Final Video Parallax Section -->
+    <section class="home-video-parallax-sec">
+        <div class="home-video-container">
+            <video autoplay muted loop playsinline preload="auto">
+                <source src="VIDEOS NIVELES/Black_armored_car_rolling_city_delpmaspu_.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+            <div class="video-text-content">
+                <h2 class="parallax-video-title">Experiencia y calidad</h2>
+                <p>Contamos con el mejor equipo técnico y humano para garantizar la calidad en cada paso del proceso de
+                    elaboración del vidrio.</p>
+                <p>Nuestro personal está altamente capacitado para el manejo de los componentes y el uso de la
+                    maquinaria especializada.</p>
+                <p>La autoclave, parte fundamental en la elaboración del vidrio está catalogada entre las más grandes de
+                    América Latina, es por eso que ofrecemos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW CONTACT SECTION -->
+    <section id="contacto" class="contact-section">
+        <div class="contact-container">
+            <h2 class="contact-title">CONTÁCTANOS</h2>
+            <div class="contact-separator"></div>
+            <p class="contact-text">
+                Déjanos tus datos y un asesor experto en seguridad se comunicará contigo a la brevedad.
+            </p>
+
+            <form class="contact-form" action="#" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Nombre completo</label>
+                        <input type="text" id="name" name="name" required placeholder="Tu nombre y apellido">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Tu número de teléfono">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Mensaje / Requerimiento</label>
+                    <textarea id="message" name="message" rows="4" required
+                        placeholder="Cuéntanos cómo podemos ayudarte..."></textarea>
+                </div>
+
+                <button type="submit" class="contact-submit-btn">ENVIAR MENSAJE</button>
+            </form>
+        </div>
     </section>
 
     <!-- Minimalist Footer -->
@@ -295,7 +424,7 @@
                 <ul class="footer-links">
                     <li><a href="#">Inicio</a></li>
                     <li><a href="#services-videos">Servicios</a></li>
-                    <li><a href="#shielding-presentation">Niveles</a></li>
+                    <li><a href="servicios.html">Servicios</a></li>
                     <li><a href="#">Contacto</a></li>
                 </ul>
             </div>
@@ -303,8 +432,8 @@
             <!-- Col 3: Contact -->
             <div class="footer-col contact-col">
                 <h5>Contacto</h5>
-                <p>Av. Principal 123, CDMX</p>
-                <p>+52 55 1234 5678</p>
+                <p>Manuel J Othon 185, Tránsito, Cuauhtémoc, 06820 Ciudad de México, CDMX</p>
+                <p>+52 55 6818 6170</p>
                 <p><a href="mailto:info@armoredsecurity.com">info@armoredsecurity.com</a></p>
             </div>
         </div>
@@ -315,10 +444,23 @@
         </div>
     </footer>
 
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/525568186170" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+    </a>
+
+    <!-- Video Modal for Levels -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="close-modal">&times;</span>
+            <video id="modalVideo" controls playsinline></video>
+        </div>
+    </div>
+
     <!-- Scroll Spacer and GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js?v=2"></script>
 </body>
 
 </html>

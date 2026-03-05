@@ -28,7 +28,9 @@ const state = {
 function init() {
     // Get DOM elements
     state.canvas = document.getElementById('heroCanvas');
-    state.ctx = state.canvas.getContext('2d');
+    if (state.canvas) {
+        state.ctx = state.canvas.getContext('2d');
+    }
     state.preloader = document.getElementById('preloader');
     state.progressFill = document.getElementById('progressFill');
     state.loadingPercentage = document.getElementById('loadingPercentage');
@@ -36,8 +38,15 @@ function init() {
     // Register GSAP plugins
     gsap.registerPlugin(ScrollTrigger);
 
-    // Start preloading images
-    preloadImages();
+    // If there is no canvas, skip preloading images to avoid loading 80+ frames unnecessarily
+    if (state.canvas) {
+        // Start preloading images
+        preloadImages();
+    } else {
+        // Just run standard preloader and mark images as ready
+        state.imagesReady = true;
+    }
+
     // Start visual loading sequence
     runPreloaderSequence();
 
@@ -135,6 +144,13 @@ function runPreloaderSequence() {
     state.loadingAnimationDone = false;
     state.imagesReady = false;
 
+    // If preloader element doesn't exist (like on subpages), bypass preloader logic 
+    if (!state.preloader) {
+        state.loadingAnimationDone = true;
+        state.imagesReady = true;
+        return;
+    }
+
     // Reset impacts
     gsap.set("#impact-1, #impact-2, #impact-3", { opacity: 0, scale: 0.5 });
 
@@ -187,13 +203,15 @@ function shakeScreen() {
 function checkPreloaderComplete() {
     // Only hide if both images are loaded AND visual sequence is done
     if (state.imagesReady && state.loadingAnimationDone) {
-        gsap.to(state.preloader, {
-            opacity: 0,
-            duration: 0.8,
-            onComplete: () => {
-                state.preloader.style.display = 'none';
-            }
-        });
+        if (state.preloader) {
+            gsap.to(state.preloader, {
+                opacity: 0,
+                duration: 0.8,
+                onComplete: () => {
+                    state.preloader.style.display = 'none';
+                }
+            });
+        }
     }
 }
 
@@ -231,6 +249,12 @@ function renderFrame(frameIndex) {
 // ========================================
 
 function setupSequentialAnimation() {
+
+    // Extra: If #hero-blindaje does not exist on this page, skip sequential animation
+    if (!document.getElementById('hero-blindaje')) {
+        setupCommonScrollAnimations();
+        return;
+    }
 
     // Initial Setup: Hide all hotspots
     gsap.set('.hotspot', { opacity: 0, scale: 0.5 });
@@ -360,45 +384,75 @@ function setupSequentialAnimation() {
 
     // Lead out (just in case we want to scroll past cleanly)
 
+}
+
+function setupCommonScrollAnimations() {
     // --- Dynamic Header Styling ---
-    ScrollTrigger.create({
-        trigger: "#black-section",
-        start: "top 100px", // When black section is near the top (header area)
-        onEnter: () => document.body.classList.add("scrolled-header"),
-        onLeaveBack: () => document.body.classList.remove("scrolled-header"),
-        // Ensure it stays if we scroll past the black section (unless we want something else later)
-    });
+
+    // 1. Enter Black Services Section -> Text turns White
+    if (document.getElementById('black-section')) {
+        ScrollTrigger.create({
+            trigger: "#black-section",
+            start: "top 100px",
+            onEnter: () => document.body.classList.add("scrolled-header"),
+            onLeaveBack: () => document.body.classList.remove("scrolled-header"),
+        });
+    }
+
+    // 2. Enter White 'Niveles de Blindaje' Section -> Text turns Black
+    if (document.getElementById('shielding-presentation')) {
+        ScrollTrigger.create({
+            trigger: "#shielding-presentation",
+            start: "top 100px",
+            onEnter: () => document.body.classList.remove("scrolled-header"),
+            onLeaveBack: () => document.body.classList.add("scrolled-header"),
+        });
+    }
+
+    // 3. Enter Black 'Contacto' Section (and footer) -> Text turns White
+    if (document.getElementById('contacto')) {
+        ScrollTrigger.create({
+            trigger: "#contacto",
+            start: "top 100px",
+            onEnter: () => document.body.classList.add("scrolled-header"),
+            onLeaveBack: () => document.body.classList.remove("scrolled-header"),
+        });
+    }
 
     // --- Staggered Text Entrance (Requested Animation) ---
     // Animates Title and Paragraph upwards with a delay
-    gsap.from(".content-wrapper h2, .content-wrapper p", {
-        y: 100,
-        opacity: 0,
-        duration: 1.5,
-        stagger: 0.8, // "A destiempo" más marcado
-        ease: "power3.out",
-        scrollTrigger: {
-            trigger: ".content-wrapper",
-            start: "top 80%", // Start when content is near bottom of screen
-            toggleActions: "play none none reverse"
-        }
-    })
+    if (document.querySelector('.content-wrapper')) {
+        gsap.from(".content-wrapper h2, .content-wrapper p", {
+            y: 100,
+            opacity: 0,
+            duration: 1.5,
+            stagger: 0.8, // "A destiempo" más marcado
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".content-wrapper",
+                start: "top 80%", // Start when content is near bottom of screen
+                toggleActions: "play none none reverse"
+            }
+        });
+    }
 
     // Video Zoom Effect - added here to ensure ScrollTrigger is ready
-    gsap.fromTo(".video-container",
-        { width: "40%" },
-        {
-            width: "90%",
-            ease: "none",
-            scrollTrigger: {
-                trigger: ".video-section",
-                start: "top 90%",
-                end: "top 30%",
-                scrub: 2,
-                markers: false
+    if (document.querySelector('.video-section')) {
+        gsap.fromTo(".video-container",
+            { width: "40%" },
+            {
+                width: "90%",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".video-section",
+                    start: "top 90%",
+                    end: "top 30%",
+                    scrub: 2,
+                    markers: false
+                }
             }
-        }
-    );
+        );
+    }
 }
 
 
@@ -489,6 +543,404 @@ function setupMobileMenu() {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             nav.classList.remove('active');
+        });
+    });
+}
+
+// ========================================
+// VIDEO MODAL LOGIC (Niveles de Blindaje)
+// ========================================
+
+function setupVideoModal() {
+    const videoItems = document.querySelectorAll('.level-video-item');
+    const videoModal = document.getElementById('videoModal');
+    if (!videoModal) return;
+
+    const modalVideo = document.getElementById('modalVideo');
+    const closeModalBtn = videoModal.querySelector('.close-modal');
+
+    // Open Modal
+    videoItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const sourceSelector = item.querySelector('source');
+            if (sourceSelector) {
+                const videoSrc = sourceSelector.getAttribute('src');
+                modalVideo.src = videoSrc;
+                videoModal.classList.add('active');
+                modalVideo.play().catch(err => console.log('Auto-play prevent:', err));
+            }
+        });
+    });
+
+    // Close Modal Function
+    const closeAndStopVideo = () => {
+        videoModal.classList.remove('active');
+        modalVideo.pause();
+        modalVideo.src = '';
+    };
+
+    // Close on X click
+    closeModalBtn.addEventListener('click', closeAndStopVideo);
+
+    // Close on background click
+    videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal || e.target.classList.contains('video-modal-content')) {
+            closeAndStopVideo();
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+            closeAndStopVideo();
+        }
+    });
+}
+
+// ========================================
+// CERTIFICATIONS ANIMATION (Bullet Draw)
+// ========================================
+
+function setupCertificationsAnimation() {
+    const separator = document.querySelector('.cert-separator-line');
+    if (!separator) return;
+
+    gsap.to(separator, {
+        width: "350px",
+        duration: 1.5,
+        ease: "power2.out",
+        scrollTrigger: {
+            trigger: ".certificaciones-bottom",
+            start: "top 85%", // Dispara cuando la sección entra al 85% de la pantalla
+            once: true // Solo una vez
+        }
+    });
+}
+
+// Ensure modal and animations are setup
+document.addEventListener('DOMContentLoaded', () => {
+    setupVideoModal();
+    setupNosotrosSlider();
+    setupNosotrosParallax();
+    setupAccordions(); // Initialize all accordions (Nosotros & Servicios)
+    setupNosotrosVideoScrollScale(); // Initialize the video scroll-to-scale effect
+    setupHomeFinalVideoScroll(); // Initialize the final video on the home page
+    setupServiciosReveal(); // Initialize Servicios page animations
+    setupServiciosHeroAnimation(); // Initialize the diagonal hero animations
+    setupServiciosGridReveal(); // Initialize the grid reveal animations
+    setupServiciosTimeline(); // Initialize the vertical process timeline
+    try {
+        setupCertificationsAnimation();
+    } catch (e) {
+        console.log("Certifications animation setup skipped.", e);
+    }
+});
+
+// ========================================
+// NOSOTROS SLIDER LOGIC
+// ========================================
+
+function setupNosotrosSlider() {
+    const track = document.querySelector('.carousel-track');
+    if (!track) return;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let autoScrollSpeed = 1; // Pixels per frame
+    let animationId;
+    let isHovered = false;
+
+    // Clone handling for infinite scroll is already in HTML (duplicated set)
+    // We just need to reset scrollLeft when it reaches halfway.
+
+    function autoScroll() {
+        if (!isDown && !isHovered) {
+            track.scrollLeft += autoScrollSpeed;
+            // Reset when reaching halfway (the end of the first original set)
+            if (track.scrollLeft >= track.scrollWidth / 2) {
+                track.scrollLeft = 0;
+            }
+        }
+        animationId = requestAnimationFrame(autoScroll);
+    }
+
+    // Start auto scroll
+    autoScroll();
+
+    track.addEventListener('mouseenter', () => {
+        isHovered = true;
+    });
+
+    track.addEventListener('mouseleave', () => {
+        isDown = false;
+        isHovered = false;
+        track.style.cursor = 'grab';
+    });
+
+    track.addEventListener('mousedown', (e) => {
+        isDown = true;
+        track.style.cursor = 'grabbing';
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+        cancelAnimationFrame(animationId); // Pause auto-scroll during drag
+    });
+
+    track.addEventListener('mouseup', () => {
+        isDown = false;
+        track.style.cursor = 'grab';
+        autoScroll(); // Resume auto-scroll
+    });
+
+    track.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 2; // Scroll-fast multiplier
+        track.scrollLeft = scrollLeft - walk;
+    });
+}
+
+// ========================================
+// NOSOTROS PARALLAX EFFECT
+// ========================================
+
+function setupNosotrosParallax() {
+    // Only run if on Nosotros page and GSAP is loaded
+    if (!document.querySelector('.nosotros-page') || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    // Register ScrollTrigger if not already done globally
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Select paragraphs and headings we want to animate
+    const textElements = document.querySelectorAll(
+        '.nosotros-header-text p, .nosotros-header-text h1, .nosotros-header-text h2, ' +
+        '.nosotros-about-text p, .nosotros-about-text h2'
+    );
+
+    textElements.forEach((el, index) => {
+        // Simple parallax: move up and fade in as it scrolls into view
+        gsap.fromTo(el,
+            {
+                y: 40,
+                opacity: 0
+            },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                delay: index * 0.1, // Stagger slightly if multiple are on screen
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%", // Starts animation when the top of the element hits 85% of the viewport height
+                    toggleActions: "play none none reverse" // Animates in when scrolling down, out when scrolling up
+                }
+            }
+        );
+    });
+}
+
+// ACCORDIONS LOGIC (Generic)
+// ========================================
+
+function setupAccordions() {
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            const content = header.nextElementSibling;
+            const isActive = item.classList.contains('active');
+
+            // Close all other items (optional, but cleaner)
+            document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.accordion-content').style.maxHeight = null;
+                }
+            });
+
+            // Toggle current item
+            if (isActive) {
+                item.classList.remove('active');
+                content.style.maxHeight = null;
+            } else {
+                item.classList.add('active');
+                // Use scrollHeight for a smooth transition
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+}
+
+// ========================================
+// NOSOTROS VIDEO SCROLL-TO-SCALE
+// ========================================
+
+function setupNosotrosVideoScrollScale() {
+    // Only run if on Nosotros page and GSAP is loaded
+    const section = document.querySelector('.nosotros-video-parallax-sec');
+    const video = document.querySelector('.parallax-video-container video');
+
+    if (!section || !video || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(video, {
+        scale: 1,
+        ease: "none",
+        scrollTrigger: {
+            trigger: section,
+            start: "top bottom", // Starts when section top hits viewport bottom
+            end: "bottom bottom", // Ends when section bottom hits viewport bottom
+            scrub: true, // Smoothly link animation to scroll
+        }
+    });
+}
+
+// ========================================
+// HOME FINAL VIDEO SCROLL-TO-FULLWIDTH
+// ========================================
+
+function setupHomeFinalVideoScroll() {
+    const section = document.querySelector('.home-video-parallax-sec');
+    const container = document.querySelector('.home-video-container');
+
+    if (!section || !container || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(container, {
+        width: "100%",
+        height: "100vh",
+        borderRadius: "0px",
+        ease: "none",
+        scrollTrigger: {
+            trigger: section,
+            start: "top center", // Animation starts when the top of the section hits the center of the viewport
+            end: "center center", // Animation ends when the center of the section hits the center of the viewport
+            scrub: 1, // Smooth scrubbing, takes 1 second to catch up
+        }
+    });
+}
+
+// ========================================
+// SERVICIOS PAGE REVEAL
+// ========================================
+
+function setupServiciosReveal() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    const stageItems = document.querySelectorAll('.stage-item');
+    if (stageItems.length === 0) return;
+
+    stageItems.forEach((item, index) => {
+        gsap.from(item, {
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: item,
+                start: "top 90%",
+                toggleActions: "play none none none"
+            }
+        });
+    });
+}
+
+// ========================================
+// SERVICIOS DIAGONAL HERO ANIMATION
+// ========================================
+
+function setupServiciosHeroAnimation() {
+    if (typeof gsap === 'undefined') return;
+
+    const hero = document.getElementById('servicios-hero-diagonal');
+    if (!hero) return;
+
+    const item1 = hero.querySelector('.item-1');
+    const item2 = hero.querySelector('.item-2');
+    const item3 = hero.querySelector('.item-3');
+    const content = hero.querySelector('.servicios-hero-content-diagonal');
+
+    // Set initial states
+    gsap.set(item1, { x: "-100%" });
+    gsap.set(item2, { y: "-100%" });
+    gsap.set(item3, { x: "-100%" }); // User specifically asked for left entry for the 3rd one too
+    gsap.set(content, { opacity: 0, scale: 0.8 });
+
+    // Timeline for coordinated entry
+    const tl = gsap.timeline({ defaults: { duration: 1.2, ease: "power4.out" } });
+
+    tl.to(item1, { x: "0%", delay: 0.5 })
+        .to(item2, { y: "0%" }, "-=0.8")
+        .to(item3, { x: "0%" }, "-=0.8")
+        .to(content, { opacity: 1, scale: 1, duration: 1 }, "-=0.5");
+}
+
+// ========================================
+// SERVICIOS GRID REVEAL
+// ========================================
+
+function setupServiciosGridReveal() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    const gridItems = document.querySelectorAll('.service-grid-card');
+    if (gridItems.length === 0) return;
+
+    gsap.from(gridItems, {
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".services-grid",
+            start: "top 85%",
+            toggleActions: "play none none none"
+        }
+    });
+}
+
+// ========================================
+// SERVICIOS PROCESS TIMELINE
+// ========================================
+
+function setupServiciosTimeline() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    const timelineContainer = document.querySelector('.proceso-timeline-container');
+    if (!timelineContainer) return;
+
+    const progressLine = document.querySelector('.line-progress');
+    const steps = document.querySelectorAll('.timeline-step');
+
+    // Animate the vertical progress line
+    gsap.to(progressLine, {
+        height: '100%',
+        ease: 'none',
+        scrollTrigger: {
+            trigger: timelineContainer,
+            start: 'top 30%',
+            end: 'bottom 80%',
+            scrub: true
+        }
+    });
+
+    // Animate each step and its dot
+    steps.forEach((step, index) => {
+        ScrollTrigger.create({
+            trigger: step,
+            start: 'top 75%',
+            onEnter: () => {
+                step.classList.add('visible');
+                step.classList.add('active');
+            },
+            onLeaveBack: () => {
+                step.classList.remove('active');
+            }
         });
     });
 }
