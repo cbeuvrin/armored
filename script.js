@@ -52,6 +52,9 @@ function init() {
 
     // Setup Mobile Menu
     setupMobileMenu();
+
+    // Setup Language Switcher
+    setupLanguageSwitcher();
 }
 
 // ========================================
@@ -150,6 +153,16 @@ function runPreloaderSequence() {
         state.imagesReady = true;
         return;
     }
+
+    // ONLY SHOW ONCE PER SESSION
+    if (sessionStorage.getItem('armoredPreloaderShown') === 'true') {
+        state.preloader.style.display = 'none';
+        state.loadingAnimationDone = true;
+        return;
+    }
+
+    // Mark as shown for this session
+    sessionStorage.setItem('armoredPreloaderShown', 'true');
 
     // Reset impacts
     gsap.set("#impact-1, #impact-2, #impact-3", { opacity: 0, scale: 0.5 });
@@ -902,6 +915,20 @@ function setupServiciosGridReveal() {
             toggleActions: "play none none none"
         }
     });
+
+    // Toggle Expansion on Click
+    gridItems.forEach(card => {
+        card.addEventListener('click', () => {
+            // Optional: Close other cards when one is opened
+            gridItems.forEach(otherCard => {
+                if (otherCard !== card) {
+                    otherCard.classList.remove('expanded');
+                }
+            });
+            
+            card.classList.toggle('expanded');
+        });
+    });
 }
 
 // ========================================
@@ -943,4 +970,62 @@ function setupServiciosTimeline() {
             }
         });
     });
+}
+// ========================================
+// LANGUAGE SWITCHER (i18n)
+// ========================================
+
+function setupLanguageSwitcher() {
+    const langBtns = document.querySelectorAll('.lang-btn');
+    const currentLang = localStorage.getItem('preferredLang') || 'es';
+
+    // Apply initial language
+    setLanguage(currentLang);
+
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            setLanguage(lang);
+            localStorage.setItem('preferredLang', lang);
+        });
+    });
+}
+
+function setLanguage(lang) {
+    if (!window.translations || !window.translations[lang]) return;
+
+    const t = window.translations[lang];
+
+    // Update buttons state
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        if (btn.getAttribute('data-lang') === lang) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    // Translate elements with data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+            el.innerHTML = t[key];
+        }
+    });
+
+    // Translate placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key]) {
+            el.setAttribute('placeholder', t[key]);
+        }
+    });
+
+    // Set HTML lang attribute
+    document.documentElement.lang = lang;
+    
+    // Refresh ScrollTrigger as content size might change slightly
+    if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+    }
 }

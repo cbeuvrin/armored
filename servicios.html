@@ -8,13 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="Logo/logoarmored.png">
+    <link rel="icon" href="assets/logopng2.png">
 
     <!-- Social Sharing -->
     <meta property="og:title" content="Servicios - Blindajes Armored Security">
     <meta property="og:description"
         content="Descubre nuestros servicios de blindaje automotriz especializado en México.">
-    <meta property="og:image" content="Logo/logoarmored.png">
+    <meta property="og:image" content="assets/logopng2.png">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#000000">
 
@@ -27,7 +27,7 @@
     <header class="site-header">
         <div class="logo-container">
             <a href="index.html">
-                <img src="./Logo/logoarmored.png" alt="Armored Security" class="site-logo">
+                <img src="assets/logopng2.png" alt="Armored Security" class="site-logo">
             </a>
         </div>
 
@@ -38,10 +38,15 @@
         </button>
 
         <nav class="main-nav">
-            <a href="index.html" class="nav-link">Inicio</a>
-            <a href="nosotros.html" class="nav-link">Nosotros</a>
-            <a href="servicios.html" class="nav-link" style="color:#B91C1C;">Servicios</a>
-            <a href="index.html#contacto" class="nav-link">Contacto</a>
+            <a href="index.html" class="nav-link" data-i18n="nav-inicio">Inicio</a>
+            <a href="nosotros.html" class="nav-link" data-i18n="nav-nosotros">Nosotros</a>
+            <a href="servicios.html" class="nav-link" style="color:#B91C1C;" data-i18n="nav-servicios">Servicios</a>
+            <a href="index.html#contacto" class="nav-link" data-i18n="nav-contacto">Contacto</a>
+            
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="es">ES</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
         </nav>
     </header>
 
@@ -67,9 +72,9 @@
         </div>
 
         <div class="servicios-hero-content-diagonal">
-            <h1 class="servicios-title">NUESTROS SERVICIOS</h1>
+            <h1 class="servicios-title" data-i18n="servicios-hero-title">NUESTROS SERVICIOS</h1>
             <div class="servicios-red-line"></div>
-            <p class="servicios-subtitle">Excelencia en Blindaje Automotriz con Tecnología de Vanguardia</p>
+            <p class="servicios-subtitle" data-i18n="servicios-hero-subtitle">Excelencia en Blindaje Automotriz con Tecnología de Vanguardia</p>
         </div>
     </section>
 
@@ -85,8 +90,11 @@
                     <div class="card-overlay">
                         <div class="card-content">
                             <span class="card-num">01</span>
-                            <h3>Blindaje Gubernamental</h3>
-                            <p>Protección estratégica diseñada para funcionarios y unidades de transporte especial.</p>
+                            <h3 data-i18n="servicios-card-gov-title">Blindaje Gubernamental</h3>
+                            <p data-i18n="servicios-card-gov-p">Protección estratégica diseñada para funcionarios y unidades de transporte especial.</p>
+                            <div class="card-description">
+                                <p>Nuestra división gubernamental se especializa en el cumplimiento de los protocolos de seguridad más estrictos a nivel nacional. Implementamos blindajes certificados para convoyes tácticos, vehículos de transporte de personal y unidades oficiales de alta jerarquía, asegurando que cada vehículo mantenga su agilidad operativa y capacidades tecnológicas de comunicación e intervención, fundamentales para misiones de protección oficial.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,8 +107,11 @@
                     <div class="card-overlay">
                         <div class="card-content">
                             <span class="card-num">02</span>
-                            <h3>Blindaje Empresarial</h3>
-                            <p>Seguridad integral para altos ejecutivos, manteniendo la discreción y comodidad.</p>
+                            <h3 data-i18n="servicios-card-corp-title">Blindaje Empresarial</h3>
+                            <p data-i18n="servicios-card-corp-p">Seguridad integral para altos ejecutivos, manteniendo la discreción y comodidad.</p>
+                            <div class="card-description">
+                                <p>En el entorno corporativo, la seguridad debe ir acompañada de la discreción. Ofrecemos soluciones a medida para directivos y ejecutivos de alto nivel, integrando materiales balísticos de bajo peso que no comprometen el desempeño ni la apariencia original del vehículo. Nuestras unidades empresariales incluyen acabados premium y accesorios de confort, permitiendo que la seguridad sea un activo invisible pero infalible en el día a día de la operación.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -113,9 +124,11 @@
                     <div class="card-overlay">
                         <div class="card-content">
                             <span class="card-num">03</span>
-                            <h3>Blindaje Particular</h3>
-                            <p>Tranquilidad para tu familia con los estándares de calidad más altos del mercado en
-                                vehículos de uso diario.</p>
+                            <h3 data-i18n="servicios-card-priv-title">Blindaje Particular</h3>
+                            <p data-i18n="servicios-card-priv-p">Tranquilidad para tu familia con los estándares de calidad más altos del mercado en vehículos de uso diario.</p>
+                            <div class="card-description">
+                                <p>La protección de su familia es nuestra prioridad. Para el uso particular, diseñamos blindajes que se adaptan perfectamente a SUVs y sedanes familiares, enfocándonos en la facilidad de manejo y la seguridad extrema contra delincuencia urbana. Utilizamos cristales de última generación y protección opaca integral que garantizan bienestar absoluto, convirtiendo su vehículo personal en un refugio seguro sin alterar su dinámica familiar.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -127,7 +140,7 @@
     <section class="servicios-proceso">
         <div class="servicios-container">
             <div class="proceso-header">
-                <h2>Nuestro Proceso Industrial</h2>
+                <h2 data-i18n="servicios-proceso-title">Nuestro Proceso Industrial</h2>
                 <div class="nosotros-red-line"></div>
             </div>
 
@@ -142,12 +155,10 @@
                         <div class="step-dot"></div>
                         <div class="step-content">
                             <span class="step-num">01</span>
-                            <h4>Adquisición y Recepción</h4>
-                            <p>Nuestro proceso inicia con la compra de las unidades más recientes en acuerdo comercial
-                                con
-                                las mejores agencias a nivel nacional, obteniendo precios altamente competitivos. Al
-                                recibir
-                                la unidad, se realiza un inventario exhaustivo y registro de condiciones.</p>
+                            <h4 data-i18n="servicios-step1-title">Adquisición y Recepción</h4>
+                            <p data-i18n="servicios-step1-p">Nuestro proceso inicia con la compra de las unidades más recientes en acuerdo comercial
+                                con las mejores agencias a nivel nacional, obteniendo precios altamente competitivos. Al
+                                recibir la unidad, se realiza un inventario exhaustivo y registro de condiciones.</p>
                         </div>
                     </div>
 
@@ -156,12 +167,10 @@
                         <div class="step-dot"></div>
                         <div class="step-content">
                             <span class="step-num">02</span>
-                            <h4>Desmontaje y Plantilla</h4>
-                            <p>Se procede al foleado, congelado y desmontaje de vidrios para elaborar plantillas y
-                                moldes
-                                necesarios para la fabricación de vidrio con certificación balística. Los vidrios se
-                                cortan,
-                                pintan y vitrifican antes de pasar al curvado en hornos especializados.</p>
+                            <h4 data-i18n="servicios-step2-title">Desmontaje y Plantilla</h4>
+                            <p data-i18n="servicios-step2-p">Se procede al foleado, congelado y desmontaje de vidrios para elaborar plantillas y
+                                moldes necesarios para la fabricación de vidrio con certificación balística. Los vidrios se
+                                cortan, pintan y vitrifican antes de pasar al curvado en hornos especializados.</p>
                         </div>
                     </div>
 
@@ -170,8 +179,8 @@
                         <div class="step-dot"></div>
                         <div class="step-content">
                             <span class="step-num">03</span>
-                            <h4>Ensamblado en Autoclave</h4>
-                            <p>Se realiza el segundo corte de vidrios, limpieza y preparación para el ensamblado con
+                            <h4 data-i18n="servicios-step3-title">Ensamblado en Autoclave</h4>
+                            <p data-i18n="servicios-step3-p">Se realiza el segundo corte de vidrios, limpieza y preparación para el ensamblado con
                                 materiales como PVB, TPU y policarbonato. Tras el embolsado al alto vacío, ingresan a la
                                 autoclave para concluir con un acabado fino y empaquetado.</p>
                         </div>
@@ -182,11 +191,10 @@
                         <div class="step-dot"></div>
                         <div class="step-content">
                             <span class="step-num">04</span>
-                            <h4>Acondicionamiento de Carrocería</h4>
-                            <p>A la par de los vidrios, se realiza el desarmado total de la unidad para el corte de
+                            <h4 data-i18n="servicios-step4-title">Acondicionamiento de Carrocería</h4>
+                            <p data-i18n="servicios-step4-p">A la par de los vidrios, se realiza el desarmado total de la unidad para el corte de
                                 carrocería y la aplicación de materiales balísticos como Acero Balístico, Kevlar,
-                                Dyneema y
-                                Composite, integrándolos estructuralmente al vehículo.</p>
+                                Dyneema y Composite, integrándolos estructuralmente al vehículo.</p>
                         </div>
                     </div>
 
@@ -195,10 +203,9 @@
                         <div class="step-dot"></div>
                         <div class="step-content">
                             <span class="step-num">05</span>
-                            <h4>Reensamblaje y Acabado</h4>
-                            <p>Se realiza pintura y sellado anticorrosivo. Se ensamblan vidrios blindados, elevadores
-                                operables y todos los interiores ajustados. Finalmente, se instalan neumáticos run flat,
-                                se
+                            <h4 data-i18n="servicios-step5-title">Reensamblaje y Acabado</h4>
+                            <p data-i18n="servicios-step5-p">Se realiza pintura y sellado anticorrosivo. Se ensamblan vidrios blindados, elevadores
+                                operables y todos los interiores ajustados. Finalmente, se instalan neumáticos run flat, se
                                 carga aire acondicionado y se realizan los últimos acabados estéticos.</p>
                         </div>
                     </div>
@@ -212,8 +219,8 @@
         <div class="servicios-container">
             <div class="ventajas-grid">
                 <div class="ventajas-intro">
-                    <h2>Ventajas de Blindajes Armored Security</h2>
-                    <p>Nuestra diferencia radica en el respeto absoluto por la ingeniería original del vehículo y el uso
+                    <h2 data-i18n="servicios-ventajas-title">Ventajas de Blindajes Armored Security</h2>
+                    <p data-i18n="servicios-ventajas-p">Nuestra diferencia radica en el respeto absoluto por la ingeniería original del vehículo y el uso
                         de las tecnologías más avanzadas del mundo.</p>
                     <div class="tech-tags">
                         <span>Tecnología Europea</span>
@@ -286,19 +293,17 @@
         <div class="servicios-container">
             <div class="discrecion-box">
                 <div class="discrecion-text">
-                    <h2>Discrecionalidad y Confidencialidad</h2>
+                    <h2 data-i18n="servicios-discrecion-title">Discrecionalidad y Confidencialidad</h2>
                     <div class="nosotros-red-line"></div>
-                    <p>Atendemos dos aspectos fundamentales de la seguridad moderna:</p>
+                    <p data-i18n="servicios-discrecion-p">Atendemos dos aspectos fundamentales de la seguridad moderna:</p>
                     <ul>
-                        <li><strong>Uso Civil:</strong> El aspecto general de la unidad blindada luce como si no lo
-                            estuviera, evitando llamar la atención.</li>
-                        <li><strong>Privacidad Total:</strong> Aseguramos confidencialidad absoluta en el trato personal
-                            y en el manejo de toda su información.</li>
+                        <li><strong data-i18n="servicios-civil">Uso Civil:</strong> <span data-i18n="servicios-civil-text">El aspecto general de la unidad blindada luce como si no lo estuviera, evitando llamar la atención.</span></li>
+                        <li><strong data-i18n="servicios-privacidad">Privacidad Total:</strong> <span data-i18n="servicios-privacidad-text">Aseguramos confidencialidad absoluta en el trato personal y en el manejo de toda su información.</span></li>
                     </ul>
                 </div>
                 <div class="discrecion-icon-grid">
                     <div class="disc-icon-item">
-                        <img src="assets/hotspot-tire.png" alt="Seguridad"
+                        <img src="runflat.png" alt="Seguridad"
                             style="filter: brightness(0) invert(1); width: 60px;">
                         <span>Post-Venta Nacional</span>
                     </div>
@@ -311,12 +316,14 @@
     <footer id="site-footer">
         <div class="footer-content">
             <div class="footer-col brand-col">
-                <h4 class="footer-logo">ARMORED SECURITY</h4>
-                <p class="footer-tagline">Security is not an option, it's a necessity.</p>
+                <a href="index.html">
+                    <img src="assets/logopng2.png" alt="Armored Security" class="footer-logo-img">
+                </a>
+                <p class="footer-tagline" data-i18n="footer-tagline">Security is not an option, it's a necessity.</p>
             </div>
 
             <div class="footer-col links-col">
-                <h5>Navegación</h5>
+                <h5 data-i18n="footer-nav-title">Navegación</h5>
                 <ul class="footer-links">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
@@ -326,7 +333,7 @@
             </div>
 
             <div class="footer-col contact-col">
-                <h5>Contacto</h5>
+                <h5 data-i18n="footer-contact-title">Contacto</h5>
                 <p>Manuel J Othon 185, Tránsito, Cuauhtémoc, 06820 Ciudad de México, CDMX</p>
                 <p>+52 55 6818 6170</p>
                 <p><a href="mailto:info@armoredsecurity.com">info@armoredsecurity.com</a></p>
@@ -334,8 +341,8 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2026 Armored Security. Todos los derechos reservados.</p>
-            <a href="#">Política de Privacidad</a>
+            <p data-i18n="footer-rights">&copy; 2026 Armored Security. Todos los derechos reservados.</p>
+            <a href="#" data-i18n="footer-privacy">Política de Privacidad</a>
         </div>
     </footer>
 
@@ -347,6 +354,7 @@
     <!-- Scroll Spacer and GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="translations.js"></script>
     <script src="script.js?v=2"></script>
 </body>
 

@@ -8,13 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="Logo/logoarmored.png">
+    <link rel="icon" href="assets/logopng2.png">
 
     <!-- Social Sharing (Open Graph / WhatsApp) -->
     <meta property="og:title" content="Blindajes Armored Security">
     <meta property="og:description"
         content="Blindaje automotriz de alta seguridad y tecnología avanzada. Protección para ti y tu familia.">
-    <meta property="og:image" content="Logo/logoarmored.png">
+    <meta property="og:image" content="assets/logopng2.png">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#000000">
 
@@ -25,7 +25,7 @@
     <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-content">
-            <h1 class="loader-title">Cargando blindaje</h1>
+            <h1 class="loader-title" data-i18n="loader-title">Cargando blindaje</h1>
             <div class="progress-container">
                 <div class="progress-bar-track">
                     <div class="progress-bar-fill" id="progressFill"></div>
@@ -43,7 +43,7 @@
     <header class="site-header">
         <!-- Logo Top Left -->
         <div class="logo-container">
-            <img src="./Logo/logoarmored.png" alt="Armored Security" class="site-logo">
+            <img src="assets/logopng2.png" alt="Armored Security" class="site-logo">
         </div>
 
         <!-- Hamburger Button -->
@@ -55,10 +55,15 @@
 
         <!-- Navigation Menu -->
         <nav class="main-nav">
-            <a href="#inicio" class="nav-link">Inicio</a>
-            <a href="nosotros.html" class="nav-link">Nosotros</a>
-            <a href="servicios.html" class="nav-link">Servicios</a>
-            <a href="#contacto" class="nav-link">Contacto</a>
+            <a href="#inicio" class="nav-link" data-i18n="nav-inicio">Inicio</a>
+            <a href="nosotros.html" class="nav-link" data-i18n="nav-nosotros">Nosotros</a>
+            <a href="servicios.html" class="nav-link" data-i18n="nav-servicios">Servicios</a>
+            <a href="#contacto" class="nav-link" data-i18n="nav-contacto">Contacto</a>
+            
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="es">ES</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
         </nav>
     </header>
 
@@ -76,9 +81,9 @@
 
         <!-- Hero Title - Right Side -->
         <div class="hero-title-container hero-title-right">
-            <h1 class="hero-main-title">Blindaje perfecto</h1>
+            <h1 class="hero-main-title" data-i18n="hero-main-title">Blindaje perfecto</h1>
             <div class="hero-separator-line"></div>
-            <h2 class="hero-sub-title">Protección invisible</h2>
+            <h2 class="hero-sub-title" data-i18n="hero-sub-title">Protección invisible</h2>
 
             <!-- Logos Certificaciones (Pequeños) -->
             <div class="hero-cert-logos">
@@ -106,9 +111,9 @@
                 <img src="Logo/armored.png" alt="Armored Security" class="intro-logo">
                 <div class="experience-badge intro-badge">
                     <span class="badge-years">+10</span>
-                    <span class="badge-text">AÑOS</span>
-                    <span class="badge-text">BLINDANDO TU SEGURIDAD</span>
-                    <span class="badge-text">Y LA DE TU FAMILIA</span>
+                    <span class="badge-text" data-i18n="badge-years-text">AÑOS</span>
+                    <span class="badge-text" data-i18n="badge-line-1">BLINDANDO TU SEGURIDAD</span>
+                    <span class="badge-text" data-i18n="badge-line-2">Y LA DE TU FAMILIA</span>
                 </div>
             </div>
 
@@ -121,8 +126,8 @@
                     <div class="callout-line"></div>
                     <div class="callout-box">
                         <div class="img-container">
-                            <img src="assets/hotspot-glass.png" alt="Blindaje Cristales">
-                            <span>BLINDAJE DE CRISTALES</span>
+                            <img src="glass1.png" alt="Blindaje Cristales">
+                            <span data-i18n="hotspot-glass">BLINDAJE DE CRISTALES</span>
                         </div>
                     </div>
                 </div>
@@ -136,7 +141,7 @@
                     <div class="callout-box">
                         <div class="img-container">
                             <img src="assets/hotspot-door.png" alt="Protección Lateral">
-                            <span>PROTECCIÓN LATERAL</span>
+                            <span data-i18n="hotspot-side">PROTECCIÓN LATERAL</span>
                         </div>
                     </div>
                 </div>
@@ -149,8 +154,8 @@
                     <div class="callout-line"></div>
                     <div class="callout-box">
                         <div class="img-container">
-                            <img src="assets/hotspot-tire.png" alt="Sistema Run-Flat">
-                            <span>SISTEMA RUN-FLAT</span>
+                            <img src="runflat.png" alt="Sistema Run-Flat">
+                            <span data-i18n="hotspot-runflat">SISTEMA RUN-FLAT</span>
                         </div>
                     </div>
                 </div>
@@ -164,12 +169,17 @@
             <source src="video-hero-movil/section-3-video.mp4" type="video/mp4">
         </video>
         <div class="content-wrapper">
-            <h2>Blindajes<br>Armored Security</h2>
-            <p>Somos una empresa mexicana cuyo principal objetivo es satisfacer necesidades de seguridad, a través de:
+            <h2 data-i18n="black-section-title">Blindajes<br>Armored Security</h2>
+            <p data-i18n="black-section-p">Somos una empresa mexicana cuyo principal objetivo es satisfacer necesidades de seguridad, a través de:
                 equipamiento, cursos de capacitación y blindajes, así como con la venta de equipos de seguridad a
                 instituciones públicas y privadas con insumos de valor agregado y tecnologías de vanguardia. Las
                 instituciones más prestigiadas del país han sido testigos de la experiencia y profesionalismo de Armored
                 Security.</p>
+            
+            <!-- YouTube Video Wrapper -->
+            <div class="black-section-video-wrapper">
+                <iframe src="https://www.youtube.com/embed/H3KJnlydaIQ?rel=0" title="Blindajes Armored Security YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
         </div>
 
 
@@ -191,8 +201,8 @@
                 <source src="video-hero-movil/14.mp4" type="video/mp4">
             </video>
             <div class="overlay">
-                <h3>Blindaje<br>Gubernamental</h3>
-                <p>Protección especializada para funcionarios e instituciones.</p>
+                <h3 data-i18n="service-gov">Blindaje<br>Gubernamental</h3>
+                <p data-i18n="service-gov-p">Protección especializada para funcionarios e instituciones.</p>
             </div>
         </div>
 
@@ -204,8 +214,8 @@
                 <source src="video-hero-movil/15.mp4" type="video/mp4">
             </video>
             <div class="overlay">
-                <h3>Blindaje<br>Empresarial</h3>
-                <p>Seguridad integral para ejecutivos y corporativos.</p>
+                <h3 data-i18n="service-corp">Blindaje<br>Empresarial</h3>
+                <p data-i18n="service-corp-p">Seguridad integral para ejecutivos y corporativos.</p>
             </div>
         </div>
 
@@ -217,8 +227,8 @@
                 <source src="video-hero-movil/16.mp4" type="video/mp4">
             </video>
             <div class="overlay">
-                <h3>Blindaje<br>Particular</h3>
-                <p>Tranquilidad y seguridad para ti y tu familia.</p>
+                <h3 data-i18n="service-private">Blindaje<br>Particular</h3>
+                <p data-i18n="service-private-p">Tranquilidad y seguridad para ti y tu familia.</p>
             </div>
         </div>
     </section>
@@ -227,28 +237,28 @@
     <section id="shielding-presentation">
         <!-- Horizontal Levels Strip -->
         <div class="levels-strip-container">
-            <h3 class="levels-title">NIVELES DE BLINDAJE</h3>
+            <h3 class="levels-title" data-i18n="levels-title">NIVELES DE BLINDAJE</h3>
             <div class="levels-track">
                 <!-- Level 2 -->
                 <div class="level-item">
                     <div class="shield-icon">
                         <span>II</span>
                     </div>
-                    <p class="level-name">Nivel 2</p>
+                    <p class="level-name"><span data-i18n="level-name">Nivel</span> 2</p>
                 </div>
                 <!-- Level 3 -->
                 <div class="level-item">
                     <div class="shield-icon">
                         <span>III</span>
                     </div>
-                    <p class="level-name">Nivel 3</p>
+                    <p class="level-name"><span data-i18n="level-name">Nivel</span> 3</p>
                 </div>
                 <!-- Level 3+ -->
                 <div class="level-item">
                     <div class="shield-icon">
                         <span>III+</span>
                     </div>
-                    <p class="level-name">Nivel 3+</p>
+                    <p class="level-name"><span data-i18n="level-name">Nivel</span> 3+</p>
                 </div>
                 <!-- K85 -->
                 <div class="level-item">
@@ -262,21 +272,21 @@
                     <div class="shield-icon">
                         <span>IV</span>
                     </div>
-                    <p class="level-name">Nivel 4</p>
+                    <p class="level-name"><span data-i18n="level-name">Nivel</span> 4</p>
                 </div>
                 <!-- Level 4+ -->
                 <div class="level-item">
                     <div class="shield-icon">
                         <span>IV+</span>
                     </div>
-                    <p class="level-name">Nivel 4+</p>
+                    <p class="level-name"><span data-i18n="level-name">Nivel</span> 4+</p>
                 </div>
                 <!-- Level 5+ -->
                 <div class="level-item">
                     <div class="shield-icon">
                         <span>V+</span>
                     </div>
-                    <p class="level-name">Nivel 5+</p>
+                    <p class="level-name"><span data-i18n="level-name">Nivel</span> 5+</p>
                 </div>
             </div>
 
@@ -322,10 +332,10 @@
 
             <!-- Certificaciones secundarias centradas, en dos bloques -->
             <div class="certificaciones-bottom">
-                <h2 class="cert-bottom-title">NUESTRAS CERTIFICACIONES Y VINCULACIONES</h2>
+                <h2 class="cert-bottom-title" data-i18n="cert-bottom-title">NUESTRAS CERTIFICACIONES Y VINCULACIONES</h2>
                 <div class="cert-separator-line"></div>
 
-                <p class="cert-bottom-text">
+                <p class="cert-bottom-text" data-i18n="cert-bottom-text">
                     En Blindajes Armored Security estamos comprometidos en dar soluciones de seguridad y protección a
                     nuestros clientes. Nuestros Cristales se encuentran en mejora continua para investigación y
                     desarrollo. Contamos con el equipo de expertos que ha desarrollado procesos, materiales y tecnología
@@ -361,12 +371,12 @@
             </video>
             <div class="video-overlay"></div>
             <div class="video-text-content">
-                <h2 class="parallax-video-title">Experiencia y calidad</h2>
-                <p>Contamos con el mejor equipo técnico y humano para garantizar la calidad en cada paso del proceso de
+                <h2 class="parallax-video-title" data-i18n="parallax-video-title">Experiencia y calidad</h2>
+                <p data-i18n="parallax-video-p1">Contamos con el mejor equipo técnico y humano para garantizar la calidad en cada paso del proceso de
                     elaboración del vidrio.</p>
-                <p>Nuestro personal está altamente capacitado para el manejo de los componentes y el uso de la
+                <p data-i18n="parallax-video-p2">Nuestro personal está altamente capacitado para el manejo de los componentes y el uso de la
                     maquinaria especializada.</p>
-                <p>La autoclave, parte fundamental en la elaboración del vidrio está catalogada entre las más grandes de
+                <p data-i18n="parallax-video-p3">La autoclave, parte fundamental en la elaboración del vidrio está catalogada entre las más grandes de
                     América Latina, es por eso que ofrecemos.</p>
             </div>
         </div>
@@ -375,36 +385,36 @@
     <!-- NEW CONTACT SECTION -->
     <section id="contacto" class="contact-section">
         <div class="contact-container">
-            <h2 class="contact-title">CONTÁCTANOS</h2>
+            <h2 class="contact-title" data-i18n="contact-title">CONTÁCTANOS</h2>
             <div class="contact-separator"></div>
-            <p class="contact-text">
+            <p class="contact-text" data-i18n="contact-subtitle">
                 Déjanos tus datos y un asesor experto en seguridad se comunicará contigo a la brevedad.
             </p>
 
             <form class="contact-form" action="#" method="POST">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="name">Nombre completo</label>
-                        <input type="text" id="name" name="name" required placeholder="Tu nombre y apellido">
+                        <label for="name" data-i18n="form-name">Nombre completo</label>
+                        <input type="text" id="name" name="name" required placeholder="Tu nombre y apellido" data-i18n-placeholder="form-placeholder-name">
                     </div>
                     <div class="form-group">
-                        <label for="phone">Teléfono</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="Tu número de teléfono">
+                        <label for="phone" data-i18n="form-phone">Teléfono</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Tu número de teléfono" data-i18n-placeholder="form-placeholder-phone">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                    <label for="email" data-i18n="form-email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com" data-i18n-placeholder="form-placeholder-email">
                 </div>
 
                 <div class="form-group">
-                    <label for="message">Mensaje / Requerimiento</label>
+                    <label for="message" data-i18n="form-message">Mensaje / Requerimiento</label>
                     <textarea id="message" name="message" rows="4" required
-                        placeholder="Cuéntanos cómo podemos ayudarte..."></textarea>
+                        placeholder="Cuéntanos cómo podemos ayudarte..." data-i18n-placeholder="form-placeholder-message"></textarea>
                 </div>
 
-                <button type="submit" class="contact-submit-btn">ENVIAR MENSAJE</button>
+                <button type="submit" class="contact-submit-btn" data-i18n="form-submit">ENVIAR MENSAJE</button>
             </form>
         </div>
     </section>
@@ -414,13 +424,15 @@
         <div class="footer-content">
             <!-- Col 1: Brand -->
             <div class="footer-col brand-col">
-                <h4 class="footer-logo">ARMORED SECURITY</h4>
-                <p class="footer-tagline">Security is not an option, it's a necessity.</p>
+                <a href="#inicio">
+                    <img src="assets/logopng2.png" alt="Armored Security" class="footer-logo-img">
+                </a>
+                <p class="footer-tagline" data-i18n="footer-tagline">Security is not an option, it's a necessity.</p>
             </div>
 
             <!-- Col 2: Links -->
             <div class="footer-col links-col">
-                <h5>Navegación</h5>
+                <h5 data-i18n="footer-nav-title">Navegación</h5>
                 <ul class="footer-links">
                     <li><a href="#">Inicio</a></li>
                     <li><a href="#services-videos">Servicios</a></li>
@@ -431,7 +443,7 @@
 
             <!-- Col 3: Contact -->
             <div class="footer-col contact-col">
-                <h5>Contacto</h5>
+                <h5 data-i18n="footer-contact-title">Contacto</h5>
                 <p>Manuel J Othon 185, Tránsito, Cuauhtémoc, 06820 Ciudad de México, CDMX</p>
                 <p>+52 55 6818 6170</p>
                 <p><a href="mailto:info@armoredsecurity.com">info@armoredsecurity.com</a></p>
@@ -439,8 +451,8 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2026 Armored Security. Todos los derechos reservados.</p>
-            <a href="#">Política de Privacidad</a>
+            <p data-i18n="footer-rights">&copy; 2026 Armored Security. Todos los derechos reservados.</p>
+            <a href="#" data-i18n="footer-privacy">Política de Privacidad</a>
         </div>
     </footer>
 
@@ -460,6 +472,7 @@
     <!-- Scroll Spacer and GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="translations.js"></script>
     <script src="script.js?v=2"></script>
 </body>
 

@@ -8,13 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="Logo/logoarmored.png">
+    <link rel="icon" href="assets/logopng2.png">
 
     <!-- Social Sharing (Open Graph / WhatsApp) -->
     <meta property="og:title" content="Nosotros - Blindajes Armored Security">
     <meta property="og:description"
         content="Conoce nuestra historia y compromiso con la protección y seguridad en México.">
-    <meta property="og:image" content="Logo/logoarmored.png">
+    <meta property="og:image" content="assets/logopng2.png">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#000000">
 
@@ -29,7 +29,7 @@
         <!-- Logo Top Left -->
         <div class="logo-container">
             <a href="index.html">
-                <img src="./Logo/logoarmored.png" alt="Armored Security" class="site-logo">
+                <img src="assets/logopng2.png" alt="Armored Security" class="site-logo">
             </a>
         </div>
 
@@ -42,10 +42,15 @@
 
         <!-- Navigation Menu -->
         <nav class="main-nav">
-            <a href="index.html" class="nav-link">Inicio</a>
-            <a href="nosotros.html" class="nav-link" style="color:#B91C1C;">Nosotros</a>
-            <a href="servicios.html" class="nav-link">Servicios</a>
-            <a href="index.html#contacto" class="nav-link">Contacto</a>
+            <a href="index.html" class="nav-link" data-i18n="nav-inicio">Inicio</a>
+            <a href="nosotros.html" class="nav-link" style="color:#B91C1C;" data-i18n="nav-nosotros">Nosotros</a>
+            <a href="servicios.html" class="nav-link" data-i18n="nav-servicios">Servicios</a>
+            <a href="index.html#contacto" class="nav-link" data-i18n="nav-contacto">Contacto</a>
+            
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="es">ES</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
         </nav>
     </header>
 
@@ -54,15 +59,15 @@
         <!-- Top Split Header -->
         <div class="hero-header-split">
             <h1 class="nosotros-main-title-new">
-                <span class="title-line-1">Protección Integral y Tecnología Avanzada</span>
+                <span class="title-line-1" data-i18n="nosotros-hero-title-1">Protección Integral y Tecnología Avanzada</span>
                 <div class="nosotros-red-line"></div>
-                <span class="title-line-2">Un solo equipo, desde la ingeniería hasta la entrega</span>
+                <span class="title-line-2" data-i18n="nosotros-hero-title-2">Un solo equipo, desde la ingeniería hasta la entrega</span>
             </h1>
             <div class="nosotros-header-text">
-                <p>En Blindajes Armored Security nos consolidamos como referentes en el sector de seguridad en México.
+                <p data-i18n="nosotros-hero-p1">En Blindajes Armored Security nos consolidamos como referentes en el sector de seguridad en México.
                     Especializados en blindaje certificado para instituciones y ejecutivos de alto nivel, utilizando
                     tecnologías de vanguardia e insumos de valor agregado.</p>
-                <p>En nuestra división de vidrios se investiga y prueban materiales garantizando su resistencia.
+                <p data-i18n="nosotros-hero-p2">En nuestra división de vidrios se investiga y prueban materiales garantizando su resistencia.
                     Certificados por H.P. WHITE LABORATORY, INC. HPWLI 10801-01B bajo las más estrictas normas de
                     calidad.</p>
                 <div class="scroll-indicator">&#x2192;</div>
@@ -74,36 +79,36 @@
             <div class="carousel-track" id="nosotrosCarouselTrack">
                 <!-- Original set -->
                 <img src="NOSOTROS/IMG_1501.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_1566.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_1580.JPG" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_3830.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_3831.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_4178.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_4179.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_4185.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_4186.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_4187.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_4189.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_4298.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_4300.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_4319.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_4322.jpg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.38.50%20(1).jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.41.05%20(3).jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.45.44%20(4).jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.45.44%20(6).jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.45.44.jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.45.45%20(3).jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.45.45.jpeg" alt="Blindaje Armored Security" class="carousel-slide">
                 <!-- Duplicated set for infinite loop -->
                 <img src="NOSOTROS/IMG_1501.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_1566.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_1580.JPG" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_3830.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_3831.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_4178.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_4179.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_4185.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_4186.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_4187.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_4189.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_4298.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_4300.jpg" alt="Blindaje Armored Security" class="carousel-slide">
                 <img src="NOSOTROS/IMG_4319.jpg" alt="Blindaje Armored Security" class="carousel-slide">
-                <img src="NOSOTROS/IMG_4322.jpg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.38.50%20(1).jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.41.05%20(3).jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.45.44%20(4).jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.45.44%20(6).jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.45.44.jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.45.45%20(3).jpeg" alt="Blindaje Armored Security" class="carousel-slide">
+                <img src="NOSOTROS/WhatsApp%20Image%202026-03-05%20at%2019.45.45.jpeg" alt="Blindaje Armored Security" class="carousel-slide">
             </div>
         </div>
     </section>
@@ -121,19 +126,19 @@
 
             <!-- Text Column -->
             <div class="nosotros-about-text">
-                <h2 class="nosotros-about-title">Nuestra Historia</h2>
+                <h2 class="nosotros-about-title" data-i18n="nosotros-history-title">Nuestra Historia</h2>
                 <div class="nosotros-about-line"></div>
-                <p>Blindajes Armored Security es una empresa mexicana fundada en el año 2007, contando así con 15 años
+                <p data-i18n="nosotros-history-p1">Blindajes Armored Security es una empresa mexicana fundada en el año 2007, contando así con 15 años
                     de experiencia, cuyo principal objetivo es satisfacer necesidades de seguridad, a través de
                     blindajes certificados tanto opaco como transparente a instituciones públicas y privadas con insumos
-                    de valor agregado y tecnologías de vanguardia. Las instituciones más prestigiadas del país han sido
+                    de valor agregado and tecnologías de vanguardia. Las instituciones más prestigiadas del país han sido
                     testigos de la experiencia y profesionalismo de Blindajes Armored Security.</p>
-                <p>Abarcamos todos estos sectores y niveles teniendo la experiencia adecuada en el ramo, hemos trabajado
+                <p data-i18n="nosotros-history-p2">Abarcamos todos estos sectores y niveles teniendo la experiencia adecuada en el ramo, hemos trabajado
                     con compañías pequeñas y grandes, así como desde personas individuales hasta empresas
                     gubernamentales con altos ejecutivos. Nuestra planta de producción y equipamiento se encuentra en la
                     zona centro de la Ciudad de México y está diseñada para cumplir con los más altos estándares y
                     regulaciones en materia de calidad, seguridad y tecnología.</p>
-                <p>Nuestro proceso de blindaje inicia con la compra de las unidades más recientes en acuerdo comercial
+                <p data-i18n="nosotros-history-p3">Nuestro proceso de blindaje inicia con la compra de las unidades más recientes en acuerdo comercial
                     con las mejores agencias a nivel nacional, lo que nos permite obtener un precio altamente
                     competitivo para su adquisición.</p>
             </div>
@@ -147,29 +152,51 @@
             <div class="blindaje-split-grid">
                 <!-- Intro Text -->
                 <div class="blindaje-intro-text">
-                    <h2 class="nosotros-about-title" style="color:#1a1a1a;">BLINDAJE</h2>
+                    <h2 class="nosotros-about-title" style="color:#1a1a1a;" data-i18n="nosotros-blindaje-title">BLINDAJE</h2>
                     <div class="nosotros-about-line"></div>
-
-                    <p>En Blindajes Armored Security los vehículos se prueban bajo las normas de calidad vigentes y se
+                    <p data-i18n="nosotros-blindaje-p1">En Blindajes Armored Security los vehículos se prueban bajo las normas de calidad vigentes y se
                         trabaja con la premisa de cuidar la seguridad de los clientes. Las pruebas se hacen para
-                        comprobar
-                        la seguridad exterior del vehículo; por esta razón, el vehículo es desmontado en su totalidad.
-                    </p>
-                    <p>Para el cumplimiento de su principal objetivo, Blindajes Armored Security se apoya en un
-                        laboratorio
-                        de ensayo balístico con la última tecnología (Mellrichstadt National Ballistics Laboratory), que
+                        comprobar la seguridad exterior del vehículo; por esta razón, el vehículo es desmontado en su totalidad.</p>
+                    <p data-i18n="nosotros-blindaje-p2">Para el cumplimiento de su principal objetivo, Blindajes Armored Security se apoya en un
+                        laboratorio de ensayo balístico con la última tecnología (Mellrichstadt National Ballistics Laboratory), que
                         certifica el blindaje de vehículos y materiales anti-balísticos.</p>
-                    <p>Uno de los valores agregados que Blindajes Armored Security otorga en el proceso industrial, es
-                        la
-                        incorporación del blindaje al vehículo desde el inicio del armado, a partir de unidades CKD, SKD
-                        o
-                        CBU, preservando las mismas características del vehículo original. Así mismo se está trabajando
-                        para
-                        la certificación ISO 9001.</p>
+                    <p data-i18n="nosotros-blindaje-p3">Uno de los valores agregados que Blindajes Armored Security otorga en el proceso industrial, es
+                        la incorporación del blindaje al vehículo desde el inicio del armado, preservando las mismas características del vehículo original. Así mismo se está trabajando para la certificación ISO 9001.</p>
                 </div>
 
                 <!-- Accordion -->
                 <div class="blindaje-accordion">
+                    <!-- ULTRA LITE 12 mm -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span class="accordion-level">ULTRA LITE 12 mm</span>
+                            <span class="accordion-icon">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-grid">
+                                <div class="ac-col"><strong>Espesor de cristales:</strong> 12 mm</div>
+                                <div class="ac-col"><strong>Tipo de ojiva:</strong> Semi-Encamisado / Semi-Encamisado</div>
+                                <div class="ac-col"><strong>Metodología de prueba:</strong> Tres impactos en los vértices de un triángulo a 10 +/- 1 cm</div>
+                                <div class="ac-full"><strong>Equivalente a:</strong> KIT DE SEGURIDAD ULTRA LITE 9 mm, 22 mm Y 25 mm</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ULTRA LITE 17 mm -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span class="accordion-level">ULTRA LITE 17 mm</span>
+                            <span class="accordion-icon">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-grid">
+                                <div class="ac-col"><strong>Espesor de cristales:</strong> 17 mm</div>
+                                <div class="ac-col"><strong>Tipo de ojiva:</strong> Semi-Encamisado / Semi-Encamisado</div>
+                                <div class="ac-col"><strong>Metodología de prueba:</strong> Tres impactos en los vértices de un triángulo a 10 +/- 1 cm</div>
+                                <div class="ac-full"><strong>Equivalente a:</strong> KIT DE SEGURIDAD ULTRA LITE 22 mm, 25 mm Y 38 mm</div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Nivel 2 -->
                     <div class="accordion-item">
                         <button class="accordion-header">
@@ -326,13 +353,15 @@
         <div class="footer-content">
             <!-- Col 1: Brand -->
             <div class="footer-col brand-col">
-                <h4 class="footer-logo">ARMORED SECURITY</h4>
-                <p class="footer-tagline">Security is not an option, it's a necessity.</p>
+                <a href="index.html">
+                    <img src="assets/logopng2.png" alt="Armored Security" class="footer-logo-img">
+                </a>
+                <p class="footer-tagline" data-i18n="footer-tagline">Security is not an option, it's a necessity.</p>
             </div>
 
             <!-- Col 2: Links -->
             <div class="footer-col links-col">
-                <h5>Navegación</h5>
+                <h5 data-i18n="footer-nav-title">Navegación</h5>
                 <ul class="footer-links">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="index.html#services-videos">Servicios</a></li>
@@ -343,7 +372,7 @@
 
             <!-- Col 3: Contact -->
             <div class="footer-col contact-col">
-                <h5>Contacto</h5>
+                <h5 data-i18n="footer-contact-title">Contacto</h5>
                 <p>Manuel J Othon 185, Tránsito, Cuauhtémoc, 06820 Ciudad de México, CDMX</p>
                 <p>+52 55 6818 6170</p>
                 <p><a href="mailto:info@armoredsecurity.com">info@armoredsecurity.com</a></p>
@@ -351,8 +380,8 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2026 Armored Security. Todos los derechos reservados.</p>
-            <a href="#">Política de Privacidad</a>
+            <p data-i18n="footer-rights">&copy; 2026 Armored Security. Todos los derechos reservados.</p>
+            <a href="#" data-i18n="footer-privacy">Política de Privacidad</a>
         </div>
     </footer>
 
@@ -364,6 +393,7 @@
     <!-- Scroll Spacer and GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>
 

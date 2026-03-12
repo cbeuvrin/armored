@@ -44,10 +44,11 @@ body {
 }
 
 .site-logo {
-    height: 60px;
+    height: 110px;
     width: auto;
     display: block;
-    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.1));
+    /* Golden/yellow light glow behind the PNG logo */
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
     transition: all 0.3s ease;
 }
 
@@ -100,19 +101,98 @@ body.scrolled-header .nav-link:hover {
 }
 
 body.scrolled-header .logo-container {
-    background: #FFFFFF;
+    background: transparent;
     border-radius: 15px;
     padding: 5px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
     top: 25px;
     transition: all 0.3s ease;
 }
 
-/* On Nosotros page, remove the white logo background */
+/* On Nosotros page, remove the white logo background (redundant now but kept for specificity) */
 body.nosotros-page .logo-container {
     background: transparent;
     box-shadow: none;
     border: none;
+}
+
+/* Language Switcher */
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    padding-left: 15px;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 5px 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+
+.lang-btn:hover {
+    opacity: 1;
+    color: #B91C1C;
+}
+
+.lang-btn.active {
+    opacity: 1;
+    color: #B91C1C;
+    position: relative;
+}
+
+.lang-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: #B91C1C;
+    border-radius: 50%;
+}
+
+body.scrolled-header .lang-btn {
+    color: #FFFFFF;
+}
+
+body.scrolled-header .lang-btn.active, 
+body.scrolled-header .lang-btn:hover {
+    color: #FFFFFF;
+}
+
+body.scrolled-header .lang-btn.active::after {
+    background: #FFFFFF;
+}
+
+body.scrolled-header .lang-switcher {
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile Adjustments for Switcher */
+@media (max-width: 768px) {
+    .lang-switcher {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        margin-top: 20px;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .lang-btn {
+        font-size: 1.1rem;
+        padding: 10px 20px;
+    }
 }
 
 /* ========================================
@@ -997,8 +1077,8 @@ body.nosotros-page .logo-container {
 .carousel-track {
     display: flex;
     gap: 2rem;
-    padding-left: 100vw;
-    /* Start off-screen */
+    padding-left: 0;
+    /* Start on-screen */
     width: max-content;
     /* Allow full width of items */
     will-change: transform;
@@ -1595,6 +1675,30 @@ body.nosotros-page .logo-container {
     /* Hide on desktop */
 }
 
+/* ========================================
+   BLACK SECTION YOUTUBE VIDEO
+   ======================================== */
+.black-section-video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Optional: limit width on large screens */
+    margin: 40px auto 0; /* Center and add space from text */
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px; /* Smooth corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Deep shadow */
+}
+
+.black-section-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 .service-item {
     flex: 1;
     position: relative;
@@ -2055,6 +2159,24 @@ body.nosotros-page .logo-container {
     font-size: 0.9rem;
     line-height: 1.6;
     max-width: 300px;
+}
+
+.footer-logo-img {
+    height: 110px;
+    width: auto;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    background: transparent;
+    border-radius: 12px;
+    padding: 8px 0px;
+    box-shadow: none;
+    /* Golden/yellow light glow behind the PNG logo */
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+    transition: transform 0.3s ease;
+}
+
+.footer-logo-img:hover {
+    transform: scale(1.05);
 }
 
 /* Links Column */
@@ -2674,8 +2796,8 @@ body.nosotros-page .logo-container {
     /* Light grey requested by user */
     color: #333333;
     /* Dark text */
-    padding-top: 140px;
-    /* Space for fixed header */
+    padding-top: 210px;
+    /* Space for fixed header, increased to separate from menu */
     padding-bottom: 60px;
     width: 100%;
     min-height: 100vh;
@@ -2696,7 +2818,7 @@ body.nosotros-page .logo-container {
 .nosotros-main-title-new {
     flex: 1;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 3.2rem;
+    font-size: 2.6rem;
     font-weight: 700;
     line-height: 1.2;
     color: #1a1a1a;
@@ -2782,7 +2904,7 @@ body.nosotros-page .logo-container {
     }
 
     100% {
-        transform: translateX(-50%);
+        transform: translateX(calc(-50% - 8px)); /* adjust loop with margin */
     }
 }
 
@@ -3834,7 +3956,13 @@ body.nosotros-page .hamburger .bar {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
+    align-items: start;
+    align-content: start;
+    justify-items: stretch;
 }
+
+
+
 
 .service-grid-card {
     position: relative;
@@ -3844,11 +3972,29 @@ body.nosotros-page .hamburger .bar {
     background: #000;
     cursor: pointer;
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    margin: 0 !important;
+    padding: 0 !important;
+    align-self: start;
+    top: 0;
 }
+
+
+
+
 
 .service-grid-card.full-width {
     grid-column: span 2;
     height: 500px;
+}
+
+/* Expansion Logic */
+.service-grid-card.expanded {
+    height: auto;
+    min-height: 450px;
+}
+
+.service-grid-card.full-width.expanded {
+    min-height: 500px;
 }
 
 .service-grid-card video {
@@ -3858,13 +4004,14 @@ body.nosotros-page .hamburger .bar {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.6;
-    transition: opacity 0.5s ease, transform 0.8s ease;
+    opacity: 0.95;
 }
 
+
 .service-grid-card:hover video {
-    opacity: 0.8;
+    opacity: 1;
     transform: scale(1.05);
+    transition: opacity 0.5s ease, transform 0.8s ease;
 }
 
 .card-overlay {
@@ -3873,13 +4020,40 @@ body.nosotros-page .hamburger .bar {
     left: 0;
     width: 100%;
     padding: 40px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 60%);
     color: #fff;
     pointer-events: none;
 }
 
+.service-grid-card.expanded .card-overlay {
+    pointer-events: auto;
+}
+
+
 .card-content {
-    max-width: 500px;
+    max-width: 800px;
+    transition: all 0.6s ease;
+}
+
+.card-description {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 0;
+}
+
+.service-grid-card.expanded .card-description {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 25px;
+}
+
+.card-description p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
 }
 
 .card-num {
@@ -3896,13 +4070,18 @@ body.nosotros-page .hamburger .bar {
     font-size: 2.5rem;
     margin-bottom: 15px;
     line-height: 1.1;
+    color: #fff;
+    transition: all 0.5s ease;
+}
+
+.service-grid-card.expanded h3 {
+    font-size: 3rem;
 }
 
 .service-grid-card p {
     font-size: 1.05rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
-    opacity: 1;
     transition: opacity 0.5s ease;
 }
 
@@ -3916,6 +4095,14 @@ body.nosotros-page .hamburger .bar {
     }
 
     .service-grid-card {
-        height: 400px;
+        min-height: 400px;
+    }
+    
+    .service-grid-card.expanded {
+        height: auto;
+    }
+    
+    .service-grid-card.expanded h3 {
+        font-size: 2.2rem;
     }
 }
