@@ -55,6 +55,9 @@ function init() {
 
     // Setup Language Switcher
     setupLanguageSwitcher();
+
+    // Setup Background Music
+    setupBackgroundMusic();
 }
 
 // ========================================
@@ -269,29 +272,42 @@ function setupSequentialAnimation() {
         return;
     }
 
+    // ── Device detection ──────────────────────────────────────────────────────
+    const W = window.innerWidth;
+    const isMobileDevice = W <= 768;
+    const isTabletDevice  = W > 768 && W <= 1024;
+    // isDesktop = everything else
+
+    // Per-device scroll config
+    // Mobile  → shorter pin (2 blocks), faster scrub, NO snap (touch conflicts)
+    // Tablet  → medium pin (3 blocks), medium scrub, NO snap (safer on touch)
+    // Desktop → full 4-block experience with snap
+    const scrollDist = isMobileDevice ? '+=200%' : isTabletDevice ? '+=300%' : '+=400%';
+    const scrubVal   = isMobileDevice ? 0.8       : isTabletDevice ? 1.0      : 1.5;
+    const useSnap    = !isMobileDevice && !isTabletDevice; // snap only on desktop
+
     // Initial Setup: Hide all hotspots
     gsap.set('.hotspot', { opacity: 0, scale: 0.5 });
     gsap.set('.hotspot-callout', { opacity: 0, visibility: 'hidden' });
 
     // ─────────────────────────────────────────────────────────────────────────
-    // MAIN TIMELINE  —  3 SCROLL BLOCKS,  300vh pinned
-    //
-    //  Block 1 (~100vh): Car eases to frame 14  →  Hotspot Cristales
-    //  Block 2 (~100vh): Car eases to frame 45  →  Hotspot Puertas
-    //  Block 3 (~100vh): Car eases to frame 79  →  Hotspot Suspensión
+    // MAIN TIMELINE
+    //  Desktop  (>1024px):  4 blocks, 400vh, scrub 1.5, snap
+    //  Tablet   (769-1024): 3 blocks, 300vh, scrub 1.0, no snap
+    //  Mobile   (≤768px):   2 blocks, 200vh, scrub 0.8, no snap
     // ─────────────────────────────────────────────────────────────────────────
     const tl = gsap.timeline({
         scrollTrigger: {
             trigger: '#hero-blindaje',
             start: 'top top',
-            end: '+=300%',          // 3 full viewport‑heights → 3 scroll blocks
-            scrub: 1.5,             // Heavier scrub = more inertia, cinematic weight
+            end: scrollDist,
+            scrub: scrubVal,
             pin: true,
-            snap: {
-                snapTo: 'labels',   // Snap to each addLabel() anchor
+            snap: useSnap ? {
+                snapTo: 'labels',
                 duration: { min: 0.4, max: 0.9 },
                 ease: 'power2.inOut'
-            },
+            } : false,
             onEnter:     () => document.body.classList.remove('scrolled-header'),
             onLeave:     () => document.body.classList.add('scrolled-header'),
             onEnterBack: () => document.body.classList.remove('scrolled-header'),
@@ -316,34 +332,30 @@ function setupSequentialAnimation() {
     });
 
     // ╔══════════════════════════════╗
-    // ║  BLOCK 1  —  Cristales       ║
+    // ║  BLOCK 1  —  Cristales       ║ (ALL devices)
     // ╚══════════════════════════════╝
     tl.addLabel('start');
 
-    // Smooth rotation: ease-in at beginning, ease-out as it lands on frame 14
     tl.to(state, { currentFrame: 14, ease: 'power2.inOut', duration: 6 });
 
-    // Hotspot pops in as the car settles
     tl.to('#hotspot-cristales', { opacity: 1, scale: 1, duration: 1.5, ease: 'back.out(1.5)' });
     tl.to('#hotspot-cristales .hotspot-callout', { opacity: 1, visibility: 'visible', duration: 1 }, '<+0.3');
 
-    tl.addLabel('block1');          // ← scroll snaps here
+    tl.addLabel('block1');
 
-    // Hold — user reads the hotspot for a full "block" worth of scroll
     tl.to({}, { duration: 4 });
 
-    // Callout exits before the car starts rotating again
+    // Callout exits before next rotation
     tl.to('#hotspot-cristales .hotspot-callout', { opacity: 0, visibility: 'hidden', duration: 0.8 });
     tl.to('#hotspot-cristales', { opacity: 0, scale: 0.5, duration: 0.6 }, '<+0.2');
 
     // ╔══════════════════════════════╗
-    // ║  BLOCK 2  —  Puertas         ║
+    // ║  BLOCK 2  —  Puertas         ║ (ALL devices)
     // ╚══════════════════════════════╝
 
-    // Longer rotation segment = feels more satisfying/complete
     tl.to(state, { currentFrame: 45, ease: 'power2.inOut', duration: 7 });
 
-    // Fade intro overlay mid‑rotation (logo + badge drift right)
+    // Fade intro overlay mid-rotation
     tl.to(['.intro-logo', '.intro-badge', '.intro-badge span'], {
         opacity: 0, x: 50, duration: 1, ease: 'power2.in'
     }, '<+2');
@@ -351,7 +363,7 @@ function setupSequentialAnimation() {
     tl.to('#hotspot-puertas', { opacity: 1, scale: 1, duration: 1.5, ease: 'back.out(1.5)' });
     tl.to('#hotspot-puertas .hotspot-callout', { opacity: 1, visibility: 'visible', duration: 1 }, '<+0.3');
 
-    tl.addLabel('block2');          // ← scroll snaps here
+    tl.addLabel('block2');
 
     tl.to({}, { duration: 4 });
 
@@ -359,15 +371,35 @@ function setupSequentialAnimation() {
     tl.to('#hotspot-puertas', { opacity: 0, scale: 0.5, duration: 0.6 }, '<+0.2');
 
     // ╔══════════════════════════════╗
-    // ║  BLOCK 3  —  Suspensión      ║
+    // ║  BLOCK 3  —  Suspensión      ║ (Tablet + Desktop only)
     // ╚══════════════════════════════╝
+    if (!isMobileDevice) {
 
-    tl.to(state, { currentFrame: 79, ease: 'power2.inOut', duration: 7 });
+        tl.to(state, { currentFrame: 79, ease: 'power2.inOut', duration: 7 });
 
-    tl.to('#hotspot-suspension', { opacity: 1, scale: 1, duration: 1.5, ease: 'back.out(1.5)' });
-    tl.to('#hotspot-suspension .hotspot-callout', { opacity: 1, visibility: 'visible', duration: 1 }, '<+0.3');
+        tl.to('#hotspot-suspension', { opacity: 1, scale: 1, duration: 1.5, ease: 'back.out(1.5)' });
+        tl.to('#hotspot-suspension .hotspot-callout', { opacity: 1, visibility: 'visible', duration: 1 }, '<+0.3');
 
-    tl.addLabel('block3');          // ← scroll snaps here (final resting position)
+        tl.addLabel('block3');
+
+        tl.to({}, { duration: 4 });
+
+        // ╔══════════════════════════════════════════════════╗
+        // ║  BLOCK 4  —  Salida / Exit  (Desktop only)       ║
+        // ╚══════════════════════════════════════════════════╝
+        if (!isTabletDevice) {
+
+            tl.to('#hotspot-suspension .hotspot-callout', { opacity: 0, visibility: 'hidden', duration: 0.8 });
+            tl.to('#hotspot-suspension', { opacity: 0, scale: 0.5, duration: 0.6 }, '<+0.2');
+
+            // Car finishes its rotation on the way out
+            tl.to(state, { currentFrame: 95, ease: 'power2.in', duration: 4 });
+
+            tl.addLabel('block4');
+
+            tl.to({}, { duration: 2 });
+        }
+    }
 
 }
 
@@ -1141,4 +1173,63 @@ function setLanguage(lang) {
     if (typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.refresh();
     }
+}
+
+// ========================================
+// BACKGROUND MUSIC
+// ========================================
+
+function setupBackgroundMusic() {
+    const music = document.getElementById('bg-music');
+    const toggle = document.getElementById('music-toggle');
+    if (!music || !toggle) return;
+
+    // Check localStorage for music preference
+    const musicPreference = localStorage.getItem('musicEnabled');
+    
+    // Initial state based on preference (mute icon)
+    if (musicPreference === 'false') {
+        toggle.classList.add('muted');
+    } else if (musicPreference === 'true') {
+        toggle.classList.remove('muted');
+    }
+
+    // Background music usually can't autoplay without interaction.
+    // We'll try to play it as soon as the user interacts with the page.
+    const startOnInteraction = () => {
+        // If user hasn't explicitly muted in the past, try to play
+        if (musicPreference !== 'false') {
+            music.play().then(() => {
+                toggle.classList.remove('muted');
+            }).catch(err => {
+                // This might still fail if browser is very strict, that's fine
+                console.log("Music autoplay blocked by browser policy");
+            });
+        }
+        
+        // Cleanup listeners
+        window.removeEventListener('click', startOnInteraction);
+        window.removeEventListener('touchstart', startOnInteraction);
+        window.removeEventListener('scroll', startOnInteraction);
+    };
+
+    window.addEventListener('click', startOnInteraction);
+    window.addEventListener('touchstart', startOnInteraction);
+    window.addEventListener('scroll', startOnInteraction);
+
+    // Toggle Button Logic
+    toggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // Avoid triggering the interaction listener
+        
+        if (music.paused) {
+            music.play().then(() => {
+                toggle.classList.remove('muted');
+                localStorage.setItem('musicEnabled', 'true');
+            }).catch(err => console.error("Error playing music:", err));
+        } else {
+            music.pause();
+            toggle.classList.add('muted');
+            localStorage.setItem('musicEnabled', 'false');
+        }
+    });
 }

@@ -4210,3 +4210,73 @@ body.nosotros-page .hamburger .bar {
         font-size: 2.2rem;
     }
 }
+/* ========================================
+   MUSIC TOGGLE BUTTON
+   ======================================== */
+.music-toggle {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 44px;
+    height: 44px;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    padding: 0;
+}
+
+.music-toggle:hover {
+    background-color: rgba(185, 28, 28, 0.8); /* Armored Red on hover */
+    transform: scale(1.1);
+    border-color: rgba(185, 28, 28, 0.5);
+}
+
+.music-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+    transition: transform 0.3s ease;
+}
+
+.music-toggle.muted svg {
+    opacity: 0.6;
+}
+
+.music-toggle .icon-on {
+    display: block;
+}
+
+.music-toggle .icon-off {
+    display: none;
+}
+
+.music-toggle.muted .icon-on {
+    display: none;
+}
+
+.music-toggle.muted .icon-off {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .music-toggle {
+        bottom: 90px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .music-toggle svg {
+        width: 18px;
+        height: 18px;
+    }
+}
