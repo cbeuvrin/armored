@@ -95,7 +95,8 @@ const translations = {
         "servicios-civil": "Uso Civil:",
         "servicios-civil-text": "El aspecto general luce original, evitando llamar la atención.",
         "servicios-privacidad": "Privacidad Total:",
-        "servicios-privacidad-text": "Confidencialidad absoluta en el trato y manejo de información."
+        "servicios-privacidad-text": "Confidencialidad absoluta en el trato y manejo de información.",
+        "hero-cta": "COTIZAR AHORA"
     },
     en: {
         "nav-inicio": "Home",
@@ -193,7 +194,8 @@ const translations = {
         "servicios-civil": "Civil Use:",
         "servicios-civil-text": "The general appearance of the armored unit looks stock, avoiding unwanted attention.",
         "servicios-privacidad": "Total Privacy:",
-        "servicios-privacidad-text": "Absolute confidentiality in dealing with your personal information."
+        "servicios-privacidad-text": "Absolute confidentiality in dealing with your personal information.",
+        "hero-cta": "QUOTE NOW"
     }
 };
 

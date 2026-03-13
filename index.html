@@ -4,11 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blindajes Armored Security - Hero Section</title>
+    <title>Blindajes Armored Security - Blindaje Automotriz Certificado en México</title>
+    <meta name="description" content="Blindaje automotriz certificado de alta seguridad en México. Más de 10 años blindando vehículos gubernamentales, empresariales y particulares con tecnología de vanguardia.">
+
+    <!-- Preconnect critical origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://i.ytimg.com">
+
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="styles.css" as="style">
+
+    <!-- Fonts with display=swap already -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="assets/logopng2.png">
+    <link rel="icon" href="assets/logopng2.png" type="image/png">
 
     <!-- Social Sharing (Open Graph / WhatsApp) -->
     <meta property="og:title" content="Blindajes Armored Security">
@@ -34,9 +44,9 @@
             </div>
         </div>
         <!-- Impact Overlays (Hidden initially) -->
-        <div class="bullet-impact" id="impact-1"><img src="./assets/bullet-hole.png" alt="Impact"></div>
-        <div class="bullet-impact" id="impact-2"><img src="./assets/bullet-hole.png" alt="Impact"></div>
-        <div class="bullet-impact" id="impact-3"><img src="./assets/bullet-hole.png" alt="Impact"></div>
+        <div class="bullet-impact" id="impact-1"><img src="./assets/bullet-hole.png" alt="Impact" width="80" height="80"></div>
+        <div class="bullet-impact" id="impact-2"><img src="./assets/bullet-hole.png" alt="Impact" width="80" height="80"></div>
+        <div class="bullet-impact" id="impact-3"><img src="./assets/bullet-hole.png" alt="Impact" width="80" height="80"></div>
     </div>
 
     <!-- Navigation Header -->
@@ -71,7 +81,7 @@
 
     <!-- Video Hero Section -->
     <section id="video-hero">
-        <video autoplay loop muted playsinline class="hero-video-bg">
+        <video autoplay loop muted playsinline class="hero-video-bg" preload="auto" fetchpriority="high">
             <!-- Mobile Video (Max Width 768px) -->
             <source src="video-hero-movil/video-hero-mobile.mp4?v=4" type="video/mp4" media="(max-width: 768px)">
             <!-- Desktop Video (Default) -->
@@ -84,17 +94,18 @@
             <h1 class="hero-main-title" data-i18n="hero-main-title">Blindaje perfecto</h1>
             <div class="hero-separator-line"></div>
             <h2 class="hero-sub-title" data-i18n="hero-sub-title">Protección invisible</h2>
+            <a href="#contacto" class="hero-cta-btn" data-i18n="hero-cta">COTIZAR AHORA</a>
 
             <!-- Logos Certificaciones (Pequeños) -->
             <div class="hero-cert-logos">
-                <img src="logo certificado 3/1.png" alt="Certificación 1">
-                <img src="logo certificado 3/2.png" alt="Certificación 2">
-                <img src="logo certificado 3/3.png" alt="Certificación 3">
-                <img src="logo certificado 3/4.png" alt="Certificación 4">
-                <img src="logo certificado 3/5.png" alt="Certificación 5">
-                <img src="logo certificado 3/6.png" alt="Certificación 6">
-                <img src="logo certificado 3/7.png" alt="Certificación 7">
-                <img src="logo certificado 3/8.png" alt="Certificación 8">
+                <img src="logo certificado 3/1.png" alt="Certificación 1" loading="lazy" width="60" height="60">
+                <img src="logo certificado 3/2.png" alt="Certificación 2" loading="lazy" width="60" height="60">
+                <img src="logo certificado 3/3.png" alt="Certificación 3" loading="lazy" width="60" height="60">
+                <img src="logo certificado 3/4.png" alt="Certificación 4" loading="lazy" width="60" height="60">
+                <img src="logo certificado 3/5.png" alt="Certificación 5" loading="lazy" width="60" height="60">
+                <img src="logo certificado 3/6.png" alt="Certificación 6" loading="lazy" width="60" height="60">
+                <img src="logo certificado 3/7.png" alt="Certificación 7" loading="lazy" width="60" height="60">
+                <img src="logo certificado 3/8.png" alt="Certificación 8" loading="lazy" width="60" height="60">
             </div>
         </div>
     </section>
@@ -108,7 +119,7 @@
 
             <!-- Intro Overlay (Logo + Badge) -->
             <div class="canvas-intro-overlay">
-                <img src="Logo/armored.png" alt="Armored Security" class="intro-logo">
+                <img src="Logo/armored.png" alt="Armored Security" class="intro-logo" loading="lazy">
                 <div class="experience-badge intro-badge">
                     <span class="badge-years">+10</span>
                     <span class="badge-text" data-i18n="badge-years-text">AÑOS</span>
@@ -126,7 +137,7 @@
                     <div class="callout-line"></div>
                     <div class="callout-box">
                         <div class="img-container">
-                            <img src="glass1.png" alt="Blindaje Cristales">
+                            <img src="glass1.png" alt="Blindaje Cristales" loading="lazy">
                             <span data-i18n="hotspot-glass">BLINDAJE DE CRISTALES</span>
                         </div>
                     </div>
@@ -140,7 +151,7 @@
                     <div class="callout-line"></div>
                     <div class="callout-box">
                         <div class="img-container">
-                            <img src="assets/hotspot-door.png" alt="Protección Lateral">
+                            <img src="assets/hotspot-door.png" alt="Protección Lateral" loading="lazy">
                             <span data-i18n="hotspot-side">PROTECCIÓN LATERAL</span>
                         </div>
                     </div>
@@ -154,7 +165,7 @@
                     <div class="callout-line"></div>
                     <div class="callout-box">
                         <div class="img-container">
-                            <img src="runflat.png" alt="Sistema Run-Flat">
+                            <img src="runflat.png" alt="Sistema Run-Flat" loading="lazy">
                             <span data-i18n="hotspot-runflat">SISTEMA RUN-FLAT</span>
                         </div>
                     </div>
@@ -165,8 +176,8 @@
 
     <!-- Black Section (Slides over the fixed hero) -->
     <section id="black-section">
-        <video autoplay loop muted playsinline class="section-bg-video">
-            <source src="video-hero-movil/section-3-video.mp4" type="video/mp4">
+        <video autoplay loop muted playsinline class="section-bg-video" preload="none" data-lazy-video>
+            <source data-src="video-hero-movil/section-3-video.mp4" type="video/mp4">
         </video>
         <div class="content-wrapper">
             <h2 data-i18n="black-section-title">Blindajes<br>Armored Security</h2>
@@ -176,9 +187,9 @@
                 instituciones más prestigiadas del país han sido testigos de la experiencia y profesionalismo de Armored
                 Security.</p>
             
-            <!-- YouTube Video Wrapper -->
-            <div class="black-section-video-wrapper">
-                <iframe src="https://www.youtube.com/embed/H3KJnlydaIQ?rel=0" title="Blindajes Armored Security YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <!-- YouTube Video Wrapper (Lazy Loaded) -->
+            <div class="black-section-video-wrapper" data-lazy-iframe>
+                <iframe data-src="https://www.youtube.com/embed/H3KJnlydaIQ?rel=0" title="Blindajes Armored Security YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
             </div>
         </div>
 
@@ -194,11 +205,11 @@
     <section id="services-videos">
         <!-- Government Service -->
         <div class="service-item">
-            <video autoplay loop muted playsinline>
-                <source src="videos-servicios/video-gobierno.mp4" type="video/mp4" media="(min-width: 769px)">
-                <source src="video-hero-movil/14.mp4" type="video/mp4" media="(max-width: 768px)">
-                <!-- Fallback/Default if media queries fail (rare) or specific fallback behavior needed -->
-                <source src="video-hero-movil/14.mp4" type="video/mp4">
+            <video autoplay loop muted playsinline preload="none" data-lazy-video>
+                <source data-src="videos-servicios/video-gobierno.mp4" type="video/mp4" media="(min-width: 769px)">
+                <source data-src="video-hero-movil/14.mp4" type="video/mp4" media="(max-width: 768px)">
+                <!-- Fallback/Default -->
+                <source data-src="video-hero-movil/14.mp4" type="video/mp4">
             </video>
             <div class="overlay">
                 <h3 data-i18n="service-gov">Blindaje<br>Gubernamental</h3>
@@ -208,10 +219,10 @@
 
         <!-- Corporate Service -->
         <div class="service-item">
-            <video autoplay loop muted playsinline>
-                <source src="videos-servicios/video-empresario.mp4" type="video/mp4" media="(min-width: 769px)">
-                <source src="video-hero-movil/15.mp4" type="video/mp4" media="(max-width: 768px)">
-                <source src="video-hero-movil/15.mp4" type="video/mp4">
+            <video autoplay loop muted playsinline preload="none" data-lazy-video>
+                <source data-src="videos-servicios/video-empresario.mp4" type="video/mp4" media="(min-width: 769px)">
+                <source data-src="video-hero-movil/15.mp4" type="video/mp4" media="(max-width: 768px)">
+                <source data-src="video-hero-movil/15.mp4" type="video/mp4">
             </video>
             <div class="overlay">
                 <h3 data-i18n="service-corp">Blindaje<br>Empresarial</h3>
@@ -221,10 +232,10 @@
 
         <!-- Private Service -->
         <div class="service-item">
-            <video autoplay loop muted playsinline>
-                <source src="videos-servicios/video-particular.mp4" type="video/mp4" media="(min-width: 769px)">
-                <source src="video-hero-movil/16.mp4" type="video/mp4" media="(max-width: 768px)">
-                <source src="video-hero-movil/16.mp4" type="video/mp4">
+            <video autoplay loop muted playsinline preload="none" data-lazy-video>
+                <source data-src="videos-servicios/video-particular.mp4" type="video/mp4" media="(min-width: 769px)">
+                <source data-src="video-hero-movil/16.mp4" type="video/mp4" media="(max-width: 768px)">
+                <source data-src="video-hero-movil/16.mp4" type="video/mp4">
             </video>
             <div class="overlay">
                 <h3 data-i18n="service-private">Blindaje<br>Particular</h3>
@@ -294,8 +305,8 @@
             <div class="levels-videos-section">
                 <!-- Video 1 -->
                 <div class="level-video-item">
-                    <video autoplay loop muted playsinline>
-                        <source src="video blindaje/12 MM tiktok armored.mp4" type="video/mp4">
+                    <video autoplay loop muted playsinline preload="none" data-lazy-video>
+                        <source data-src="video blindaje/12 MM tiktok armored.mp4" type="video/mp4">
                     </video>
                     <div class="level-overlay">
                         <span class="level-caliber">12 mm</span>
@@ -303,8 +314,8 @@
                 </div>
                 <!-- Video 2 -->
                 <div class="level-video-item">
-                    <video autoplay loop muted playsinline>
-                        <source src="video blindaje/17 mm.mp4" type="video/mp4">
+                    <video autoplay loop muted playsinline preload="none" data-lazy-video>
+                        <source data-src="video blindaje/17 mm.mp4" type="video/mp4">
                     </video>
                     <div class="level-overlay">
                         <span class="level-caliber">17 mm</span>
@@ -312,8 +323,8 @@
                 </div>
                 <!-- Video 3 -->
                 <div class="level-video-item">
-                    <video autoplay loop muted playsinline>
-                        <source src="video blindaje/37 mm .mp4?v=2" type="video/mp4">
+                    <video autoplay loop muted playsinline preload="none" data-lazy-video>
+                        <source data-src="video blindaje/37 mm .mp4?v=2" type="video/mp4">
                     </video>
                     <div class="level-overlay">
                         <span class="level-caliber">37 mm</span>
@@ -321,8 +332,8 @@
                 </div>
                 <!-- Video 4 -->
                 <div class="level-video-item">
-                    <video autoplay loop muted playsinline>
-                        <source src="video blindaje/ak47.mp4" type="video/mp4">
+                    <video autoplay loop muted playsinline preload="none" data-lazy-video>
+                        <source data-src="video blindaje/ak47.mp4" type="video/mp4">
                     </video>
                     <div class="level-overlay">
                         <span class="level-caliber">AK-47</span>
@@ -346,17 +357,17 @@
                 <div class="cert-bottom-logos">
                     <!-- Fila 1 -->
                     <div class="cert-row">
-                        <img src="logo certificado 3/1.png" alt="Certificación 1">
-                        <img src="logo certificado 3/2.png" alt="Certificación 2">
-                        <img src="logo certificado 3/3.png" alt="Certificación 3">
-                        <img src="logo certificado 3/4.png" alt="Certificación 4">
+                        <img src="logo certificado 3/1.png" alt="Certificación 1" loading="lazy" width="80" height="80">
+                        <img src="logo certificado 3/2.png" alt="Certificación 2" loading="lazy" width="80" height="80">
+                        <img src="logo certificado 3/3.png" alt="Certificación 3" loading="lazy" width="80" height="80">
+                        <img src="logo certificado 3/4.png" alt="Certificación 4" loading="lazy" width="80" height="80">
                     </div>
                     <!-- Fila 2 -->
                     <div class="cert-row">
-                        <img src="logo certificado 3/5.png" alt="Certificación 5">
-                        <img src="logo certificado 3/6.png" alt="Certificación 6">
-                        <img src="logo certificado 3/7.png" alt="Certificación 7">
-                        <img src="logo certificado 3/8.png" alt="Certificación 8">
+                        <img src="logo certificado 3/5.png" alt="Certificación 5" loading="lazy" width="80" height="80">
+                        <img src="logo certificado 3/6.png" alt="Certificación 6" loading="lazy" width="80" height="80">
+                        <img src="logo certificado 3/7.png" alt="Certificación 7" loading="lazy" width="80" height="80">
+                        <img src="logo certificado 3/8.png" alt="Certificación 8" loading="lazy" width="80" height="80">
                     </div>
                 </div>
             </div>
@@ -366,8 +377,8 @@
     <!-- Home - Final Video Parallax Section -->
     <section class="home-video-parallax-sec">
         <div class="home-video-container">
-            <video autoplay muted loop playsinline preload="auto">
-                <source src="VIDEOS NIVELES/Black_armored_car_rolling_city_delpmaspu_.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline preload="none" data-lazy-video>
+                <source data-src="VIDEOS NIVELES/Black_armored_car_rolling_city_delpmaspu_.mp4" type="video/mp4">
             </video>
             <div class="video-overlay"></div>
             <div class="video-text-content">
@@ -425,7 +436,7 @@
             <!-- Col 1: Brand -->
             <div class="footer-col brand-col">
                 <a href="#inicio">
-                    <img src="assets/logopng2.png" alt="Armored Security" class="footer-logo-img">
+                    <img src="assets/logopng2.png" alt="Armored Security" class="footer-logo-img" loading="lazy">
                 </a>
                 <p class="footer-tagline" data-i18n="footer-tagline">Security is not an option, it's a necessity.</p>
             </div>
@@ -476,7 +487,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="translations.js"></script>
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=3"></script>
 </body>
 
 </html>

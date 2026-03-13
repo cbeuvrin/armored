@@ -494,6 +494,145 @@ if (document.readyState === 'loading') {
     init();
 }
 
+// ========================================
+// LAZY LOADING SYSTEM (Videos & Iframes)
+// ========================================
+
+(function() {
+    'use strict';
+
+    // --- Lazy Load Videos ---
+    // Videos with [data-lazy-video] have their <source> elements using data-src instead of src.
+    // When the video enters the viewport (with a 300px rootMargin buffer), we swap data-src → src and call .load()
+
+    function setupLazyVideoLoading() {
+        const lazyVideos = document.querySelectorAll('video[data-lazy-video]');
+        if (lazyVideos.length === 0) return;
+
+        if ('IntersectionObserver' in window) {
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const video = entry.target;
+                        loadVideoSources(video);
+                        videoObserver.unobserve(video);
+                    }
+                });
+            }, {
+                rootMargin: '300px 0px', // Start loading 300px BEFORE the video enters the viewport
+                threshold: 0
+            });
+
+            lazyVideos.forEach(video => videoObserver.observe(video));
+        } else {
+            // Fallback: Load all videos immediately if IntersectionObserver is not supported
+            lazyVideos.forEach(video => loadVideoSources(video));
+        }
+    }
+
+    function loadVideoSources(video) {
+        const sources = video.querySelectorAll('source[data-src]');
+        if (sources.length === 0) return;
+
+        sources.forEach(source => {
+            const dataSrc = source.getAttribute('data-src');
+            if (dataSrc) {
+                source.setAttribute('src', dataSrc);
+                source.removeAttribute('data-src');
+            }
+        });
+
+        video.load();
+        video.play().catch(e => {
+            // Autoplay might be blocked, that's OK
+            console.log('Lazy video autoplay prevented:', e.message);
+        });
+        video.removeAttribute('data-lazy-video');
+    }
+
+    // --- Lazy Load Iframes (YouTube etc.) ---
+    // Iframes inside [data-lazy-iframe] containers have data-src instead of src.
+    // When the container nears the viewport, we swap data-src → src.
+
+    function setupLazyIframeLoading() {
+        const lazyIframeContainers = document.querySelectorAll('[data-lazy-iframe]');
+        if (lazyIframeContainers.length === 0) return;
+
+        if ('IntersectionObserver' in window) {
+            const iframeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const container = entry.target;
+                        const iframe = container.querySelector('iframe[data-src]');
+                        if (iframe) {
+                            iframe.src = iframe.getAttribute('data-src');
+                            iframe.removeAttribute('data-src');
+                        }
+                        iframeObserver.unobserve(container);
+                    }
+                });
+            }, {
+                rootMargin: '400px 0px', // Start loading 400px before entering viewport
+                threshold: 0
+            });
+
+            lazyIframeContainers.forEach(container => iframeObserver.observe(container));
+        } else {
+            // Fallback
+            lazyIframeContainers.forEach(container => {
+                const iframe = container.querySelector('iframe[data-src]');
+                if (iframe) {
+                    iframe.src = iframe.getAttribute('data-src');
+                    iframe.removeAttribute('data-src');
+                }
+            });
+        }
+    }
+
+    // --- Pause/Resume Videos Based on Visibility ---
+    // Videos that are not in the viewport should be paused to save CPU/GPU/battery.
+
+    function setupVideoPauseOnScroll() {
+        const allVideos = document.querySelectorAll('video[autoplay]');
+        if (allVideos.length === 0) return;
+
+        if ('IntersectionObserver' in window) {
+            const pauseObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target;
+                    if (entry.isIntersecting) {
+                        // Only play if it has a valid source loaded
+                        if (video.currentSrc || video.querySelector('source[src]')) {
+                            video.play().catch(() => {});
+                        }
+                    } else {
+                        video.pause();
+                    }
+                });
+            }, {
+                rootMargin: '100px 0px',
+                threshold: 0
+            });
+
+            allVideos.forEach(video => pauseObserver.observe(video));
+        }
+    }
+
+    // Initialize all lazy loading when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            setupLazyVideoLoading();
+            setupLazyIframeLoading();
+            // Delay pause observer slightly to let initial videos start playing
+            setTimeout(setupVideoPauseOnScroll, 1000);
+        });
+    } else {
+        setupLazyVideoLoading();
+        setupLazyIframeLoading();
+        setTimeout(setupVideoPauseOnScroll, 1000);
+    }
+})();
+
 // --- Shielding Level Selector Logic ---
 
 // --- Section 3: Horizontal Levels Animation ---
@@ -577,10 +716,12 @@ function setupVideoModal() {
         item.addEventListener('click', () => {
             const sourceSelector = item.querySelector('source');
             if (sourceSelector) {
-                const videoSrc = sourceSelector.getAttribute('src');
-                modalVideo.src = videoSrc;
-                videoModal.classList.add('active');
-                modalVideo.play().catch(err => console.log('Auto-play prevent:', err));
+                const videoSrc = sourceSelector.getAttribute('src') || sourceSelector.getAttribute('data-src');
+                if (videoSrc) {
+                    modalVideo.src = videoSrc;
+                    videoModal.classList.add('active');
+                    modalVideo.play().catch(err => console.log('Auto-play prevent:', err));
+                }
             }
         });
     });

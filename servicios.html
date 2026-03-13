@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios - Blindajes Armored Security</title>
+    <meta name="description" content="Servicios de blindaje automotriz certificado: gubernamental, empresarial y particular. Proceso industrial completo con materiales internacionales de primer nivel.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="assets/logopng2.png">
+    <link rel="icon" href="assets/logopng2.png" type="image/png">
 
     <!-- Social Sharing -->
     <meta property="og:title" content="Servicios - Blindajes Armored Security">
@@ -53,20 +56,20 @@
     <!-- Diagonal Hero Section for Servicios -->
     <section id="servicios-hero-diagonal" class="diagonal-hero">
         <div class="diagonal-item item-1">
-            <video autoplay muted loop playsinline>
+            <video autoplay muted loop playsinline preload="auto">
                 <source src="videos-servicios/video-gobierno.mp4" type="video/mp4">
             </video>
             <div class="diagonal-overlay"></div>
         </div>
         <div class="diagonal-item item-2">
-            <video autoplay muted loop playsinline>
-                <source src="videos-servicios/video-empresario.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline preload="none" data-lazy-video>
+                <source data-src="videos-servicios/video-empresario.mp4" type="video/mp4">
             </video>
             <div class="diagonal-overlay"></div>
         </div>
         <div class="diagonal-item item-3">
-            <video autoplay muted loop playsinline>
-                <source src="videos-servicios/video-particular.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline preload="none" data-lazy-video>
+                <source data-src="videos-servicios/video-particular.mp4" type="video/mp4">
             </video>
             <div class="diagonal-overlay"></div>
         </div>
@@ -84,8 +87,8 @@
             <div class="services-grid">
                 <!-- Service 1: Gubernamental -->
                 <div class="service-grid-card">
-                    <video autoplay loop muted playsinline>
-                        <source src="videos-servicios/video-gobierno.mp4" type="video/mp4">
+                    <video autoplay loop muted playsinline preload="none" data-lazy-video>
+                        <source data-src="videos-servicios/video-gobierno.mp4" type="video/mp4">
                     </video>
                     <div class="card-overlay">
                         <div class="card-content">
@@ -102,8 +105,8 @@
 
                 <!-- Service 2: Empresarial -->
                 <div class="service-grid-card">
-                    <video autoplay loop muted playsinline>
-                        <source src="videos-servicios/video-empresario.mp4" type="video/mp4">
+                    <video autoplay loop muted playsinline preload="none" data-lazy-video>
+                        <source data-src="videos-servicios/video-empresario.mp4" type="video/mp4">
                     </video>
                     <div class="card-overlay">
                         <div class="card-content">
@@ -120,8 +123,8 @@
 
                 <!-- Service 3: Particular (Full Width) -->
                 <div class="service-grid-card full-width">
-                    <video autoplay loop muted playsinline>
-                        <source src="videos-servicios/video-particular.mp4" type="video/mp4">
+                    <video autoplay loop muted playsinline preload="none" data-lazy-video>
+                        <source data-src="videos-servicios/video-particular.mp4" type="video/mp4">
                     </video>
                     <div class="card-overlay">
                         <div class="card-content">
@@ -320,7 +323,7 @@
         <div class="footer-content">
             <div class="footer-col brand-col">
                 <a href="index.html">
-                    <img src="assets/logopng2.png" alt="Armored Security" class="footer-logo-img">
+                    <img src="assets/logopng2.png" alt="Armored Security" class="footer-logo-img" loading="lazy">
                 </a>
                 <p class="footer-tagline" data-i18n="footer-tagline">Security is not an option, it's a necessity.</p>
             </div>
