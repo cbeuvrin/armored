@@ -263,7 +263,7 @@ function renderFrame(frameIndex) {
 
 function setupSequentialAnimation() {
 
-    // Extra: If #hero-blindaje does not exist on this page, skip sequential animation
+    // If #hero-blindaje does not exist on this page, skip sequential animation
     if (!document.getElementById('hero-blindaje')) {
         setupCommonScrollAnimations();
         return;
@@ -273,129 +273,101 @@ function setupSequentialAnimation() {
     gsap.set('.hotspot', { opacity: 0, scale: 0.5 });
     gsap.set('.hotspot-callout', { opacity: 0, visibility: 'hidden' });
 
-    // Determine scroll distance (duration of animation)
-    const scrollDistance = window.innerHeight * 4; // 400vh equivalent
-
-    // --- Main Timeline with Pinning ---
+    // ─────────────────────────────────────────────────────────────────────────
+    // MAIN TIMELINE  —  3 SCROLL BLOCKS,  300vh pinned
+    //
+    //  Block 1 (~100vh): Car eases to frame 14  →  Hotspot Cristales
+    //  Block 2 (~100vh): Car eases to frame 45  →  Hotspot Puertas
+    //  Block 3 (~100vh): Car eases to frame 79  →  Hotspot Suspensión
+    // ─────────────────────────────────────────────────────────────────────────
     const tl = gsap.timeline({
         scrollTrigger: {
-            trigger: '#hero-blindaje', // Target the section directly
+            trigger: '#hero-blindaje',
             start: 'top top',
-            end: '+=100%', // Final reduction to 100% to eliminate ALL dead space
-            scrub: 0.5, // Smooth scrubbing
-            pin: true, // Enable pinning
-
-            // Header Color Toggling (scrolled-header = White Pill/Text, Default = Black Text)
-            onEnter: () => document.body.classList.remove('scrolled-header'), // Enter White Canvas -> Remove White Pill
-            onLeave: () => document.body.classList.add('scrolled-header'),    // Leave Canvas -> Add White Pill (for Black Section)
-            onEnterBack: () => document.body.classList.remove('scrolled-header'), // Return to White Canvas -> Remove White Pill
-            onLeaveBack: () => document.body.classList.add('scrolled-header'),    // Return to Video Hero -> Add White Pill
-
-            onUpdate: (self) => {
-                // RENDER FRAME UPDATES
-                const frameIndex = Math.round(state.currentFrame);
-                renderFrame(frameIndex);
+            end: '+=300%',          // 3 full viewport‑heights → 3 scroll blocks
+            scrub: 1.5,             // Heavier scrub = more inertia, cinematic weight
+            pin: true,
+            snap: {
+                snapTo: 'labels',   // Snap to each addLabel() anchor
+                duration: { min: 0.4, max: 0.9 },
+                ease: 'power2.inOut'
+            },
+            onEnter:     () => document.body.classList.remove('scrolled-header'),
+            onLeave:     () => document.body.classList.add('scrolled-header'),
+            onEnterBack: () => document.body.classList.remove('scrolled-header'),
+            onLeaveBack: () => document.body.classList.add('scrolled-header'),
+            onUpdate: () => {
+                renderFrame(Math.round(state.currentFrame));
             }
         }
     });
 
-    // Initialize Header State for Video Hero
+    // Header state on load
     document.body.classList.add('scrolled-header');
 
-    tl.addLabel("start"); // Label for the beginning
-
-    // Intro Elements stay visible on mobile as per user request
-    // --- Intro Elements Entrance Animation ---
+    // Intro elements float in when section scrolls into view
     gsap.from(['.intro-logo', '.intro-badge'], {
-        y: 80,
-        opacity: 0,
-        duration: 1.5,
-        stagger: 0.3,
-        ease: "power3.out", // More elegant ease
+        y: 80, opacity: 0, duration: 1.5, stagger: 0.3, ease: 'power3.out',
         scrollTrigger: {
-            trigger: "#hero-blindaje",
-            start: "top 70%", // Start before it hits the top
-            toggleActions: "play none none reverse"
+            trigger: '#hero-blindaje',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
         }
     });
 
-    // --- STEP 1: Animate to Frame 14 (Glass Hotspot) ---
-    tl.to(state, {
-        currentFrame: 14,
-        ease: 'none',
-        duration: 2
-    });
+    // ╔══════════════════════════════╗
+    // ║  BLOCK 1  —  Cristales       ║
+    // ╚══════════════════════════════╝
+    tl.addLabel('start');
 
-    // SHOW Glass Hotspot
-    tl.to('#hotspot-cristales', { opacity: 1, scale: 1, duration: 0.5 });
-    tl.to('#hotspot-cristales .hotspot-callout', { opacity: 1, visibility: 'visible', duration: 0.5 }, '<');
+    // Smooth rotation: ease-in at beginning, ease-out as it lands on frame 14
+    tl.to(state, { currentFrame: 14, ease: 'power2.inOut', duration: 6 });
 
+    // Hotspot pops in as the car settles
+    tl.to('#hotspot-cristales', { opacity: 1, scale: 1, duration: 1.5, ease: 'back.out(1.5)' });
+    tl.to('#hotspot-cristales .hotspot-callout', { opacity: 1, visibility: 'visible', duration: 1 }, '<+0.3');
 
+    tl.addLabel('block1');          // ← scroll snaps here
 
+    // Hold — user reads the hotspot for a full "block" worth of scroll
+    tl.to({}, { duration: 4 });
 
-    tl.addLabel("point1"); // Snap Point 1: Glass
+    // Callout exits before the car starts rotating again
+    tl.to('#hotspot-cristales .hotspot-callout', { opacity: 0, visibility: 'hidden', duration: 0.8 });
+    tl.to('#hotspot-cristales', { opacity: 0, scale: 0.5, duration: 0.6 }, '<+0.2');
 
-    // PAUSE (Empty spacer)
-    tl.to({}, { duration: 2 });
+    // ╔══════════════════════════════╗
+    // ║  BLOCK 2  —  Puertas         ║
+    // ╚══════════════════════════════╝
 
-    // HIDE Glass Hotspot
-    tl.to('#hotspot-cristales .hotspot-callout', { opacity: 0, visibility: 'hidden', duration: 0.3 });
-    tl.to('#hotspot-cristales', { opacity: 0, scale: 0.5, duration: 0.3 }, '<');
+    // Longer rotation segment = feels more satisfying/complete
+    tl.to(state, { currentFrame: 45, ease: 'power2.inOut', duration: 7 });
 
-
-    // --- STEP 2: Animate to Frame 45 (Door Hotspot - Guessing mid-rotation) ---
-    // -------------------------------------------------------------------------
-    tl.to(state, {
-        currentFrame: 45,
-        ease: 'none',
-        duration: 3
-    });
-
-    // FADE OUT Intro Overlay (Delayed to approx Frame 28)
+    // Fade intro overlay mid‑rotation (logo + badge drift right)
     tl.to(['.intro-logo', '.intro-badge', '.intro-badge span'], {
-        opacity: 0,
-        x: 50, // Move slightly right as requested ("desaparecen a la derecha")
-        duration: 0.5,
-        ease: "power2.in"
-    }, "<+1"); // Delay 1s into the movement
+        opacity: 0, x: 50, duration: 1, ease: 'power2.in'
+    }, '<+2');
 
+    tl.to('#hotspot-puertas', { opacity: 1, scale: 1, duration: 1.5, ease: 'back.out(1.5)' });
+    tl.to('#hotspot-puertas .hotspot-callout', { opacity: 1, visibility: 'visible', duration: 1 }, '<+0.3');
 
-    // SHOW Door Hotspot
-    tl.to('#hotspot-puertas', { opacity: 1, scale: 1, duration: 0.5 });
-    tl.to('#hotspot-puertas .hotspot-callout', { opacity: 1, visibility: 'visible', duration: 0.5 }, '<');
+    tl.addLabel('block2');          // ← scroll snaps here
 
+    tl.to({}, { duration: 4 });
 
+    tl.to('#hotspot-puertas .hotspot-callout', { opacity: 0, visibility: 'hidden', duration: 0.8 });
+    tl.to('#hotspot-puertas', { opacity: 0, scale: 0.5, duration: 0.6 }, '<+0.2');
 
-    tl.addLabel("point2"); // Snap Point 2: Doors
+    // ╔══════════════════════════════╗
+    // ║  BLOCK 3  —  Suspensión      ║
+    // ╚══════════════════════════════╝
 
-    // PAUSE
-    tl.to({}, { duration: 2 });
+    tl.to(state, { currentFrame: 79, ease: 'power2.inOut', duration: 7 });
 
-    // HIDE Door Hotspot
-    tl.to('#hotspot-puertas .hotspot-callout', { opacity: 0, visibility: 'hidden', duration: 0.3 });
-    tl.to('#hotspot-puertas', { opacity: 0, scale: 0.5, duration: 0.3 }, '<');
+    tl.to('#hotspot-suspension', { opacity: 1, scale: 1, duration: 1.5, ease: 'back.out(1.5)' });
+    tl.to('#hotspot-suspension .hotspot-callout', { opacity: 1, visibility: 'visible', duration: 1 }, '<+0.3');
 
-
-    // --- STEP 3: Animate to Frame 79 (Tire Hotspot - Side View) ---
-    // -------------------------------------------------------------
-    tl.to(state, {
-        currentFrame: 79,
-        ease: 'none',
-        duration: 3
-    });
-
-    // SHOW Tire Hotspot
-    tl.to('#hotspot-suspension', { opacity: 1, scale: 1, duration: 0.5 });
-    tl.to('#hotspot-suspension .hotspot-callout', { opacity: 1, visibility: 'visible', duration: 0.5 }, '<');
-
-
-
-    tl.addLabel("point3"); // Snap Point 3: Suspension (Tires)
-
-    // PAUSE REMOVED to eliminate white space gap
-    // tl.to({}, { duration: 2 });
-
-    // Lead out (just in case we want to scroll past cleanly)
+    tl.addLabel('block3');          // ← scroll snaps here (final resting position)
 
 }
 
