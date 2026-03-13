@@ -4005,6 +4005,12 @@ body.nosotros-page .hamburger .bar {
     height: 100%;
     object-fit: cover;
     opacity: 0.95;
+    transition: transform 0.8s ease, opacity 0.5s ease, filter 0.5s ease;
+}
+
+.service-grid-card.expanded video {
+    filter: brightness(0.4) blur(3px);
+    transform: scale(1.1);
 }
 
 
@@ -4023,10 +4029,17 @@ body.nosotros-page .hamburger .bar {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 60%);
     color: #fff;
     pointer-events: none;
+    transition: background 0.5s ease, height 0.5s ease, padding 0.5s ease;
 }
 
 .service-grid-card.expanded .card-overlay {
     pointer-events: auto;
+    background: rgba(0, 0, 0, 0.7); /* Darker overlay for better text readability */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: background 0.5s ease, height 0.5s ease;
 }
 
 
@@ -4063,6 +4076,36 @@ body.nosotros-page .hamburger .bar {
     font-weight: 700;
     margin-bottom: 10px;
     font-family: 'Inter', sans-serif;
+}
+
+.click-hint {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background: rgba(185, 28, 28, 0.8);
+    color: #fff;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+}
+
+.service-grid-card:hover .click-hint {
+    opacity: 1;
+    transform: scale(1.1);
+    background: #B91C1C;
+}
+
+.service-grid-card.expanded .click-hint {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
 }
 
 .service-grid-card h3 {
