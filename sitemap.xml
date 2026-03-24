@@ -7,19 +7,13 @@
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://www.barmoredsecurity.com/index.html</loc>
-      <lastmod>2026-03-24</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
-   </url>
-   <url>
-      <loc>https://www.barmoredsecurity.com/nosotros.html</loc>
+      <loc>https://www.barmoredsecurity.com/nosotros</loc>
       <lastmod>2026-03-24</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
    </url>
    <url>
-      <loc>https://www.barmoredsecurity.com/servicios.html</loc>
+      <loc>https://www.barmoredsecurity.com/servicios</loc>
       <lastmod>2026-03-24</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
