@@ -5,7 +5,7 @@
 // Configuration
 const CONFIG = {
     totalFrames: 96,  // Adjusted to match actual file count in parallax3
-    imagePath: './parallax3/ezgif-frame-',
+    imagePath: '/parallax3/ezgif-frame-',
     imageExtension: '.webp',
 };
 
@@ -509,7 +509,7 @@ if (document.readyState === 'loading') {
     if (window.innerWidth > 768) return;
 
     const TOTAL_FRAMES = 100;
-    const FRAME_PATH   = './scroll celular/';
+    const FRAME_PATH   = '/scroll celular/';
 
     // Configuración de leyendas: rango de frames donde aparece cada una
     const LEGENDS = [
