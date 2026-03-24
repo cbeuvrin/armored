@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# 1. Quitar la extensión .html de las URLs (Redirección 301 para SEO)
+# Ejemplo: /servicios.html -> /servicios
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R=301]
+
+# 2. Servir el archivo .html aunque no esté en la URL
+# Ejemplo: /servicios -> Carga servicios.html internamente
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [NC,L]
