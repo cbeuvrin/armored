@@ -4,9 +4,9 @@
 
 // Configuration
 const CONFIG = {
-    totalFrames: 80,  // Frames 001-080
+    totalFrames: 96,  // Adjusted to match actual file count in parallax3
     imagePath: './parallax3/ezgif-frame-',
-    imageExtension: '.jpg',
+    imageExtension: '.webp',
 };
 
 // State
@@ -67,7 +67,7 @@ function init() {
 function preloadImages() {
     const loadPromises = [];
     const isMobile = window.innerWidth <= 768;
-    const step = isMobile ? 3 : 1; // Load every 3rd frame on mobile (approx 27 images) vs 80 on desktop
+    const step = isMobile ? 2 : 1; // Load every 2nd frame on mobile (~40 images) vs 80 on desktop
 
     // Adjust preloader duration based on device
     const preloaderDuration = isMobile ? 2.0 : 3.5;
@@ -282,8 +282,8 @@ function setupSequentialAnimation() {
     // Mobile  → shorter pin (2 blocks), faster scrub, NO snap (touch conflicts)
     // Tablet  → medium pin (3 blocks), medium scrub, NO snap (safer on touch)
     // Desktop → full 4-block experience with snap
-    const scrollDist = isMobileDevice ? '+=200%' : isTabletDevice ? '+=300%' : '+=400%';
-    const scrubVal   = isMobileDevice ? 0.8       : isTabletDevice ? 1.0      : 1.5;
+    const scrollDist = isMobileDevice ? '+=300%' : isTabletDevice ? '+=300%' : '+=400%';
+    const scrubVal   = isMobileDevice ? 0.3       : isTabletDevice ? 1.0      : 1.5;
     const useSnap    = !isMobileDevice && !isTabletDevice; // snap only on desktop
 
     // Initial Setup: Hide all hotspots
@@ -497,6 +497,137 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
+
+// ========================================
+// MOBILE SCROLLYTELLING — Canvas Coche
+// ========================================
+
+(function() {
+    'use strict';
+
+    // Solo ejecutar en móvil
+    if (window.innerWidth > 768) return;
+
+    const TOTAL_FRAMES = 100;
+    const FRAME_PATH   = './scroll celular/';
+
+    // Configuración de leyendas: rango de frames donde aparece cada una
+    const LEGENDS = [
+        { id: 'scroll-legend-1', frameIn: 5,  frameOut: 28 },  // Parabrisas
+        { id: 'scroll-legend-2', frameIn: 38, frameOut: 60 },  // Puerta
+        { id: 'scroll-legend-3', frameIn: 68, frameOut: 82 },  // Run-Flat
+    ];
+
+    let frames       = new Array(TOTAL_FRAMES).fill(null);
+    let ready        = false;
+    let canvas, ctx, spacer, wrapper;
+    let lastFrame    = -1;
+    let legendStates = LEGENDS.map(() => ({ visible: false }));
+
+    // ── Precargar imágenes ──────────────────────────────────────
+    function preload() {
+        let resolved = 0;
+        for (let i = 0; i < TOTAL_FRAMES; i++) {
+            const img = new Image();
+            const num = String(i + 1).padStart(3, '0');
+            img.src = FRAME_PATH + num + '.webp';
+            img.onload = img.onerror = () => {
+                frames[i] = (img.complete && img.naturalWidth > 0) ? img : null;
+                resolved++;
+                if (resolved === TOTAL_FRAMES) {
+                    ready = true;
+                    drawFrame(0);
+                }
+            };
+            frames[i] = img;
+        }
+    }
+
+    // ── Dibujar un frame en canvas con object-fit: cover ───────
+    function drawFrame(index) {
+        const clamped = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.round(index)));
+        if (clamped === lastFrame) return;
+        lastFrame = clamped;
+        const img = frames[clamped];
+        if (!img || !img.complete || !ctx) return;
+        const cW = canvas.width, cH = canvas.height;
+        const iW = img.naturalWidth, iH = img.naturalHeight;
+        if (!iW || !iH) return;
+        const scale = Math.max(cW / iW, cH / iH);
+        const dW = iW * scale, dH = iH * scale;
+        const dx = (cW - dW) / 2, dy = (cH - dH) / 2;
+        ctx.clearRect(0, 0, cW, cH);
+        ctx.drawImage(img, dx, dy, dW, dH);
+    }
+
+    // ── Animación de leyendas ───────────────────────────────────
+    function updateLegends(frameIndex) {
+        LEGENDS.forEach((def, i) => {
+            const el = document.getElementById(def.id);
+            if (!el) return;
+            const shouldShow = frameIndex >= def.frameIn && frameIndex <= def.frameOut;
+            if (shouldShow && !legendStates[i].visible) {
+                legendStates[i].visible = true;
+                gsap.to(el, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+            } else if (!shouldShow && legendStates[i].visible) {
+                legendStates[i].visible = false;
+                gsap.to(el, { opacity: 0, y: 20, duration: 0.35, ease: 'power2.in' });
+            }
+        });
+    }
+
+    // ── Ocultar indicador de scroll ─────────────────────────────
+    let hintHidden = false;
+    function hideHint() {
+        if (hintHidden) return;
+        hintHidden = true;
+        const hint = document.querySelector('.mobile-scroll-hint');
+        if (hint) gsap.to(hint, { opacity: 0, duration: 0.4 });
+    }
+
+    // ── Ajustar canvas al tamaño real del elemento ─────────────
+    function resizeCanvas() {
+        if (!canvas) return;
+        canvas.width  = canvas.offsetWidth  || window.innerWidth;
+        canvas.height = canvas.offsetHeight || window.innerHeight;
+        if (lastFrame >= 0) { lastFrame = -1; drawFrame(lastFrame + 1); }
+    }
+
+    // ── Calcular progreso basado en scroll ─────────────────────
+    function onScroll() {
+        if (!spacer || !wrapper) return;
+        const spacerRect = spacer.getBoundingClientRect();
+        const spacerH    = spacer.offsetHeight;
+        const wrapperH   = wrapper.offsetHeight;
+        const scrolled   = -spacerRect.top;
+        const maxScroll  = spacerH - wrapperH;
+        const progress   = Math.max(0, Math.min(1, scrolled / maxScroll));
+        const frameIndex = progress * (TOTAL_FRAMES - 1);
+        drawFrame(frameIndex);
+        updateLegends(Math.round(frameIndex));
+        if (progress > 0.02) hideHint();
+    }
+
+    // ── Inicialización ──────────────────────────────────────────
+    function initMobileScroll() {
+        canvas  = document.getElementById('mobileScrollCanvas');
+        spacer  = document.getElementById('mobile-scroll-spacer');
+        wrapper = document.getElementById('mobile-canvas-wrapper');
+        if (!canvas || !spacer || !wrapper) return;
+        ctx = canvas.getContext('2d');
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas, { passive: true });
+        window.addEventListener('scroll', onScroll,    { passive: true });
+        preload();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileScroll);
+    } else {
+        initMobileScroll();
+    }
+
+})();
 
 // ========================================
 // LAZY LOADING SYSTEM (Videos & Iframes)

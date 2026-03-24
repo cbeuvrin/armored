@@ -1603,21 +1603,16 @@ body.scrolled-header .lang-switcher {
 
     .levels-videos-section {
         flex-direction: column;
-        /* Apilados verticalmente en móviles */
         height: 120vh;
-        /* Darle más altura en móviles para que quepan */
     }
 
     .level-video-item {
         border-right: none;
         border-bottom: 2px solid #ffffff;
-        /* Modificado: blanco para móviles */
     }
 
-    /* En hover móvil no animamos expansión agresiva horizontal */
     .level-video-item:hover {
         flex: 1.5;
-        /* Pequeño expansión vertical */
     }
 
     #shielding-selector {
@@ -1984,36 +1979,24 @@ body.scrolled-header .lang-switcher {
     #services-videos {
         flex-direction: column;
         height: 100vh;
-        /* Full screen height for the widget */
         overflow: hidden;
     }
 
     .service-item {
         flex: 1;
-        /* Start equal */
         width: 100%;
         height: auto;
-        transform: none;
-        /* Reset desktop skewX */
-        border-right: none;
-        margin: 0;
-
-        /* Vertical Diagonal Effect */
         transform: skewY(-5deg);
         margin-top: -30px;
-        /* Overlap to hide gaps */
         margin-bottom: -30px;
-
         transition: flex 0.5s ease, height 0.5s ease;
         border-top: 2px solid #000;
         border-bottom: 2px solid #000;
         overflow: hidden;
     }
 
-    /* Fix first and last items to cover edges */
     .service-item:first-child {
         margin-top: -50px;
-        /* Extend up */
         padding-top: 50px;
         margin-left: 0;
         padding-left: 0;
@@ -2021,32 +2004,24 @@ body.scrolled-header .lang-switcher {
 
     .service-item:last-child {
         margin-bottom: -50px;
-        /* Extend down */
         padding-bottom: 50px;
         margin-right: 0;
         padding-right: 0;
     }
 
-    /* Counter-skew content so it looks straight */
-    /* Counter-skew content so it looks straight */
-    /* Counter-skew content so it looks straight */
     .service-item video,
     .service-item .overlay {
         transform: skewY(5deg) scale(1.1);
-        /* Scale up slightly to cover edges */
         width: 100%;
         height: 100%;
         object-fit: cover;
         left: 0;
     }
 
-    /* STATIC LAYOUT (No Expansion) */
     .service-item {
         flex: 1;
-        /* Equal height */
     }
 
-    /* Reset desktop skew specific styles */
     .service-item video {
         left: 0;
     }
@@ -2059,12 +2034,10 @@ body.scrolled-header .lang-switcher {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        /* Center content vertically */
         align-items: center;
         text-align: center;
     }
 
-    /* Text Always Visible */
     .service-item p {
         max-height: none;
         opacity: 1;
@@ -2081,8 +2054,6 @@ body.scrolled-header .lang-switcher {
     .service-item:first-child .overlay {
         padding-left: 1rem;
     }
-
-    /* No expansion on mobile, or maybe just slight */
 
     .service-item p {
         opacity: 1;
@@ -2131,6 +2102,124 @@ body.scrolled-header .lang-switcher {
 @media (max-width: 768px) {
     .hero-cert-logos {
         display: none;
+    }
+}
+
+/* ========================================
+   MOBILE SCROLLYTELLING
+   ======================================== */
+
+/* Oculto en desktop — solo móvil */
+#mobile-scrollytelling {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #mobile-scrollytelling {
+        display: block;
+        position: relative;
+        z-index: 20;
+        background: #000;
+    }
+
+    /* El spacer da la altura total de scroll (500vh = 5 pantallas) */
+    #mobile-scroll-spacer {
+        height: 500vh;
+        position: relative;
+    }
+
+    /* El canvas wrapper se pega (pin) al hacer scroll */
+    #mobile-canvas-wrapper {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: 100svh;
+        overflow: hidden;
+        background: #000;
+    }
+
+    /* Canvas ocupa todo el wrapper */
+    #mobileScrollCanvas {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    /* ── Leyendas ── */
+    .scroll-legend {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2.5rem 1.8rem 3rem;
+        background: linear-gradient(to top,
+            rgba(0,0,0,0.92) 0%,
+            rgba(0,0,0,0.6) 55%,
+            transparent 100%);
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+        /* GSAP will animate these */
+    }
+
+    .legend-pill {
+        display: inline-block;
+        background: #B91C1C;
+        color: #fff;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        padding: 5px 14px;
+        border-radius: 20px;
+        margin-bottom: 12px;
+    }
+
+    .scroll-legend h3 {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.15;
+        margin: 0 0 10px;
+        text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    }
+
+    .scroll-legend p {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: rgba(255,255,255,0.78);
+        line-height: 1.6;
+        margin: 0;
+        max-width: 300px;
+    }
+
+    /* ── Scroll hint ── */
+    .mobile-scroll-hint {
+        position: absolute;
+        bottom: 28px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        color: rgba(255,255,255,0.4);
+        font-family: 'Inter', sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        animation: hintBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes hintBounce {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(6px); }
     }
 }
 
@@ -2399,7 +2488,7 @@ body.scrolled-header .lang-switcher {
         pointer-events: none;
         transition: all 0.4s ease;
         padding: 0;
-        gap: 30px;
+        gap: 15px;
     }
 
     .main-nav.active {
@@ -2409,10 +2498,14 @@ body.scrolled-header .lang-switcher {
     }
 
     .nav-link {
-        font-size: 1.8rem;
+        font-size: 3.5rem;
         color: white;
-        font-weight: 400;
-        letter-spacing: 1px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-align: center;
+        width: 100%;
+        padding: 5px 20px;
+        line-height: 1.2;
     }
 
     /* Language Switcher in Mobile Menu */
