@@ -2,6 +2,16 @@
 <html lang="es">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18074395482"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-18074395482');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blindajes Armored Security - Blindaje Automotriz Certificado en México</title>
@@ -214,45 +224,44 @@
             </div>
         </div>
     </section>
-
-    <!-- ══════════════════════════════════════════
-         MOBILE SCROLLYTELLING — Canvas Coche 100 frames
-         Solo visible en móvil (≤768px), oculto en desktop
+      <!-- ══════════════════════════════════════════
+         MOBILE HOTSPOTS (Coche Estático sobre Frame 057)
+         Solo visible en móvil (≤768px)
          ══════════════════════════════════════════ -->
     <section id="mobile-scrollytelling">
-        <!-- Contenedor largo que da el scroll room -->
-        <div id="mobile-scroll-spacer">
-            <!-- Canvas fijo dentro del pin -->
-            <div id="mobile-canvas-wrapper">
-                <canvas id="mobileScrollCanvas"></canvas>
-
-                <!-- Leyenda 1: Parabrisas (frames 1-25) -->
-                <div class="scroll-legend" id="scroll-legend-1">
-                    <div class="legend-pill">CRISTAL BLINDADO</div>
-                    <h3 data-i18n="scroll-legend-glass-title">Parabrisas<br>Certificado</h3>
-                    <p data-i18n="scroll-legend-glass-p">Cristal laminado de alta resistencia que detiene impactos sin fragmentarse.</p>
-                </div>
-
-                <!-- Leyenda 2: Puerta lateral (frames 40-60) -->
-                <div class="scroll-legend" id="scroll-legend-2">
-                    <div class="legend-pill">PUERTA BLINDADA</div>
-                    <h3 data-i18n="scroll-legend-door-title">Protección<br>Lateral Total</h3>
-                    <p data-i18n="scroll-legend-door-p">Acero balistico de alta resistencia integrado en toda la estructura de la puerta.</p>
-                </div>
-
-                <!-- Leyenda 3: Llanta / Run-Flat (frames 70-82) -->
-                <div class="scroll-legend" id="scroll-legend-3">
-                    <div class="legend-pill">RUN-FLAT</div>
-                    <h3 data-i18n="scroll-legend-wheel-title">Sistema<br>Run-Flat</h3>
-                    <p data-i18n="scroll-legend-wheel-p">Continúa rodando hasta 80 km incluso con los neumáticos perforados.</p>
-                </div>
-
-                <!-- Indicador de scroll -->
-                <div class="mobile-scroll-hint">
-                    <span>Desliza hacia abajo</span>
-                    <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+        <div class="mobile-hotspot-container">
+            <img src="/scroll-celular/057.webp" class="mobile-static-car" alt="Blindaje Armored Security">
+            
+            <!-- Hotspot 1: Parabrisas -->
+            <div class="m-hotspot m-hotspot-1">
+                <div class="m-dot"></div>
+                <div class="m-line"></div>
+                <div class="m-text">
+                    <h4 data-i18n="scroll-legend-glass-title">Parabrisas<br>Certificado</h4>
+                    <p data-i18n="scroll-legend-glass-p">Cristal laminado de alta resistencia que detiene impactos.</p>
                 </div>
             </div>
+
+            <!-- Hotspot 2: Puerta -->
+            <div class="m-hotspot m-hotspot-2">
+                <div class="m-text m-text-left">
+                    <h4 data-i18n="scroll-legend-door-title">Protección<br>Lateral</h4>
+                    <p data-i18n="scroll-legend-door-p">Acero balístico integrado en la estructura de la puerta.</p>
+                </div>
+                <div class="m-line m-line-left"></div>
+                <div class="m-dot"></div>
+            </div>
+
+            <!-- Hotspot 3: Llanta -->
+            <div class="m-hotspot m-hotspot-3">
+                <div class="m-dot"></div>
+                <div class="m-line"></div>
+                <div class="m-text">
+                    <h4 data-i18n="scroll-legend-wheel-title">Sistema<br>Run-Flat</h4>
+                    <p data-i18n="scroll-legend-wheel-p">Continúa rodando hasta 80 km con neumáticos perforados.</p>
+                </div>
+            </div>
+            
         </div>
     </section>
 

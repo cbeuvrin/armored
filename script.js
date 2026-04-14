@@ -266,15 +266,17 @@ function renderFrame(frameIndex) {
 
 function setupSequentialAnimation() {
 
-    // If #hero-blindaje does not exist on this page, skip sequential animation
-    if (!document.getElementById('hero-blindaje')) {
+    // ── Device detection ──────────────────────────────────────────────────────
+    const W = window.innerWidth;
+    const isMobileDevice = W <= 768;
+    
+    // Si estamos en móvil, la sección de fondo blanco ya no va, así que saltamos
+    // toda esta lógica pesada para no consumir RAM y dejamos solo las animaciones comunes.
+    if (!document.getElementById('hero-blindaje') || isMobileDevice) {
         setupCommonScrollAnimations();
         return;
     }
 
-    // ── Device detection ──────────────────────────────────────────────────────
-    const W = window.innerWidth;
-    const isMobileDevice = W <= 768;
     const isTabletDevice  = W > 768 && W <= 1024;
     // isDesktop = everything else
 
@@ -292,22 +294,18 @@ function setupSequentialAnimation() {
 
     // ─────────────────────────────────────────────────────────────────────────
     // MAIN TIMELINE
-    //  Desktop  (>1024px):  4 blocks, 400vh, scrub 1.5, snap
-    //  Tablet   (769-1024): 3 blocks, 300vh, scrub 1.0, no snap
-    //  Mobile   (≤768px):   2 blocks, 200vh, scrub 0.8, no snap
+    //  Desktop (>1024px):   Uses Observer pattern for "Presentation Slider" (No scrub)
+    //  Tablet (769-1024): 3 blocks, 300vh, scrub 1.0, no snap
+    //  Mobile (≤768px):   2 blocks, 200vh, scrub 0.8, no snap
     // ─────────────────────────────────────────────────────────────────────────
     const tl = gsap.timeline({
-        scrollTrigger: {
+        paused: useSnap, // For desktop, timeline is manually driven by Observer
+        scrollTrigger: useSnap ? null : {
             trigger: '#hero-blindaje',
             start: 'top top',
             end: scrollDist,
             scrub: scrubVal,
             pin: true,
-            snap: useSnap ? {
-                snapTo: 'labels',
-                duration: { min: 0.4, max: 0.9 },
-                ease: 'power2.inOut'
-            } : false,
             onEnter:     () => document.body.classList.remove('scrolled-header'),
             onLeave:     () => document.body.classList.add('scrolled-header'),
             onEnterBack: () => document.body.classList.remove('scrolled-header'),
@@ -315,6 +313,9 @@ function setupSequentialAnimation() {
             onUpdate: () => {
                 renderFrame(Math.round(state.currentFrame));
             }
+        },
+        onUpdate: () => {
+            if (useSnap) renderFrame(Math.round(state.currentFrame));
         }
     });
 
@@ -398,6 +399,78 @@ function setupSequentialAnimation() {
             tl.addLabel('block4');
 
             tl.to({}, { duration: 2 });
+        }
+    }
+
+    // ╔══════════════════════════════════════════════════╗
+    // ║  PRESENTATION OBSERVER (Desktop Slider Only)     ║
+    // ╚══════════════════════════════════════════════════╝
+    if (useSnap) {
+        let currentStep = 0;
+        let isAnimating = false;
+        // Eliminado 'block4' (Salida) como pidió el usuario. La llanta ('block3') es el último paso.
+        const labelsArr = ['start', 'block1', 'block2', 'block3'];
+        const totalSteps = labelsArr.length - 1;
+
+        // 1. Observer to intercept wheel and navigate logic
+        const heroObserver = ScrollTrigger.observe({
+            target: window,
+            type: "wheel,touch,pointer",
+            preventDefault: true, // Stops physical scroll while active
+            onUp: () => {
+                if (isAnimating) return;
+                if (currentStep > 0) {
+                    isAnimating = true;
+                    currentStep--;
+                    // Aumentar duración a 2.2s para efecto "Apple" lento y majestuoso
+                    tl.tweenTo(labelsArr[currentStep], { duration: 2.2, ease: "power2.inOut", onComplete: () => isAnimating = false });
+                } else {
+                    deactivateSlider(false);
+                }
+            },
+            onDown: () => {
+                if (isAnimating) return;
+                if (currentStep < totalSteps) {
+                    isAnimating = true;
+                    currentStep++;
+                    // Aumentar duración a 2.2s para que se aprecie el detalle
+                    tl.tweenTo(labelsArr[currentStep], { duration: 2.2, ease: "power2.inOut", onComplete: () => isAnimating = false });
+                } else {
+                    deactivateSlider(true);
+                }
+            }
+        });
+        heroObserver.disable();
+
+        // 2. Trigger trap: Pin the section firmly for a large distance so momentum doesn't break it
+        ScrollTrigger.create({
+            id: 'heroPin',
+            trigger: '#hero-blindaje',
+            start: 'top top',
+            end: '+=4000', // Massive runway guarantees it won't unpin prematurely
+            pin: true,
+            onEnter: () => activateSlider(true),
+            onEnterBack: () => activateSlider(false)
+        });
+
+        function activateSlider(goingDown) {
+            heroObserver.enable();
+            document.body.classList.remove('scrolled-header');
+            currentStep = goingDown ? 0 : totalSteps;
+            tl.seek(labelsArr[currentStep]);
+        }
+
+        function deactivateSlider(goingDown) {
+            heroObserver.disable();
+            document.body.classList.add('scrolled-header');
+            
+            // Instantly teleport the physical scrollbar past the massive pin zone
+            let st = ScrollTrigger.getById('heroPin');
+            if (st) {
+                // If going down -> jump past end. If going up -> jump above start.
+                let targetY = goingDown ? st.end + 10 : st.start - 10;
+                window.scrollTo({ top: targetY, behavior: 'auto' });
+            }
         }
     }
 
@@ -499,134 +572,64 @@ if (document.readyState === 'loading') {
 }
 
 // ========================================
-// MOBILE SCROLLYTELLING — Canvas Coche
+// MOBILE HOTSPOTS — Animación Coche Estático
 // ========================================
 
 (function() {
     'use strict';
 
-    // Solo ejecutar en móvil
-    if (window.innerWidth > 768) return;
+    function initMobileHotspots() {
+        // Solo ejecutar en móvil (≤768px)
+        if (window.innerWidth > 768) return;
 
-    const TOTAL_FRAMES = 100;
-    const FRAME_PATH   = '/scroll celular/';
+        const container = document.getElementById('mobile-scrollytelling');
+        if (!container) return;
 
-    // Configuración de leyendas: rango de frames donde aparece cada una
-    const LEGENDS = [
-        { id: 'scroll-legend-1', frameIn: 5,  frameOut: 28 },  // Parabrisas
-        { id: 'scroll-legend-2', frameIn: 38, frameOut: 60 },  // Puerta
-        { id: 'scroll-legend-3', frameIn: 68, frameOut: 82 },  // Run-Flat
-    ];
+        // Animar Hotspots cuando entren en la pantalla
+        ScrollTrigger.create({
+            trigger: container,
+            start: 'top 50%', // Seactiva cuando la mitad de la foto entra desde abajo
+            once: false,      // Puede modificarse a true si solo quieres que salgan 1 vez
+            onEnter: () => {
+                const tl = gsap.timeline();
+                const hotspots = document.querySelectorAll('.m-hotspot');
+                
+                hotspots.forEach((spot, index) => {
+                    const dot = spot.querySelector('.m-dot');
+                    const line = spot.querySelector('.m-line');
+                    const text = spot.querySelector('.m-text');
 
-    let frames       = new Array(TOTAL_FRAMES).fill(null);
-    let ready        = false;
-    let canvas, ctx, spacer, wrapper;
-    let lastFrame    = -1;
-    let legendStates = LEGENDS.map(() => ({ visible: false }));
+                    // Set initial hidden states
+                    gsap.set(dot, { opacity: 0, scale: 0 });
+                    gsap.set(line, { opacity: 0, width: 0 });
+                    // Aseguramos que el texto salga siempre disparado "alejándose" del punto
+                    gsap.set(text, { opacity: 0, x: spot.classList.contains('m-hotspot-2') ? 20 : -20 });
 
-    // ── Precargar imágenes ──────────────────────────────────────
-    function preload() {
-        let resolved = 0;
-        for (let i = 0; i < TOTAL_FRAMES; i++) {
-            const img = new Image();
-            const num = String(i + 1).padStart(3, '0');
-            img.src = FRAME_PATH + num + '.webp';
-            img.onload = img.onerror = () => {
-                frames[i] = (img.complete && img.naturalWidth > 0) ? img : null;
-                resolved++;
-                if (resolved === TOTAL_FRAMES) {
-                    ready = true;
-                    drawFrame(0);
-                }
-            };
-            frames[i] = img;
-        }
-    }
+                    // Calcular delay escalonado (cada uno sale después del anterior)
+                    let startTime = index * 0.8; 
 
-    // ── Dibujar un frame en canvas con object-fit: cover ───────
-    function drawFrame(index) {
-        const clamped = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.round(index)));
-        if (clamped === lastFrame) return;
-        lastFrame = clamped;
-        const img = frames[clamped];
-        if (!img || !img.complete || !ctx) return;
-        const cW = canvas.width, cH = canvas.height;
-        const iW = img.naturalWidth, iH = img.naturalHeight;
-        if (!iW || !iH) return;
-        const scale = Math.max(cW / iW, cH / iH);
-        const dW = iW * scale, dH = iH * scale;
-        const dx = (cW - dW) / 2, dy = (cH - dH) / 2;
-        ctx.clearRect(0, 0, cW, cH);
-        ctx.drawImage(img, dx, dy, dW, dH);
-    }
-
-    // ── Animación de leyendas ───────────────────────────────────
-    function updateLegends(frameIndex) {
-        LEGENDS.forEach((def, i) => {
-            const el = document.getElementById(def.id);
-            if (!el) return;
-            const shouldShow = frameIndex >= def.frameIn && frameIndex <= def.frameOut;
-            if (shouldShow && !legendStates[i].visible) {
-                legendStates[i].visible = true;
-                gsap.to(el, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
-            } else if (!shouldShow && legendStates[i].visible) {
-                legendStates[i].visible = false;
-                gsap.to(el, { opacity: 0, y: 20, duration: 0.35, ease: 'power2.in' });
+                    // 1. Punto
+                    tl.to(dot, { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)' }, startTime);
+                    
+                    // 2. Línea
+                    let lineWidth = '40px';
+                    if (spot.classList.contains('m-hotspot-2')) lineWidth = '60px';
+                    if (spot.classList.contains('m-hotspot-3')) lineWidth = '50px';
+                    
+                    tl.to(line, { width: lineWidth, opacity: 1, duration: 0.4, ease: 'power2.out' }, startTime + 0.3);
+                    
+                    // 3. Texto
+                    tl.to(text, { x: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, startTime + 0.5);
+                });
             }
         });
     }
 
-    // ── Ocultar indicador de scroll ─────────────────────────────
-    let hintHidden = false;
-    function hideHint() {
-        if (hintHidden) return;
-        hintHidden = true;
-        const hint = document.querySelector('.mobile-scroll-hint');
-        if (hint) gsap.to(hint, { opacity: 0, duration: 0.4 });
-    }
-
-    // ── Ajustar canvas al tamaño real del elemento ─────────────
-    function resizeCanvas() {
-        if (!canvas) return;
-        canvas.width  = canvas.offsetWidth  || window.innerWidth;
-        canvas.height = canvas.offsetHeight || window.innerHeight;
-        if (lastFrame >= 0) { lastFrame = -1; drawFrame(lastFrame + 1); }
-    }
-
-    // ── Calcular progreso basado en scroll ─────────────────────
-    function onScroll() {
-        if (!spacer || !wrapper) return;
-        const spacerRect = spacer.getBoundingClientRect();
-        const spacerH    = spacer.offsetHeight;
-        const wrapperH   = wrapper.offsetHeight;
-        const scrolled   = -spacerRect.top;
-        const maxScroll  = spacerH - wrapperH;
-        const progress   = Math.max(0, Math.min(1, scrolled / maxScroll));
-        const frameIndex = progress * (TOTAL_FRAMES - 1);
-        drawFrame(frameIndex);
-        updateLegends(Math.round(frameIndex));
-        if (progress > 0.02) hideHint();
-    }
-
-    // ── Inicialización ──────────────────────────────────────────
-    function initMobileScroll() {
-        canvas  = document.getElementById('mobileScrollCanvas');
-        spacer  = document.getElementById('mobile-scroll-spacer');
-        wrapper = document.getElementById('mobile-canvas-wrapper');
-        if (!canvas || !spacer || !wrapper) return;
-        ctx = canvas.getContext('2d');
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas, { passive: true });
-        window.addEventListener('scroll', onScroll,    { passive: true });
-        preload();
-    }
-
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMobileScroll);
+        document.addEventListener('DOMContentLoaded', initMobileHotspots);
     } else {
-        initMobileScroll();
+        initMobileHotspots();
     }
-
 })();
 
 // ========================================
