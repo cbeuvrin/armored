@@ -4370,3 +4370,111 @@ body.nosotros-page .hamburger .bar {
         height: 18px;
     }
 }
+
+/* ========================================
+   PREMIUM TOAST NOTIFICATIONS (Google Ads Conversion Feedback)
+   ======================================== */
+.armored-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(21, 21, 21, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(185, 28, 28, 0.3);
+    border-radius: 8px;
+    padding: 16px 24px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    transform: translateY(100px) scale(0.9);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    max-width: 400px;
+}
+
+.armored-toast.show {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.armored-toast-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #B91C1C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.armored-toast-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: #fff;
+}
+
+.armored-toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.armored-toast-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.armored-toast-desc {
+    font-size: 0.85rem;
+    color: #aaa;
+    line-height: 1.4;
+}
+
+/* Loading state for contact submit button */
+.contact-submit-btn.loading {
+    background-color: #991b1b;
+    pointer-events: none;
+    color: transparent !important;
+    position: relative;
+}
+
+.contact-submit-btn.loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spinner 0.6s linear infinite;
+}
+
+@keyframes spinner {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .armored-toast {
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+        max-width: none;
+        padding: 14px 20px;
+    }
+}
+

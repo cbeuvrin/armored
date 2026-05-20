@@ -926,6 +926,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {
         console.log("Certifications animation setup skipped.", e);
     }
+    setupContactForm(); // Initialize contact form submit handler & Google Ads conversion
 });
 
 // ========================================
@@ -1367,3 +1368,163 @@ function setupBackgroundMusic() {
         }
     });
 }
+
+// ========================================
+// CONTACT FORM SUBMISSION & GOOGLE ADS CONVERSION
+// ========================================
+
+function setupContactForm() {
+    const form = document.querySelector('.contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('.contact-submit-btn');
+        const emailInput = form.querySelector('#email');
+        const phoneInput = form.querySelector('#phone');
+
+        if (!emailInput || !phoneInput) return;
+
+        // Extract and normalize values
+        const emailVal = emailInput.value.trim().toLowerCase();
+        const rawPhone = phoneInput.value;
+        const normalizedPhone = normalizePhone(rawPhone);
+
+        // Add loading state to button
+        if (submitBtn) {
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+        }
+
+        // Simulate contact form submission / network request (1.5 seconds)
+        // Since barmoredsecurity.com is a client-side single page app without dynamic backend,
+        // we simulate a premium AJAX submission and perform the conversion inside the success callback.
+        simulateFormSubmission()
+            .then(() => {
+                // SOLO cuando el envío sea EXITOSO, ejecuta el código de Google Ads:
+                
+                // 1. Conversiones avanzadas: pasa los datos del formulario (gtag los encripta solo)
+                if (typeof gtag === 'function') {
+                    gtag('set', 'user_data', {
+                        email: emailVal,
+                        phone_number: normalizedPhone
+                    });
+
+                    // 2. Dispara la conversión
+                    gtag('event', 'conversion', {
+                        'send_to': 'AW-18074395482/JmGYCPbmtrAcENrGxapD'
+                    });
+                    console.log('Google Ads conversion tracking fired successfully with user data.');
+                } else {
+                    console.warn('gtag is not defined. Google Ads conversion tracking skipped.');
+                }
+
+                // Show success feedback
+                const isEn = document.documentElement.lang === 'en';
+                const successTitle = isEn ? 'Message Sent' : 'Mensaje Enviado';
+                const successDesc = isEn 
+                    ? 'Thank you! A security advisor will contact you shortly.' 
+                    : '¡Gracias! Un asesor experto en seguridad se comunicará contigo a la brevedad.';
+
+                showSuccessToast(successTitle, successDesc);
+
+                // Reset the form
+                form.reset();
+            })
+            .catch((error) => {
+                console.error('Form submission failed:', error);
+            })
+            .finally(() => {
+                // Restore button state
+                if (submitBtn) {
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                }
+            });
+    });
+}
+
+function simulateFormSubmission() {
+    return new Promise((resolve) => {
+        setTimeout(resolve, 1500);
+    });
+}
+
+function normalizePhone(phone) {
+    // Trim and keep only numbers and + sign
+    let cleaned = phone.trim().replace(/[^\d+]/g, '');
+    
+    if (cleaned.startsWith('+')) {
+        return cleaned;
+    }
+    
+    // Remove any remaining non-digit characters
+    cleaned = cleaned.replace(/\D/g, '');
+    
+    // Mexican number without area code: 10 digits
+    if (cleaned.length === 15 || cleaned.length === 10) {
+        // Handle 10-digit local Mexican numbers
+        return '+52' + (cleaned.length === 10 ? cleaned : cleaned.slice(-10));
+    }
+    
+    // Mexican number with country code 52 prefix, but no +
+    if (cleaned.startsWith('52') && cleaned.length === 12) {
+        return '+' + cleaned;
+    }
+    
+    // If it's already got some other length, just prepend +52 if it doesn't start with it
+    if (cleaned.length > 10) {
+        if (cleaned.startsWith('52')) {
+            return '+' + cleaned;
+        } else {
+            return '+' + cleaned; // assume it has its own country code
+        }
+    }
+    
+    // Fallback: prepend +52
+    return '+52' + cleaned;
+}
+
+function showSuccessToast(title, description) {
+    // Remove any existing toast first
+    const existingToast = document.querySelector('.armored-toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+
+    // Create toast elements
+    const toast = document.createElement('div');
+    toast.className = 'armored-toast';
+    
+    // SVG Checkmark Icon
+    toast.innerHTML = `
+        <div class="armored-toast-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+        </div>
+        <div class="armored-toast-content">
+            <span class="armored-toast-title">${title}</span>
+            <span class="armored-toast-desc">${description}</span>
+        </div>
+    `;
+
+    document.body.appendChild(toast);
+
+    // Trigger reflow to ensure transition runs
+    toast.offsetHeight;
+
+    // Show toast
+    toast.classList.add('show');
+
+    // Hide and remove toast after 4 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        // Wait for slide-out transition to finish before removal
+        setTimeout(() => {
+            toast.remove();
+        }, 400);
+    }, 4000);
+}
+
