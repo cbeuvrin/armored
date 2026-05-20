@@ -927,6 +927,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Certifications animation setup skipped.", e);
     }
     setupContactForm(); // Initialize contact form submit handler & Google Ads conversion
+    setupClickConversions(); // Initialize WhatsApp & Phone click conversions
 });
 
 // ========================================
@@ -1527,4 +1528,59 @@ function showSuccessToast(title, description) {
         }, 400);
     }, 4000);
 }
+
+// ========================================
+// CLICK CONVERSIONS (WHATSAPP & PHONE LINKS)
+// ========================================
+
+function setupClickConversions() {
+    // 1. WhatsApp Button Clicks
+    // Select the floating WhatsApp button and any links pointing to wa.me or api.whatsapp.com
+    const whatsappLinks = document.querySelectorAll('.whatsapp-float, a[href*="wa.me"], a[href*="api.whatsapp.com"]');
+    whatsappLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Check if link is opening in the same tab or if we need a callback (for bulletproof safety)
+            const isTabNew = this.getAttribute('target') === '_blank' || e.ctrlKey || e.shiftKey || e.metaKey || e.button === 1;
+            
+            if (typeof gtag === 'function') {
+                if (isTabNew) {
+                    // Opens in new tab, just fire the event normally
+                    gtag('event', 'conversion', {
+                        'send_to': 'AW-18074395482/W5EyCMH20LAcENrGxapD'
+                    });
+                    console.log('WhatsApp new tab click conversion tracked.');
+                } else {
+                    // Opens in same tab, prevent default and use callback to ensure hit is sent
+                    e.preventDefault();
+                    const targetUrl = this.href;
+                    gtag('event', 'conversion', {
+                        'send_to': 'AW-18074395482/W5EyCMH20LAcENrGxapD',
+                        'event_callback': function() {
+                            window.location.href = targetUrl;
+                        }
+                    });
+                    // Fallback timeout in case event_callback is blocked/slow
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 500);
+                    console.log('WhatsApp same tab click conversion tracked with callback.');
+                }
+            }
+        });
+    });
+
+    // 2. Phone Link Clicks (a href^="tel:")
+    const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+    phoneLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-18074395482/WrXqCLT40LAcENrGxapD'
+                });
+                console.log('Phone link click conversion tracked: ' + this.href);
+            }
+        });
+    });
+}
+
 
