@@ -29,8 +29,13 @@ const state = {
 const PRELOADER_ENABLED = false;
 
 function init() {
+    // The canvas scroll animation (#hero-blindaje) is desktop-only — hidden on mobile
+    // via `display: none` in styles.css. Skip grabbing the canvas on mobile so we
+    // don't preload ~5-6 MB of parallax frames the user will never see.
+    const isMobile = window.innerWidth <= 768;
+
     // Get DOM elements
-    state.canvas = document.getElementById('heroCanvas');
+    state.canvas = isMobile ? null : document.getElementById('heroCanvas');
     if (state.canvas) {
         state.ctx = state.canvas.getContext('2d');
     }
@@ -47,12 +52,10 @@ function init() {
         state.loadingAnimationDone = true;
     }
 
-    // If there is no canvas, skip preloading images to avoid loading 80+ frames unnecessarily
+    // If there is no canvas (mobile or page without it), skip the 96-frame preload.
     if (state.canvas) {
-        // Start preloading images
         preloadImages();
     } else {
-        // Just run standard preloader and mark images as ready
         state.imagesReady = true;
     }
 
