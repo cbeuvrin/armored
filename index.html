@@ -20,8 +20,9 @@
     <!-- Preconnect critical origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://www.youtube.com">
-    <link rel="preconnect" href="https://i.ytimg.com">
+    <!-- YouTube iframe is lazy-loaded; use DNS prefetch instead of full preconnect -->
+    <link rel="dns-prefetch" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://i.ytimg.com">
 
     <!-- Preload critical CSS -->
     <link rel="preload" href="styles.css" as="style">
@@ -41,6 +42,12 @@
 
     <link rel="stylesheet" href="styles.css">
     <link rel="canonical" href="https://www.barmoredsecurity.com/">
+
+    <!-- Scripts: defer so they download in parallel with HTML parse and execute in order after DOMContentLoaded -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script defer src="translations.js"></script>
+    <script defer src="script.js?v=5"></script>
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -105,7 +112,7 @@
     <header class="site-header">
         <!-- Logo Top Left -->
         <div class="logo-container">
-            <img src="/assets/logopng2-sm.webp" alt="Armored Security" class="site-logo" width="220" height="220" fetchpriority="high">
+            <img src="/assets/logopng2-sm.webp" alt="Armored Security" class="site-logo" width="192" height="192" fetchpriority="high">
         </div>
 
         <!-- Hamburger Button -->
@@ -528,7 +535,7 @@
             <!-- Col 1: Brand -->
             <div class="footer-col brand-col">
                 <a href="#inicio">
-                    <img src="/assets/logopng2-sm.webp" alt="Armored Security" class="footer-logo-img" loading="lazy" width="220" height="220">
+                    <img src="/assets/logopng2-sm.webp" alt="Armored Security" class="footer-logo-img" loading="lazy" width="192" height="192">
                 </a>
                 <p class="footer-tagline" data-i18n="footer-tagline">Security is not an option, it's a necessity.</p>
             </div>
@@ -564,7 +571,7 @@
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/525568186170" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+        <img src="/assets/whatsapp.svg" alt="WhatsApp" />
     </a>
 
     <!-- Video Modal for Levels -->
@@ -575,11 +582,7 @@
         </div>
     </div>
 
-    <!-- Scroll Spacer and GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="translations.js"></script>
-    <script src="script.js?v=4"></script>
+    <!-- Scripts moved to <head> with defer for parallel download (see top of file) -->
 </body>
 
 </html>
