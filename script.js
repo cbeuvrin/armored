@@ -25,6 +25,9 @@ const state = {
 // INITIALIZATION
 // ========================================
 
+// Toggle: set to true to re-enable the loading animation.
+const PRELOADER_ENABLED = false;
+
 function init() {
     // Get DOM elements
     state.canvas = document.getElementById('heroCanvas');
@@ -38,6 +41,12 @@ function init() {
     // Register GSAP plugins
     gsap.registerPlugin(ScrollTrigger);
 
+    // If preloader is disabled, hide it immediately and mark animation done.
+    if (!PRELOADER_ENABLED && state.preloader) {
+        state.preloader.style.display = 'none';
+        state.loadingAnimationDone = true;
+    }
+
     // If there is no canvas, skip preloading images to avoid loading 80+ frames unnecessarily
     if (state.canvas) {
         // Start preloading images
@@ -47,17 +56,16 @@ function init() {
         state.imagesReady = true;
     }
 
-    // Start visual loading sequence
-    runPreloaderSequence();
+    // Start visual loading sequence (only if enabled)
+    if (PRELOADER_ENABLED) {
+        runPreloaderSequence();
+    }
 
     // Setup Mobile Menu
     setupMobileMenu();
 
     // Setup Language Switcher
     setupLanguageSwitcher();
-
-    // Setup Background Music
-    setupBackgroundMusic();
 }
 
 // ========================================
@@ -1309,65 +1317,6 @@ function setLanguage(lang) {
     if (typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.refresh();
     }
-}
-
-// ========================================
-// BACKGROUND MUSIC
-// ========================================
-
-function setupBackgroundMusic() {
-    const music = document.getElementById('bg-music');
-    const toggle = document.getElementById('music-toggle');
-    if (!music || !toggle) return;
-
-    // Check localStorage for music preference
-    const musicPreference = localStorage.getItem('musicEnabled');
-    
-    // Initial state based on preference (mute icon)
-    if (musicPreference === 'false') {
-        toggle.classList.add('muted');
-    } else if (musicPreference === 'true') {
-        toggle.classList.remove('muted');
-    }
-
-    // Background music usually can't autoplay without interaction.
-    // We'll try to play it as soon as the user interacts with the page.
-    const startOnInteraction = () => {
-        // If user hasn't explicitly muted in the past, try to play
-        if (musicPreference !== 'false') {
-            music.play().then(() => {
-                toggle.classList.remove('muted');
-            }).catch(err => {
-                // This might still fail if browser is very strict, that's fine
-                console.log("Music autoplay blocked by browser policy");
-            });
-        }
-        
-        // Cleanup listeners
-        window.removeEventListener('click', startOnInteraction);
-        window.removeEventListener('touchstart', startOnInteraction);
-        window.removeEventListener('scroll', startOnInteraction);
-    };
-
-    window.addEventListener('click', startOnInteraction);
-    window.addEventListener('touchstart', startOnInteraction);
-    window.addEventListener('scroll', startOnInteraction);
-
-    // Toggle Button Logic
-    toggle.addEventListener('click', (e) => {
-        e.stopPropagation(); // Avoid triggering the interaction listener
-        
-        if (music.paused) {
-            music.play().then(() => {
-                toggle.classList.remove('muted');
-                localStorage.setItem('musicEnabled', 'true');
-            }).catch(err => console.error("Error playing music:", err));
-        } else {
-            music.pause();
-            toggle.classList.add('muted');
-            localStorage.setItem('musicEnabled', 'false');
-        }
-    });
 }
 
 // ========================================
