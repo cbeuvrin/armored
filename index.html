@@ -17,9 +17,6 @@
     <title>Blindajes Armored Security - Blindaje Automotriz Certificado en México</title>
     <meta name="description" content="Blindaje automotriz certificado de alta seguridad en México. Más de 10 años blindando vehículos gubernamentales, empresariales y particulares con tecnología de vanguardia.">
 
-    <!-- Preconnect critical origins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- YouTube iframe is lazy-loaded; use DNS prefetch instead of full preconnect -->
     <link rel="dns-prefetch" href="https://www.youtube.com">
     <link rel="dns-prefetch" href="https://i.ytimg.com">
@@ -27,9 +24,9 @@
     <!-- Preload critical CSS -->
     <link rel="preload" href="styles.css" as="style">
 
-    <!-- Fonts: load non-blocking (media swap trick) -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
+    <!-- Preload self-hosted Inter font (latin subset covers Spanish + English) -->
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+
     <link rel="icon" href="/assets/logopng2-sm.webp" type="image/webp">
 
     <!-- Social Sharing (Open Graph / WhatsApp) -->
