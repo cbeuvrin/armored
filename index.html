@@ -26,9 +26,10 @@
     <!-- Preload critical CSS -->
     <link rel="preload" href="styles.css" as="style">
 
-    <!-- Fonts with display=swap already -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="/assets/logopng2.webp" type="image/png">
+    <!-- Fonts: load non-blocking (media swap trick) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
+    <link rel="icon" href="/assets/logopng2-sm.webp" type="image/webp">
 
     <!-- Social Sharing (Open Graph / WhatsApp) -->
     <meta property="og:title" content="Blindajes Armored Security">
@@ -104,7 +105,7 @@
     <header class="site-header">
         <!-- Logo Top Left -->
         <div class="logo-container">
-            <img src="/assets/logopng2.webp" alt="Armored Security" class="site-logo">
+            <img src="/assets/logopng2-sm.webp" alt="Armored Security" class="site-logo" width="220" height="220">
         </div>
 
         <!-- Hamburger Button -->
@@ -230,7 +231,7 @@
          ══════════════════════════════════════════ -->
     <section id="mobile-scrollytelling">
         <div class="mobile-hotspot-container">
-            <img src="/scroll-celular/057.webp" class="mobile-static-car" alt="Blindaje Armored Security">
+            <img src="/scroll-celular/057-sm.webp" class="mobile-static-car" alt="Blindaje Armored Security" width="500" height="997" loading="lazy">
             
             <!-- Hotspot 1: Parabrisas -->
             <div class="m-hotspot m-hotspot-1">
@@ -527,7 +528,7 @@
             <!-- Col 1: Brand -->
             <div class="footer-col brand-col">
                 <a href="#inicio">
-                    <img src="/assets/logopng2.webp" alt="Armored Security" class="footer-logo-img" loading="lazy">
+                    <img src="/assets/logopng2-sm.webp" alt="Armored Security" class="footer-logo-img" loading="lazy" width="220" height="220">
                 </a>
                 <p class="footer-tagline" data-i18n="footer-tagline">Security is not an option, it's a necessity.</p>
             </div>

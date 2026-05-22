@@ -432,7 +432,7 @@ body.scrolled-header .lang-switcher {
     /* background-color: #000000; Removed solid black */
     background-color: #000000;
     /* Restoration for letterboxing */
-    background-image: url('./assets/section-background-4.png');
+    background-image: url('./assets/section-background-4.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
