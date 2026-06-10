@@ -166,6 +166,110 @@
         </div>
     </section>
 
+    <!-- Canvas Animation Section (Formerly Hero) -->
+    <section id="hero-blindaje">
+
+        <div class="sticky-container">
+            <!-- Canvas for image sequence -->
+            <canvas id="heroCanvas"></canvas>
+
+            <!-- Intro Overlay (Logo + Badge) -->
+            <div class="canvas-intro-overlay">
+                <img src="/Logo/armored.webp" alt="Armored Security" class="intro-logo" loading="lazy">
+                <div class="experience-badge intro-badge">
+                    <span class="badge-years">+18</span>
+                    <span class="badge-text" data-i18n="badge-years-text">AÑOS</span>
+                    <span class="badge-text" data-i18n="badge-line-1">BLINDANDO TU SEGURIDAD</span>
+                    <span class="badge-text" data-i18n="badge-line-2">Y LA DE TU FAMILIA</span>
+                </div>
+            </div>
+
+
+
+            <!-- Hotspot 1: Cristales (Ventana Delantera) -->
+            <div class="hotspot" id="hotspot-cristales">
+                <div class="hotspot-dot"></div>
+                <div class="hotspot-callout">
+                    <div class="callout-line"></div>
+                    <div class="callout-box">
+                        <div class="img-container">
+                            <img src="glass1.webp" alt="Blindaje Cristales" loading="lazy">
+                            <span data-i18n="hotspot-glass">BLINDAJE DE CRISTALES</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotspot 2: Puertas -->
+            <div class="hotspot" id="hotspot-puertas">
+                <div class="hotspot-dot"></div>
+                <div class="hotspot-callout">
+                    <div class="callout-line"></div>
+                    <div class="callout-box">
+                        <div class="img-container">
+                            <img src="/assets/hotspot-door.webp" alt="Protección Lateral" loading="lazy">
+                            <span data-i18n="hotspot-side">PROTECCIÓN LATERAL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotspot 3: Suspensión (Rueda Trasera) -->
+            <div class="hotspot" id="hotspot-suspension">
+                <div class="hotspot-dot"></div>
+                <div class="hotspot-callout">
+                    <div class="callout-line"></div>
+                    <div class="callout-box">
+                        <div class="img-container">
+                            <img src="runflat.webp" alt="Sistema Run-Flat" loading="lazy">
+                            <span data-i18n="hotspot-runflat">SISTEMA RUN-FLAT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+      <!-- ══════════════════════════════════════════
+         MOBILE HOTSPOTS (Coche Estático sobre Frame 057)
+         Solo visible en móvil (≤768px)
+         ══════════════════════════════════════════ -->
+    <section id="mobile-scrollytelling">
+        <div class="mobile-hotspot-container">
+            <img src="/scroll-celular/057-sm.webp" class="mobile-static-car" alt="Blindaje Armored Security" width="500" height="997" loading="lazy">
+            
+            <!-- Hotspot 1: Parabrisas -->
+            <div class="m-hotspot m-hotspot-1">
+                <div class="m-dot"></div>
+                <div class="m-line"></div>
+                <div class="m-text">
+                    <h4 data-i18n="scroll-legend-glass-title">Parabrisas<br>Certificado</h4>
+                    <p data-i18n="scroll-legend-glass-p">Cristal laminado de alta resistencia que detiene impactos.</p>
+                </div>
+            </div>
+
+            <!-- Hotspot 2: Puerta -->
+            <div class="m-hotspot m-hotspot-2">
+                <div class="m-text m-text-left">
+                    <h4 data-i18n="scroll-legend-door-title">Protección<br>Lateral</h4>
+                    <p data-i18n="scroll-legend-door-p">Acero balístico integrado en la estructura de la puerta.</p>
+                </div>
+                <div class="m-line m-line-left"></div>
+                <div class="m-dot"></div>
+            </div>
+
+            <!-- Hotspot 3: Llanta -->
+            <div class="m-hotspot m-hotspot-3">
+                <div class="m-dot"></div>
+                <div class="m-line"></div>
+                <div class="m-text">
+                    <h4 data-i18n="scroll-legend-wheel-title">Sistema<br>Run-Flat</h4>
+                    <p data-i18n="scroll-legend-wheel-p">Continúa rodando hasta 80 km con neumáticos perforados.</p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
     <!-- Shielding Presentation Section (Redesign) -->
     <section id="shielding-presentation">
         <!-- Horizontal Levels Strip -->
@@ -295,111 +399,6 @@
             </div>
 
     </section>
-
-    <!-- Canvas Animation Section (Formerly Hero) -->
-    <section id="hero-blindaje">
-
-        <div class="sticky-container">
-            <!-- Canvas for image sequence -->
-            <canvas id="heroCanvas"></canvas>
-
-            <!-- Intro Overlay (Logo + Badge) -->
-            <div class="canvas-intro-overlay">
-                <img src="/Logo/armored.webp" alt="Armored Security" class="intro-logo" loading="lazy">
-                <div class="experience-badge intro-badge">
-                    <span class="badge-years">+18</span>
-                    <span class="badge-text" data-i18n="badge-years-text">AÑOS</span>
-                    <span class="badge-text" data-i18n="badge-line-1">BLINDANDO TU SEGURIDAD</span>
-                    <span class="badge-text" data-i18n="badge-line-2">Y LA DE TU FAMILIA</span>
-                </div>
-            </div>
-
-
-
-            <!-- Hotspot 1: Cristales (Ventana Delantera) -->
-            <div class="hotspot" id="hotspot-cristales">
-                <div class="hotspot-dot"></div>
-                <div class="hotspot-callout">
-                    <div class="callout-line"></div>
-                    <div class="callout-box">
-                        <div class="img-container">
-                            <img src="glass1.webp" alt="Blindaje Cristales" loading="lazy">
-                            <span data-i18n="hotspot-glass">BLINDAJE DE CRISTALES</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hotspot 2: Puertas -->
-            <div class="hotspot" id="hotspot-puertas">
-                <div class="hotspot-dot"></div>
-                <div class="hotspot-callout">
-                    <div class="callout-line"></div>
-                    <div class="callout-box">
-                        <div class="img-container">
-                            <img src="/assets/hotspot-door.webp" alt="Protección Lateral" loading="lazy">
-                            <span data-i18n="hotspot-side">PROTECCIÓN LATERAL</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hotspot 3: Suspensión (Rueda Trasera) -->
-            <div class="hotspot" id="hotspot-suspension">
-                <div class="hotspot-dot"></div>
-                <div class="hotspot-callout">
-                    <div class="callout-line"></div>
-                    <div class="callout-box">
-                        <div class="img-container">
-                            <img src="runflat.webp" alt="Sistema Run-Flat" loading="lazy">
-                            <span data-i18n="hotspot-runflat">SISTEMA RUN-FLAT</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-      <!-- ══════════════════════════════════════════
-         MOBILE HOTSPOTS (Coche Estático sobre Frame 057)
-         Solo visible en móvil (≤768px)
-         ══════════════════════════════════════════ -->
-    <section id="mobile-scrollytelling">
-        <div class="mobile-hotspot-container">
-            <img src="/scroll-celular/057-sm.webp" class="mobile-static-car" alt="Blindaje Armored Security" width="500" height="997" loading="lazy">
-            
-            <!-- Hotspot 1: Parabrisas -->
-            <div class="m-hotspot m-hotspot-1">
-                <div class="m-dot"></div>
-                <div class="m-line"></div>
-                <div class="m-text">
-                    <h4 data-i18n="scroll-legend-glass-title">Parabrisas<br>Certificado</h4>
-                    <p data-i18n="scroll-legend-glass-p">Cristal laminado de alta resistencia que detiene impactos.</p>
-                </div>
-            </div>
-
-            <!-- Hotspot 2: Puerta -->
-            <div class="m-hotspot m-hotspot-2">
-                <div class="m-text m-text-left">
-                    <h4 data-i18n="scroll-legend-door-title">Protección<br>Lateral</h4>
-                    <p data-i18n="scroll-legend-door-p">Acero balístico integrado en la estructura de la puerta.</p>
-                </div>
-                <div class="m-line m-line-left"></div>
-                <div class="m-dot"></div>
-            </div>
-
-            <!-- Hotspot 3: Llanta -->
-            <div class="m-hotspot m-hotspot-3">
-                <div class="m-dot"></div>
-                <div class="m-line"></div>
-                <div class="m-text">
-                    <h4 data-i18n="scroll-legend-wheel-title">Sistema<br>Run-Flat</h4>
-                    <p data-i18n="scroll-legend-wheel-p">Continúa rodando hasta 80 km con neumáticos perforados.</p>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
 
     <!-- Black Section (Slides over the fixed hero) -->
     <section id="black-section">
