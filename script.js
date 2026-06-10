@@ -123,7 +123,7 @@ function preloadImages() {
                     resolve();
                 };
                 img.onerror = () => {
-                    console.error(`Failed to load: ${imagePath}`);
+                    console.warn(`Parallax frame missing: ${imagePath}`);
                     resolve(); // Resolve anyway to not break Promise.all
                 };
                 img.src = imagePath;
@@ -149,7 +149,7 @@ function preloadImages() {
             setupSequentialAnimation();
         })
         .catch((error) => {
-            console.error('Error loading images:', error);
+            console.warn('Some parallax frames failed to load:', error);
             state.imagesReady = true;
             checkPreloaderComplete();
         });
@@ -433,8 +433,7 @@ function setupSequentialAnimation() {
                 if (currentStep > 0) {
                     isAnimating = true;
                     currentStep--;
-                    // Aumentar duración a 2.2s para efecto "Apple" lento y majestuoso
-                    tl.tweenTo(labelsArr[currentStep], { duration: 2.2, ease: "power2.inOut", onComplete: () => isAnimating = false });
+                    tl.tweenTo(labelsArr[currentStep], { duration: 0.8, ease: "power2.inOut", onComplete: () => isAnimating = false });
                 } else {
                     deactivateSlider(false);
                 }
@@ -444,8 +443,7 @@ function setupSequentialAnimation() {
                 if (currentStep < totalSteps) {
                     isAnimating = true;
                     currentStep++;
-                    // Aumentar duración a 2.2s para que se aprecie el detalle
-                    tl.tweenTo(labelsArr[currentStep], { duration: 2.2, ease: "power2.inOut", onComplete: () => isAnimating = false });
+                    tl.tweenTo(labelsArr[currentStep], { duration: 0.8, ease: "power2.inOut", onComplete: () => isAnimating = false });
                 } else {
                     deactivateSlider(true);
                 }
