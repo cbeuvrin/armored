@@ -558,6 +558,37 @@ body.scrolled-header .lang-switcher {
     transform: rotate(45deg) scale(0.5);
 }
 
+/* Hero bullet impacts — overlay on rear-driver window after run-flat reveals.
+   The .bullet-impact base styles (opacity:0, scale:0.5) are kept; the timeline
+   animates them in. The default invert(1) filter is removed so dark cracks
+   stay visible on the light car bodywork. */
+.hero-impact {
+    width: 140px;
+    height: 140px;
+    z-index: 24;
+}
+.hero-impact img {
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+}
+#hero-impact-1 {
+    top: 38%;
+    left: 44%;
+    transform: rotate(-12deg) scale(0.5);
+}
+#hero-impact-2 {
+    top: 42%;
+    left: 50%;
+    transform: rotate(18deg) scale(0.5);
+}
+#hero-impact-3 {
+    top: 40%;
+    left: 47%;
+    transform: rotate(-35deg) scale(0.5);
+}
+@media (max-width: 768px) {
+    .hero-impact { display: none; }
+}
+
 /* ========================================
    CANVAS
    ======================================== */
@@ -849,6 +880,52 @@ body.scrolled-header .lang-switcher {
         opacity: 1;
         width: 60px;
     }
+}
+
+/* ========================================
+   HERO REPLAY BUTTON (desktop only)
+   ======================================== */
+.hero-replay-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.92);
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    background: rgba(0, 0, 0, 0.88);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+    transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.hero-replay-btn.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+.hero-replay-btn:hover {
+    background: #B91C1C;
+    border-color: #B91C1C;
+}
+.hero-replay-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+@media (max-width: 768px) {
+    .hero-replay-btn { display: none; }
 }
 
 /* ========================================

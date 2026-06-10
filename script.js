@@ -394,93 +394,120 @@ function setupSequentialAnimation() {
 
         tl.addLabel('block3');
 
-        tl.to({}, { duration: 4 });
+        // Brief beat so users see the final state with all 3 dots
+        tl.to({}, { duration: 0.6 });
 
-        // ╔══════════════════════════════════════════════════╗
-        // ║  BLOCK 4  —  Salida / Exit  (Desktop only)       ║
-        // ╚══════════════════════════════════════════════════╝
-        if (!isTabletDevice) {
+        // ─── Bullet impacts on rear-driver window ─────────────────────────
+        // Three rounds hit sequentially with a quick container shake.
+        const shakeIn  = { x: -10, y: -5, duration: 0.05, ease: 'none' };
+        const shakeOut = { x: 0,   y: 0,  duration: 0.4,  ease: 'elastic.out(1, 0.3)' };
+        const shakeTarget = '#hero-blindaje .sticky-container';
 
-            tl.to('#hotspot-suspension .hotspot-callout', { opacity: 0, visibility: 'hidden', duration: 0.8 });
-            tl.to('#hotspot-suspension', { opacity: 0, scale: 0.5, duration: 0.6 }, '<+0.2');
+        tl.to('#hero-impact-1', { opacity: 1, scale: 1, duration: 0.18, ease: 'back.out(2)' });
+        tl.to(shakeTarget, shakeIn, '<');
+        tl.to(shakeTarget, shakeOut);
 
-            // Car finishes its rotation on the way out
-            tl.to(state, { currentFrame: 95, ease: 'power2.in', duration: 4 });
+        tl.to('#hero-impact-2', { opacity: 1, scale: 1, duration: 0.18, ease: 'back.out(2)' }, '+=0.15');
+        tl.to(shakeTarget, shakeIn, '<');
+        tl.to(shakeTarget, shakeOut);
 
-            tl.addLabel('block4');
+        tl.to('#hero-impact-3', { opacity: 1, scale: 1, duration: 0.18, ease: 'back.out(2)' }, '+=0.15');
+        tl.to(shakeTarget, shakeIn, '<');
+        tl.to(shakeTarget, shakeOut);
 
-            tl.to({}, { duration: 2 });
-        }
+        // Final beat — let the user see the 3 impacts before button re-appears
+        tl.to({}, { duration: 1.2 });
     }
 
     // ╔══════════════════════════════════════════════════╗
-    // ║  PRESENTATION OBSERVER (Desktop Slider Only)     ║
+    // ║  AUTO-PLAY ON ENTRY (Desktop)                    ║
+    // ║  No scroll lock, no pin. Timeline plays once     ║
+    // ║  when the section enters viewport, then the      ║
+    // ║  3 hotspot dots stay visible and reveal their    ║
+    // ║  callouts on hover. User scrolls normally.       ║
     // ╚══════════════════════════════════════════════════╝
     if (useSnap) {
-        let currentStep = 0;
-        let isAnimating = false;
-        // Eliminado 'block4' (Salida) como pidió el usuario. La llanta ('block3') es el último paso.
-        const labelsArr = ['start', 'block1', 'block2', 'block3'];
-        const totalSteps = labelsArr.length - 1;
+        // Speed up the existing cinematic timeline so auto-play finishes
+        // in ~8s instead of ~30s. Eases stay intact.
+        tl.timeScale(3.5);
 
-        // 1. Observer to intercept wheel and navigate logic
-        const heroObserver = ScrollTrigger.observe({
-            target: window,
-            type: "wheel,touch,pointer",
-            preventDefault: true, // Stops physical scroll while active
-            onUp: () => {
-                if (isAnimating) return;
-                if (currentStep > 0) {
-                    isAnimating = true;
-                    currentStep--;
-                    tl.tweenTo(labelsArr[currentStep], { duration: 0.8, ease: "power2.inOut", onComplete: () => isAnimating = false });
-                } else {
-                    deactivateSlider(false);
-                }
-            },
-            onDown: () => {
-                if (isAnimating) return;
-                if (currentStep < totalSteps) {
-                    isAnimating = true;
-                    currentStep++;
-                    tl.tweenTo(labelsArr[currentStep], { duration: 0.8, ease: "power2.inOut", onComplete: () => isAnimating = false });
-                } else {
-                    deactivateSlider(true);
-                }
-            }
-        });
-        heroObserver.disable();
+        const HOTSPOT_IDS = ['#hotspot-cristales', '#hotspot-puertas', '#hotspot-suspension'];
+        const IMPACT_IDS  = ['#hero-impact-1', '#hero-impact-2', '#hero-impact-3'];
 
-        // 2. Trigger trap: Pin the section firmly for a large distance so momentum doesn't break it
-        ScrollTrigger.create({
-            id: 'heroPin',
-            trigger: '#hero-blindaje',
-            start: 'top top',
-            end: '+=4000', // Massive runway guarantees it won't unpin prematurely
-            pin: true,
-            onEnter: () => activateSlider(true),
-            onEnterBack: () => activateSlider(false)
-        });
-
-        function activateSlider(goingDown) {
-            heroObserver.enable();
-            document.body.classList.remove('scrolled-header');
-            currentStep = goingDown ? 0 : totalSteps;
-            tl.seek(labelsArr[currentStep]);
+        // Inject the 3 bullet-impact images into the sticky container
+        const stickyContainer = document.querySelector('#hero-blindaje .sticky-container');
+        if (stickyContainer && !document.getElementById('hero-impact-1')) {
+            IMPACT_IDS.forEach((sel, i) => {
+                const div = document.createElement('div');
+                div.id = sel.slice(1);
+                div.className = 'bullet-impact hero-impact';
+                div.innerHTML = '<img src="/assets/bullet-hole.webp" alt="" width="80" height="80" loading="lazy" decoding="async">';
+                stickyContainer.appendChild(div);
+            });
         }
 
-        function deactivateSlider(goingDown) {
-            heroObserver.disable();
+        // Inject a Play button into the section (hidden until animation completes)
+        let playBtn = document.getElementById('hero-replay-btn');
+        if (!playBtn) {
+            playBtn = document.createElement('button');
+            playBtn.id = 'hero-replay-btn';
+            playBtn.className = 'hero-replay-btn';
+            playBtn.setAttribute('aria-label', 'Reproducir animación de nuevo');
+            playBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span>Reproducir</span>';
+            document.getElementById('hero-blindaje').appendChild(playBtn);
+        }
+
+        let hoverWired = false;
+        function wireHotspotHover() {
+            if (hoverWired) return;
+            hoverWired = true;
+            HOTSPOT_IDS.forEach(sel => {
+                const hotspot = document.querySelector(sel);
+                if (!hotspot) return;
+                hotspot.addEventListener('mouseenter', () => hotspot.classList.add('active'));
+                hotspot.addEventListener('mouseleave', () => hotspot.classList.remove('active'));
+            });
+        }
+
+        function showFinalState() {
             document.body.classList.add('scrolled-header');
-            
-            // Instantly teleport the physical scrollbar past the massive pin zone
-            let st = ScrollTrigger.getById('heroPin');
-            if (st) {
-                // If going down -> jump past end. If going up -> jump above start.
-                let targetY = goingDown ? st.end + 10 : st.start - 10;
-                window.scrollTo({ top: targetY, behavior: 'auto' });
-            }
+
+            // Force all 3 dots visible — timeline faded earlier ones out
+            gsap.set(HOTSPOT_IDS, { opacity: 1, scale: 1, clearProps: 'visibility' });
+
+            // Clear inline callout styles so CSS .hotspot.active rule drives hover
+            HOTSPOT_IDS.forEach(sel => {
+                const callout = document.querySelector(sel + ' .hotspot-callout');
+                if (callout) gsap.set(callout, { clearProps: 'opacity,visibility' });
+            });
+
+            wireHotspotHover();
+            playBtn.classList.add('is-visible');
         }
+
+        function playAnimation() {
+            playBtn.classList.remove('is-visible');
+            // Reset hotspots so the animation can reveal them again
+            HOTSPOT_IDS.forEach(sel => {
+                const hotspot = document.querySelector(sel);
+                if (hotspot) hotspot.classList.remove('active');
+            });
+            gsap.set(HOTSPOT_IDS, { opacity: 0, scale: 0.5 });
+            gsap.set('.hotspot-callout', { opacity: 0, visibility: 'hidden' });
+            // Reset bullet impacts (they're hidden by CSS but the timeline animated them in)
+            gsap.set(IMPACT_IDS, { opacity: 0, scale: 0.5 });
+            document.body.classList.remove('scrolled-header');
+            tl.restart();
+        }
+
+        // No auto-play: button is visible from the start. User opts in by clicking.
+        playBtn.classList.add('is-visible');
+
+        // Animation done → re-show button so user can replay (or scroll past)
+        tl.eventCallback('onComplete', showFinalState);
+
+        // Click → play (or replay)
+        playBtn.addEventListener('click', playAnimation);
     }
 
 }
