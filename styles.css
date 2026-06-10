@@ -558,36 +558,18 @@ body.scrolled-header .lang-switcher {
     transform: rotate(45deg) scale(0.5);
 }
 
-/* Hero bullet impacts — overlay on rear-driver window after run-flat reveals.
-   The .bullet-impact base styles (opacity:0, scale:0.5) are kept; the timeline
-   animates them in. The default invert(1) filter is removed so dark cracks
-   stay visible on the light car bodywork. */
-.hero-impact {
-    width: 140px;
-    height: 140px;
-    z-index: 24;
+/* Certificaciones section — moved out of #shielding-presentation, needs its
+   own opaque background so the fixed video-hero behind it stays covered. */
+.cert-bottom-section {
+    background-color: #ffffff;
+    color: #111;
+    position: relative;
+    z-index: 40;
+    width: 100%;
+    padding: 6rem 0;
+    display: flow-root;
 }
-.hero-impact img {
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
-}
-#hero-impact-1 {
-    top: 38%;
-    left: 44%;
-    transform: rotate(-12deg) scale(0.5);
-}
-#hero-impact-2 {
-    top: 42%;
-    left: 50%;
-    transform: rotate(18deg) scale(0.5);
-}
-#hero-impact-3 {
-    top: 40%;
-    left: 47%;
-    transform: rotate(-35deg) scale(0.5);
-}
-@media (max-width: 768px) {
-    .hero-impact { display: none; }
-}
+
 
 /* ========================================
    CANVAS

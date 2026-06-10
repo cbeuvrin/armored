@@ -394,29 +394,8 @@ function setupSequentialAnimation() {
 
         tl.addLabel('block3');
 
-        // Brief beat so users see the final state with all 3 dots
-        tl.to({}, { duration: 0.6 });
-
-        // ─── Bullet impacts on rear-driver window ─────────────────────────
-        // Three rounds hit sequentially with a quick container shake.
-        const shakeIn  = { x: -10, y: -5, duration: 0.05, ease: 'none' };
-        const shakeOut = { x: 0,   y: 0,  duration: 0.4,  ease: 'elastic.out(1, 0.3)' };
-        const shakeTarget = '#hero-blindaje .sticky-container';
-
-        tl.to('#hero-impact-1', { opacity: 1, scale: 1, duration: 0.18, ease: 'back.out(2)' });
-        tl.to(shakeTarget, shakeIn, '<');
-        tl.to(shakeTarget, shakeOut);
-
-        tl.to('#hero-impact-2', { opacity: 1, scale: 1, duration: 0.18, ease: 'back.out(2)' }, '+=0.15');
-        tl.to(shakeTarget, shakeIn, '<');
-        tl.to(shakeTarget, shakeOut);
-
-        tl.to('#hero-impact-3', { opacity: 1, scale: 1, duration: 0.18, ease: 'back.out(2)' }, '+=0.15');
-        tl.to(shakeTarget, shakeIn, '<');
-        tl.to(shakeTarget, shakeOut);
-
-        // Final beat — let the user see the 3 impacts before button re-appears
-        tl.to({}, { duration: 1.2 });
+        // Brief beat so users see the final state with all 3 dots before onComplete fires.
+        tl.to({}, { duration: 1.5 });
     }
 
     // ╔══════════════════════════════════════════════════╗
@@ -432,19 +411,6 @@ function setupSequentialAnimation() {
         tl.timeScale(3.5);
 
         const HOTSPOT_IDS = ['#hotspot-cristales', '#hotspot-puertas', '#hotspot-suspension'];
-        const IMPACT_IDS  = ['#hero-impact-1', '#hero-impact-2', '#hero-impact-3'];
-
-        // Inject the 3 bullet-impact images into the sticky container
-        const stickyContainer = document.querySelector('#hero-blindaje .sticky-container');
-        if (stickyContainer && !document.getElementById('hero-impact-1')) {
-            IMPACT_IDS.forEach((sel, i) => {
-                const div = document.createElement('div');
-                div.id = sel.slice(1);
-                div.className = 'bullet-impact hero-impact';
-                div.innerHTML = '<img src="/assets/bullet-hole.webp" alt="" width="80" height="80" loading="lazy" decoding="async">';
-                stickyContainer.appendChild(div);
-            });
-        }
 
         // Inject a Play button into the section (hidden until animation completes)
         let playBtn = document.getElementById('hero-replay-btn');
@@ -494,8 +460,6 @@ function setupSequentialAnimation() {
             });
             gsap.set(HOTSPOT_IDS, { opacity: 0, scale: 0.5 });
             gsap.set('.hotspot-callout', { opacity: 0, visibility: 'hidden' });
-            // Reset bullet impacts (they're hidden by CSS but the timeline animated them in)
-            gsap.set(IMPACT_IDS, { opacity: 0, scale: 0.5 });
             document.body.classList.remove('scrolled-header');
             tl.restart();
         }
