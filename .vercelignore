@@ -1,12 +1,16 @@
 # Masters de video/audio. Solo se usan como fuente de optimize-media.sh;
 # el sitio sirve las versiones comprimidas de media/. Subirlos al deploy
 # los deja accesibles publicamente y son cientos de MB de ancho de banda.
-video blindaje/
-videos-servicios/
-video-hero-movil/
-VIDEOS NIVELES/
-AUDIO/
+#
+# Los patrones van anclados con / inicial a proposito: sin anclar coinciden
+# a cualquier profundidad, y "AUDIO/" terminaba excluyendo tambien
+# media/audio/, dejando el audio de fondo en 404.
+/video blindaje/
+/videos-servicios/
+/video-hero-movil/
+/VIDEOS NIVELES/
+/AUDIO/
 
 # PNG originales que ya tienen equivalente .webp en uso.
-glass1.png
-runflat.png
+/glass1.png
+/runflat.png
