@@ -5,7 +5,7 @@
 set -e
 
 cd "$(dirname "$0")"
-mkdir -p media/niveles media/servicios media/hero media/parallax media/audio
+mkdir -p media/niveles media/servicios media/hero media/parallax
 
 # $1 origen  $2 destino  $3 filtro de escala  $4 crf
 enc() {
@@ -43,10 +43,6 @@ cp "video-hero-movil/video-hero-mobile-web.mp4" media/hero/hero-mobile.mp4  # ya
 echo "PARALLAX"
 enc "VIDEOS NIVELES/Black_armored_car_rolling_city_delpmaspu_.mp4" media/parallax/armored-city.mp4 "scale=1280:-2" 30
 enc "VIDEOS NIVELES/Nivel2.mp4"                                    media/parallax/nivel2.mp4       "scale=1280:-2" 30
-
-# Audio ambiental de fondo: 320kbps es innecesario.
-echo "AUDIO"
-ffmpeg -y -v error -i AUDIO/fondoaudio.mp3 -c:a libmp3lame -b:a 96k media/audio/fondo.mp3
 
 echo
 echo "Listo. Antes/despues:"
