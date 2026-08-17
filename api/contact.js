@@ -53,7 +53,10 @@ module.exports = async (req, res) => {
     auth: { user: SMTP_USER, pass: SMTP_PASS },
   });
 
-  const to = process.env.CONTACT_TO || SMTP_USER;
+  // Destinatarios del formulario. Ambos reciben el mensaje como TO directo.
+  // Se dejan fijos aqui a proposito para no depender de la variable
+  // CONTACT_TO (que ya no se usa; puede borrarse de Vercel).
+  const to = 'abraham.karam@barmoredsecurity.com, soporte@barmoredsecurity.com';
 
   try {
     await transporter.sendMail({
