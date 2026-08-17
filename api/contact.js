@@ -58,8 +58,6 @@ module.exports = async (req, res) => {
   // CONTACT_TO (que ya no se usa; puede borrarse de Vercel).
   const to = 'abraham.karam@barmoredsecurity.com, soporte@barmoredsecurity.com';
 
-  const debug = req.query && req.query.debug === '1';
-
   try {
     const info = await transporter.sendMail({
       from: `"Formulario web" <${SMTP_USER}>`,
@@ -79,16 +77,9 @@ module.exports = async (req, res) => {
         `<p><strong>Mensaje:</strong><br>${esc(message).replace(/\n/g, '<br>')}</p>`,
     });
     console.log('Correo enviado. Aceptados:', info.accepted, 'Rechazados:', info.rejected);
-    // ?debug=1 devuelve que destinatarios acepto/rechazo el servidor SMTP.
-    const payload = debug
-      ? { ok: true, accepted: info.accepted, rejected: info.rejected, response: info.response }
-      : { ok: true };
-    res.status(200).json(payload);
+    res.status(200).json({ ok: true });
   } catch (err) {
     console.error('Fallo al enviar correo:', err && err.message);
-    const payload = debug
-      ? { ok: false, error: String(err && err.message) }
-      : { ok: false, error: 'No se pudo enviar el mensaje' };
-    res.status(502).json(payload);
+    res.status(502).json({ ok: false, error: 'No se pudo enviar el mensaje' });
   }
 };
