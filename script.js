@@ -1323,8 +1323,10 @@ function setupContactForm() {
         e.preventDefault();
 
         const submitBtn = form.querySelector('.contact-submit-btn');
+        const nameInput = form.querySelector('#name');
         const emailInput = form.querySelector('#email');
         const phoneInput = form.querySelector('#phone');
+        const messageInput = form.querySelector('#message');
 
         if (!emailInput || !phoneInput) return;
 
@@ -1339,10 +1341,15 @@ function setupContactForm() {
             submitBtn.disabled = true;
         }
 
-        // Simulate contact form submission / network request (1.5 seconds)
-        // Since barmoredsecurity.com is a client-side single page app without dynamic backend,
-        // we simulate a premium AJAX submission and perform the conversion inside the success callback.
-        simulateFormSubmission()
+        // Envio real: la funcion serverless /api/contact reenvia por el SMTP de
+        // BanaHosting. La conversion de Google Ads se dispara solo si el correo
+        // se envio con exito.
+        sendContactForm({
+            name: nameInput ? nameInput.value.trim() : '',
+            phone: rawPhone.trim(),
+            email: emailInput.value.trim(),
+            message: messageInput ? messageInput.value.trim() : ''
+        })
             .then(() => {
                 // SOLO cuando el envío sea EXITOSO, ejecuta el código de Google Ads:
                 
@@ -1376,6 +1383,12 @@ function setupContactForm() {
             })
             .catch((error) => {
                 console.error('Form submission failed:', error);
+                const isEn = document.documentElement.lang === 'en';
+                const errTitle = isEn ? 'Could not send' : 'No se pudo enviar';
+                const errDesc = isEn
+                    ? 'Please try again or contact us by WhatsApp.'
+                    : 'Intenta de nuevo o escríbenos por WhatsApp.';
+                showSuccessToast(errTitle, errDesc, true);
             })
             .finally(() => {
                 // Restore button state
@@ -1387,9 +1400,17 @@ function setupContactForm() {
     });
 }
 
-function simulateFormSubmission() {
-    return new Promise((resolve) => {
-        setTimeout(resolve, 1500);
+function sendContactForm(data) {
+    return fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then((res) => {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+    }).then((json) => {
+        if (!json || !json.ok) throw new Error((json && json.error) || 'Envío rechazado');
+        return json;
     });
 }
 
@@ -1428,7 +1449,7 @@ function normalizePhone(phone) {
     return '+52' + cleaned;
 }
 
-function showSuccessToast(title, description) {
+function showSuccessToast(title, description, isError) {
     // Remove any existing toast first
     const existingToast = document.querySelector('.armored-toast');
     if (existingToast) {
@@ -1437,13 +1458,16 @@ function showSuccessToast(title, description) {
 
     // Create toast elements
     const toast = document.createElement('div');
-    toast.className = 'armored-toast';
-    
-    // SVG Checkmark Icon
+    toast.className = 'armored-toast' + (isError ? ' armored-toast-error' : '');
+
+    // Palomita para exito, "x" para error
+    const iconPath = isError
+        ? 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'
+        : 'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z';
     toast.innerHTML = `
         <div class="armored-toast-icon">
             <svg viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                <path d="${iconPath}"/>
             </svg>
         </div>
         <div class="armored-toast-content">

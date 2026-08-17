@@ -3,3 +3,6 @@
 *.log
 node_modules
 .gemini
+.env
+.env.local
+.vercel

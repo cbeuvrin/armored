@@ -1,0 +1,9 @@
+{
+  "name": "barmoredsecurity",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio de Blindajes Armored Security. La funcion api/contact.js envia el formulario por SMTP.",
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  }
+}
